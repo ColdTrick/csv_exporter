@@ -48,6 +48,11 @@ if (!empty($type_subtype)) {
 	$form_body .= "</div>";
 	
 	$form_body .= "<div class='elgg-foot'>";
+	$form_body .= elgg_view("input/button", array(
+		"value" => elgg_echo("csv_exporter:admin:download"), 
+		"class" => "elgg-button-action float-alt", 
+		"id" => "csv-exporter-download"
+	));
 	$form_body .= elgg_view("input/submit", array("value" => elgg_echo("csv_exporter:admin:preview")));
 	$form_body .= "</div>";
 	

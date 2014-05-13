@@ -273,15 +273,10 @@ function csv_exporter_export_value_hook($hook, $type, $returnvalue, $params) {
 				break;
 			default:
 				// check for profile fields
-				$profile_fields = false;
-				if ($type == "user") {
-					$profile_fields = elgg_get_config("profile_fields");
-				} elseif ($type == "group") {
-					$profile_fields = elgg_get_config("group");
-				}
-				
-				if (!empty($profile_fields) && isset($profile_fields[$exportable_value])) {
-					
+				if (($type == "user") || ($type == "group")) {
+					if (is_array($entity->$exportable_value)) {
+						$returnvalue = implode(", ", $entity->$exportable_value);
+					}
 				}
 				
 				break;

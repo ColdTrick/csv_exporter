@@ -25,6 +25,9 @@ function csv_exporter_init() {
 	// register plugin hooks
 	elgg_register_plugin_hook_handler("get_exportable_values", "csv_exporter", "csv_exporter_get_exportable_values_hook");
 	elgg_register_plugin_hook_handler("export_value", "csv_exporter", "csv_exporter_export_value_hook");
+	
+	// register actions
+	elgg_register_action("csv_exporter/download", dirname(__FILE__) . "/actions/download.php", "admin");
 }
 
 /**
