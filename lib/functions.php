@@ -8,7 +8,7 @@
  * 
  * @param string $type     the entity type
  * @param string $subtype  the entity subtype
- * @param string $readable readable values or just for processing (default: false)
+ * @param bool   $readable readable values or just for processing (default: false)
  * 
  * @return array
  */
@@ -73,12 +73,12 @@ function csv_exporter_get_exportable_values($type, $subtype = "", $readable = fa
 /**
  * Get the latest activity of this group based on the river
  * 
- * @param ElggGroup $entity
+ * @param ElggGroup $entity the group to check
  * 
  * @return int the UNIX timestamp of the latest activity
  */
 function csv_exporter_get_last_group_activity(ElggGroup $entity) {
-	$result = false;
+	$result = 0;
 	
 	if (!empty($entity) && elgg_instanceof($entity, "group")) {
 		$dbprefix = elgg_get_config("dbprefix");
