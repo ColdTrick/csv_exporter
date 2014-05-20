@@ -34,7 +34,14 @@ $options = array(
 	"limit" => $limit,
 	"offset" => $offset
 );
-$entities = new ElggBatch("elgg_get_entities", $options);
+
+if ($type == "user") {
+	$options["relationship"] = "member_of_site";
+	$options["relationship_guid"] = elgg_get_site_entity()->getGUID();
+	$options["inverse_relationship"] = true;
+}
+
+$entities = new ElggBatch("elgg_get_entities_from_relationship", $options);
 foreach ($entities as $entity) {
 	
 	// params for hook
