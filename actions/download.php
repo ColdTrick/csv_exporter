@@ -66,3 +66,4 @@ header("Content-Disposition: attachment; filename=\"export.csv\"");
 header("Content-Length: " . strlen($contents));
 
 echo $contents;
+exit();

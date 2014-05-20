@@ -33,6 +33,7 @@ $english = array(
 	'csv_exporter:admin:exportable_values:choose' => "First select what you wish to export",
 	'csv_exporter:admin:preview' => "Preview",
 	'csv_exporter:admin:preview:title' => "This will be in the CSV",
+	'csv_exporter:admin:download' => "Download CSV",
 	'' => "",
 );
 
