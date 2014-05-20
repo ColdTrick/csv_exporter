@@ -1,5 +1,7 @@
 <?php
 
+elgg_make_sticky_form("csv_exporter");
+
 $type_subtype = get_input("type_subtype");
 $exportable_values = get_input("exportable_values");
 

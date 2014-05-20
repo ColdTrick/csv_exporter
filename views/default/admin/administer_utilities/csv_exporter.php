@@ -19,7 +19,7 @@ $type_subtype_options = array_reverse($type_subtype_options);
 $form_body = "";
 $preview = "";
 
-$type_subtype = get_input("type_subtype");
+$type_subtype = elgg_get_sticky_value("csv_exporter", "type_subtype", get_input("type_subtype"));
 $form_body .= "<div>";
 $form_body .= "<label for='csv-exporter-type-subtype'>" . elgg_echo("csv_exporter:admin:type_subtype") . "</label>";
 $form_body .= elgg_view("input/dropdown", array(
@@ -36,7 +36,7 @@ if (!empty($type_subtype)) {
 	
 	$exportable_values_options = csv_exporter_get_exportable_values($type, $subtype, true);
 	uksort($exportable_values_options, "strcasecmp");
-	$exportable_values = get_input("exportable_values");
+	$exportable_values = elgg_get_sticky_value("csv_exporter", "exportable_values", get_input("exportable_values"));
 	
 	$form_body .= "<div>";
 	$form_body .= elgg_echo("csv_exporter:admin:exportable_values") . "<br />";
@@ -62,6 +62,8 @@ if (!empty($type_subtype)) {
 } else {
 	$form_body .= elgg_view("output/longtext", array("value" => elgg_echo("csv_exporter:admin:exportable_values:choose")));
 }
+
+elgg_clear_sticky_form("csv_exporter");
 
 echo elgg_view("input/form", array(
 	"action" => "admin/administer_utilities/csv_exporter#preview",
