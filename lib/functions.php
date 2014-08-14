@@ -5,11 +5,11 @@
 
 /**
  * Get a list of all the exportable values for the given type/subtype
- * 
+ *
  * @param string $type     the entity type
  * @param string $subtype  the entity subtype
  * @param bool   $readable readable values or just for processing (default: false)
- * 
+ *
  * @return array
  */
 function csv_exporter_get_exportable_values($type, $subtype = "", $readable = false) {
@@ -67,14 +67,19 @@ function csv_exporter_get_exportable_values($type, $subtype = "", $readable = fa
 	);
 	$result = elgg_trigger_plugin_hook("get_exportable_values", "csv_exporter", $params, $defaults);
 	
+	if (is_array($result)) {
+		// prevent duplications
+		$result = array_unique($result);
+	}
+	
 	return $result;
 }
 
 /**
  * Get the latest activity of this group based on the river
- * 
+ *
  * @param ElggGroup $entity the group to check
- * 
+ *
  * @return int the UNIX timestamp of the latest activity
  */
 function csv_exporter_get_last_group_activity(ElggGroup $entity) {

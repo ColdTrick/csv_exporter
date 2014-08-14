@@ -5,12 +5,12 @@
 
 /**
  * Extend the default exportable values with some extra's
- * 
+ *
  * @param string $hook        'get_exportable_values'
  * @param string $type        'csv_exporter'
  * @param array  $returnvalue the current exportable values
  * @param array  $params      supplied params
- * 
+ *
  * @return array
  */
 function csv_exporter_get_exportable_values_hook($hook, $type, $returnvalue, $params) {
@@ -34,7 +34,7 @@ function csv_exporter_get_exportable_values_hook($hook, $type, $returnvalue, $pa
 				elgg_echo("csv_exporter:exportable_value:time_updated_readable") => "csv_exporter_time_updated_readable",
 				elgg_echo("csv_exporter:exportable_value:url") => "csv_exporter_url",
 			));
-				
+			
 			switch ($type) {
 				case "object":
 					$returnvalue[elgg_echo("tags")] = "csv_exporter_object_tags";
@@ -59,6 +59,7 @@ function csv_exporter_get_exportable_values_hook($hook, $type, $returnvalue, $pa
 				case "group":
 					// add profile fields
 					$profile_fields = elgg_get_config("group");
+					
 					if (!empty($profile_fields)) {
 						foreach ($profile_fields as $metadata_name => $input_type) {
 							$lan = $metadata_name;
@@ -131,12 +132,12 @@ function csv_exporter_get_exportable_values_hook($hook, $type, $returnvalue, $pa
 
 /**
  * Return a value to be exported, return null to allow default behaviour
- * 
+ *
  * @param string $hook        'export_value'
  * @param string $type        'csv_exporter'
  * @param mixed  $returnvalue the current value
  * @param array  $params      supplied params
- * 
+ *
  * @return null|string
  */
 function csv_exporter_export_value_hook($hook, $type, $returnvalue, $params) {
