@@ -54,6 +54,8 @@ function csv_exporter_get_exportable_values_hook($hook, $type, $returnvalue, $pa
 					
 					// others
 					$returnvalue[elgg_echo("email")] = "email";
+					$returnvalue[elgg_echo("csv_exporter:exportable_value:user:last_action")] = "csv_exporter_user_last_action";
+					$returnvalue[elgg_echo("csv_exporter:exportable_value:user:last_action_readable")] = "csv_exporter_user_last_action_readable";
 						
 					break;
 				case "group":
@@ -255,6 +257,12 @@ function csv_exporter_export_value_hook($hook, $type, $returnvalue, $params) {
 					}
 				}
 				break;
+			case "csv_exporter_user_last_action":
+				$returnvalue = $entity->last_action;
+				break;				
+			case "csv_exporter_user_last_action_readable":
+				$returnvalue = date(elgg_echo("friendlytime:date_format"), $entity->last_action);
+				break;				
 			case "csv_exporter_group_member_count":
 				if (elgg_instanceof($entity, "group")) {
 					$returnvalue = $entity->getMembers(0, 0, true);
