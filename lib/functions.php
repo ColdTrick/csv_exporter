@@ -43,7 +43,8 @@ function csv_exporter_get_exportable_values($type, $subtype = "", $readable = fa
 		}
 	}
 	
-	$defaults = $dummy->getExportableValues();
+	$exports = (array) $dummy->toObject();
+	$defaults = array_keys($exports);
 	
 	if ($readable) {
 		$new_defaults = array();
