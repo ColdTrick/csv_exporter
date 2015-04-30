@@ -4,16 +4,15 @@
  */
 ?>
 //<script>
-
 elgg.provide("elgg.csv_exporter.admin");
 
 elgg.csv_exporter.admin.init = function() {
 
-	$("#csv-exporter-type-subtype").live("change", function() {
+	$(document).on("change", "#csv-exporter-type-subtype", function() {
 		$(this).parents("form").submit();
 	});
 
-	$("#csv-exporter-download").live("click", function() {
+	$(document).on("click", "#csv-exporter-download", function() {
 		var $form = $(this).parents("form");
 
 		var old_action = $form.attr("action");
