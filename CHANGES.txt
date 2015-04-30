@@ -1,6 +1,11 @@
 Version history
 ===============
 
+3.0:
+
+- changes for Elgg 1.11
+- using new language key function
+
 2.0 (2014-11-17):
 
 - changes for Elgg 1.9

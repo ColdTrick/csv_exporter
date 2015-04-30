@@ -49,10 +49,12 @@ function csv_exporter_get_exportable_values($type, $subtype = "", $readable = fa
 	if ($readable) {
 		$new_defaults = array();
 		foreach ($defaults as $name) {
-			if ($name != elgg_echo($name)) {
+			if (elgg_language_key_exists($name)) {
 				$lan = elgg_echo($name);
+			} elseif (elgg_language_key_exists("csv_exporter:exportable_value:{$name}")) {
+				$lan = elgg_echo("csv_exporter:exportable_value:{$name}");
 			} else {
-				$lan = elgg_echo("csv_exporter:exportable_value:" . $name);
+				$lan = $name;
 			}
 			$new_defaults[$lan] = $name;
 		}
