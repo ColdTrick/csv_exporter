@@ -1,0 +1,17 @@
+{
+	"name": "coldtrick/csv_exporter",
+	"description": "export all searchable entities to a CSV",
+	"type": "elgg-plugin",
+	"keywords": ["elgg", "plugin", "export"],
+	"license": "GPL-2.0",
+	"support": {
+		"source": "https://github.com/ColdTrick/csv_exporter",
+		"issues": "https://github.com/ColdTrick/csv_exporter/issues"
+	},
+	"require": {
+		"composer/installers": "^1.0.8"
+	},
+	"require-dev": {
+		"coldtrick/sniffs": "dev-master"
+	}
+}
