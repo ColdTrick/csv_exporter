@@ -4,7 +4,11 @@ Version history
 3.0:
 
 - changes for Elgg 1.11
-- using new language key function
+- added: composer support
+- added: plugin setting to control the csv separator #4
+- fixed: deprecated notice
+- fixed: jquery live registrations replaced by on
+- fixed: problems with exporting HTML #6
 
 2.0 (2014-11-17):
 
