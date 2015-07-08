@@ -19,7 +19,7 @@ foreach ($exportable_values as $export_value) {
 $separator = csv_exporter_get_separator();
 
 // headers
-fwrite($fh, "\"" . implode("\"{$separator}\"", $headers) . "\"" . PHP_EOL);
+fputcsv($fh, $headers, $separator);
 
 $options = array(
 	"type" => $type,
@@ -57,7 +57,7 @@ foreach ($batch as $entity) {
 	}
 	
 	// row
-	fwrite($fh, "\"" . implode("\"{$separator}\"", $values) . "\"" . PHP_EOL);
+	fputcsv($fh, $values, $separator);
 }
 
 // read the csv in to a var before output
