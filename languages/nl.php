@@ -1,5 +1,11 @@
 <?php
-$language = array (
+/**
+ * This file was created by Translation Editor v4.0
+ * On 2015-07-08 15:09
+ */
+
+return array (
+  'csv_exporter:settings:separator' => 'Het te gebruiken scheidingsteken in het CSV-bestand',
   'admin:administer_utilities:csv_exporter' => 'CSV Exporter',
   'csv_exporter:exportable_value:guid' => 'GUID',
   'csv_exporter:exportable_value:type' => 'Type',
@@ -21,8 +27,8 @@ $language = array (
   'csv_exporter:exportable_value:time_created_readable' => 'Datum aangemaakt (leesbaar)',
   'csv_exporter:exportable_value:time_updated_readable' => 'Datum aangepast (leesbaar)',
   'csv_exporter:exportable_value:url' => 'Entity URL',
-  'csv_exporter:exportable_value:user:last_action' => "Laatste actie",
-  'csv_exporter:exportable_value:user:last_action_readable' => "Laatste actie (leesbaar)",    
+  'csv_exporter:exportable_value:user:last_action' => 'Laatste actie',
+  'csv_exporter:exportable_value:user:last_action_readable' => 'Laatste actie (leesbaar)',
   'csv_exporter:exportable_value:group:member_count' => 'Aantal leden',
   'csv_exporter:exportable_value:group:last_activity' => 'Laatste activiteit',
   'csv_exporter:exportable_value:group:last_activity_readable' => 'Laatste activiteit (leesbaar)',
@@ -34,4 +40,3 @@ $language = array (
   'csv_exporter:admin:preview:title' => 'Dit zal zich in de CSV bevinden',
   'csv_exporter:admin:download' => 'Download CSV',
 );
-add_translation("nl", $language);

@@ -105,3 +105,24 @@ function csv_exporter_get_last_group_activity(ElggGroup $entity) {
 	
 	return $result;
 }
+
+/**
+ * Get the separator to be used in the CSV file (defaults to ;)
+ * Can be changed in the plugin settings
+ *
+ * @return string
+ */
+function csv_exporter_get_separator() {
+	static $result;
+	
+	if (!isset($result)) {
+		$result = ';';
+		
+		$setting = elgg_get_plugin_setting('separator', 'csv_exporter');
+		if (!empty($setting)) {
+			$result = $setting;
+		}
+	}
+	
+	return $result;
+}

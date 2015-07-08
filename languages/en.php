@@ -1,7 +1,9 @@
 <?php
 
-$english = array(
+return array(
 	'admin:administer_utilities:csv_exporter' => "CSV Exporter",
+	
+	'csv_exporter:settings:separator' => "The separator to use in the CSV file",
 	
 	'csv_exporter:exportable_value:guid' => "GUID",
 	'csv_exporter:exportable_value:type' => "Type",
@@ -24,7 +26,7 @@ $english = array(
 	'csv_exporter:exportable_value:time_updated_readable' => "Time updated (readable)",
 	'csv_exporter:exportable_value:url' => "Entity URL",
 	'csv_exporter:exportable_value:user:last_action' => "Last action",
-	'csv_exporter:exportable_value:user:last_action_readable' => "Last action (readable)",	
+	'csv_exporter:exportable_value:user:last_action_readable' => "Last action (readable)",
 	'csv_exporter:exportable_value:group:member_count' => "Member count",
 	'csv_exporter:exportable_value:group:last_activity' => "Last activity",
 	'csv_exporter:exportable_value:group:last_activity_readable' => "Last activity (readable)",
@@ -38,5 +40,3 @@ $english = array(
 	'csv_exporter:admin:download' => "Download CSV",
 	'' => "",
 );
-
-add_translation("en", $english);

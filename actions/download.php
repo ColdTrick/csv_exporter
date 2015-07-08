@@ -16,8 +16,10 @@ foreach ($exportable_values as $export_value) {
 	$headers[] = array_search($export_value, $available_values);
 }
 
+$separator = csv_exporter_get_separator();
+
 // headers
-fwrite($fh, "\"" . implode("\";\"", $headers) . "\"" . PHP_EOL);
+fwrite($fh, "\"" . implode("\"{$separator}\"", $headers) . "\"" . PHP_EOL);
 
 $options = array(
 	"type" => $type,
@@ -55,7 +57,7 @@ foreach ($batch as $entity) {
 	}
 	
 	// row
-	fwrite($fh, "\"" . implode("\";\"", $values) . "\"" . PHP_EOL);
+	fwrite($fh, "\"" . implode("\"{$separator}\"", $values) . "\"" . PHP_EOL);
 }
 
 // read the csv in to a var before output
