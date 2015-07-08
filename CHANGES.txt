@@ -1,6 +1,12 @@
 Version history
 ===============
 
+2.1 (2015-07-08):
+
+- added: composer support
+- fixed: deprecated notice
+- fixed: jquery live registrations replaced by on
+
 2.0 (2014-11-17):
 
 - changes for Elgg 1.9
