@@ -260,13 +260,13 @@ function csv_exporter_export_value_hook($hook, $type, $returnvalue, $params) {
 				break;
 			case "csv_exporter_user_last_action":
 				$returnvalue = $entity->last_action;
-				break;				
+				break;
 			case "csv_exporter_user_last_action_readable":
 				$returnvalue = date(elgg_echo("friendlytime:date_format"), $entity->last_action);
-				break;				
+				break;
 			case "csv_exporter_group_member_count":
 				if (elgg_instanceof($entity, "group")) {
-					$returnvalue = $entity->getMembers(0, 0, true);
+					$returnvalue = $entity->getMembers(array('count' => true));
 				}
 				break;
 			case "csv_exporter_group_last_activity":
