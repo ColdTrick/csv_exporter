@@ -1,6 +1,10 @@
 CSV Exporter
 ============
 
+[![Build Status](https://scrutinizer-ci.com/g/ColdTrick/csv_exporter/badges/build.png?b=master)](https://scrutinizer-ci.com/g/ColdTrick/csv_exporter/build-status/master)
+[![Latest Stable Version](https://poser.pugx.org/coldtrick/csv_exporter/v/stable.svg)](https://packagist.org/packages/coldtrick/csv_exporter)
+[![License](https://poser.pugx.org/coldtrick/csv_exporter/license.svg)](https://packagist.org/packages/coldtrick/csv_exporter)
+
 This plugin allows you to export all searchable entities to a CSV.
 
 How to
