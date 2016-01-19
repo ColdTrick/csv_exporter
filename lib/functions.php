@@ -12,14 +12,14 @@
  *
  * @return array
  */
-function csv_exporter_get_exportable_values($type, $subtype = "", $readable = false) {
-	$result = array();
+function csv_exporter_get_exportable_values($type, $subtype = '', $readable = false) {
+	$result = [];
 	
 	if (empty($type)) {
 		return $result;
 	}
 	
-	if (($type == "object") && empty($subtype)) {
+	if (($type == 'object') && empty($subtype)) {
 		return $result;
 	}
 	
@@ -28,16 +28,16 @@ function csv_exporter_get_exportable_values($type, $subtype = "", $readable = fa
 		$dummy = new $class();
 	} else {
 		switch ($type) {
-			case "object":
+			case 'object':
 				$dummy = new ElggObject();
 				break;
-			case "group":
+			case 'group':
 				$dummy = new ElggGroup();
 				break;
-			case "site":
+			case 'site':
 				$dummy = new ElggSite();
 				break;
-			case "user":
+			case 'user':
 				$dummy = new ElggUser();
 				break;
 		}
@@ -47,7 +47,7 @@ function csv_exporter_get_exportable_values($type, $subtype = "", $readable = fa
 	$defaults = array_keys($exports);
 	
 	if ($readable) {
-		$new_defaults = array();
+		$new_defaults = [];
 		foreach ($defaults as $name) {
 			if (elgg_language_key_exists($name)) {
 				$lan = elgg_echo($name);
@@ -62,13 +62,13 @@ function csv_exporter_get_exportable_values($type, $subtype = "", $readable = fa
 		$defaults = $new_defaults;
 	}
 	
-	$params = array(
-		"type" => $type,
-		"subtype" => $subtype,
-		"readable" => $readable,
-		"defaults" => $defaults
-	);
-	$result = elgg_trigger_plugin_hook("get_exportable_values", "csv_exporter", $params, $defaults);
+	$params = [
+		'type' => $type,
+		'subtype' => $subtype,
+		'readable' => $readable,
+		'defaults' => $defaults,
+	];
+	$result = elgg_trigger_plugin_hook('get_exportable_values', 'csv_exporter', $params, $defaults);
 	
 	if (is_array($result)) {
 		// prevent duplications
@@ -88,19 +88,21 @@ function csv_exporter_get_exportable_values($type, $subtype = "", $readable = fa
 function csv_exporter_get_last_group_activity(ElggGroup $entity) {
 	$result = 0;
 	
-	if (!empty($entity) && elgg_instanceof($entity, "group")) {
-		$dbprefix = elgg_get_config("dbprefix");
-		
-		$query = "SELECT max(r.posted) as posted";
-		$query .= " FROM " . $dbprefix . "river r";
-		$query .= " INNER JOIN " . $dbprefix . "entities e ON r.object_guid = e.guid";
-		$query .= " WHERE (e.container_guid = " . $entity->getGUID() . ")";
-		$query .= " OR (r.object_guid = " . $entity->getGUID() . ")";
-		
-		$data = get_data($query);
-		if ($data) {
-			$result = (int) $data[0]->posted;
-		}
+	if (!($entity instanceof ElggGroup)) {
+		return $result;
+	}
+	
+	$dbprefix = elgg_get_config('dbprefix');
+	
+	$query = 'SELECT max(r.posted) as posted';
+	$query .= " FROM {$dbprefix}river r";
+	$query .= " INNER JOIN {$dbprefix}entities e ON r.object_guid = e.guid";
+	$query .= " WHERE (e.container_guid = {$entity->getGUID()})";
+	$query .= " OR (r.object_guid = {$entity->getGUID()})";
+	
+	$data = get_data($query);
+	if ($data) {
+		$result = (int) $data[0]->posted;
 	}
 	
 	return $result;
