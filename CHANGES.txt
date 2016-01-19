@@ -1,6 +1,10 @@
 Version history
 ===============
 
+3.0.1 (2016-01-19):
+
+- changed: admin js to amd module
+
 3.0:
 
 - changes for Elgg 1.11
