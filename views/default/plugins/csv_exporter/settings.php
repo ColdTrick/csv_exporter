@@ -6,9 +6,9 @@ $separator = csv_exporter_get_separator();
 
 echo '<div>';
 echo elgg_echo('csv_exporter:settings:separator');
-echo elgg_view('input/text', array(
+echo elgg_view('input/text', [
 	'name' => 'params[separator]',
 	'value' => $separator,
-	'maxlength' => 1
-));
+	'maxlength' => 1,
+]);
 echo '</div>';
