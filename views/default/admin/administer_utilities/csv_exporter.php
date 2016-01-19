@@ -1,5 +1,7 @@
 <?php
 
+elgg_require_js('csv_exporter/admin');
+
 $type_subtypes = get_registered_entity_types();
 $type_subtype_options = array();
 foreach ($type_subtypes as $type => $subtypes) {
@@ -23,10 +25,10 @@ $type_subtype = elgg_get_sticky_value("csv_exporter", "type_subtype", get_input(
 $form_body .= "<div>";
 $form_body .= "<label for='csv-exporter-type-subtype'>" . elgg_echo("csv_exporter:admin:type_subtype") . "</label>";
 $form_body .= elgg_view("input/dropdown", array(
-	"name" => "type_subtype", 
-	"value" => $type_subtype, 
-	"options_values" => $type_subtype_options, 
-	"id" => "csv-exporter-type-subtype", 
+	"name" => "type_subtype",
+	"value" => $type_subtype,
+	"options_values" => $type_subtype_options,
+	"id" => "csv-exporter-type-subtype",
 	"class" => "mls"
 ));
 $form_body .= "</div>";
@@ -49,8 +51,8 @@ if (!empty($type_subtype)) {
 	
 	$form_body .= "<div class='elgg-foot'>";
 	$form_body .= elgg_view("input/button", array(
-		"value" => elgg_echo("csv_exporter:admin:download"), 
-		"class" => "elgg-button-action float-alt", 
+		"value" => elgg_echo("csv_exporter:admin:download"),
+		"class" => "elgg-button-action float-alt",
 		"id" => "csv-exporter-download"
 	));
 	$form_body .= elgg_view("input/submit", array("value" => elgg_echo("csv_exporter:admin:preview")));

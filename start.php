@@ -11,13 +11,10 @@ elgg_register_event_handler("init", "system", "csv_exporter_init");
 
 /**
  * Gets called when the system initializes
- * 
+ *
  * @return void
  */
 function csv_exporter_init() {
-	
-	// extend JS
-	elgg_extend_view("js/admin", "js/csv_exporter/admin");
 	
 	// register events
 	elgg_register_event_handler("pagesetup", "system", "csv_exporter_pagesetup");
@@ -32,7 +29,7 @@ function csv_exporter_init() {
 
 /**
  * Gets called just before a page is drawn
- * 
+ *
  * @return void
  */
 function csv_exporter_pagesetup() {
