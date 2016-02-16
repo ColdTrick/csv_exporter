@@ -33,8 +33,11 @@ if ($type == 'user') {
 	$options['inverse_relationship'] = true;
 }
 
-$batch = new ElggBatch('elgg_get_entities_from_relationship', $options);
+// exporting on large sites could take a while
+set_time_limit(0);
 
+// create batch for exporting
+$batch = new ElggBatch('elgg_get_entities_from_relationship', $options);
 foreach ($batch as $entity) {
 	
 	$values = [];
