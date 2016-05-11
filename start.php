@@ -18,7 +18,10 @@ function csv_exporter_init() {
 	
 	// register plugin hooks
 	elgg_register_plugin_hook_handler('get_exportable_values', 'csv_exporter', '\ColdTrick\CSVExporter\ExportableValues::getExportableValues');
-	elgg_register_plugin_hook_handler('export_value', 'csv_exporter', 'csv_exporter_export_value_hook');
+	elgg_register_plugin_hook_handler('export_value', 'csv_exporter', '\ColdTrick\CSVExporter\ExportableValues::exportEntityValue');
+	elgg_register_plugin_hook_handler('export_value', 'csv_exporter', '\ColdTrick\CSVExporter\ExportableValues::exportObjectValue');
+	elgg_register_plugin_hook_handler('export_value', 'csv_exporter', '\ColdTrick\CSVExporter\ExportableValues::exportUserValue');
+	elgg_register_plugin_hook_handler('export_value', 'csv_exporter', '\ColdTrick\CSVExporter\ExportableValues::exportGroupValue');
 	elgg_register_plugin_hook_handler('register', 'menu:page', '\ColdTrick\CSVExporter\PageMenu::adminMenu');
 	
 	// register actions

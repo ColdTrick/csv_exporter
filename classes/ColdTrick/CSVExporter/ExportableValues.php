@@ -131,4 +131,205 @@ class ExportableValues {
 		
 		return $result;
 	}
+	
+	/**
+	 * Export a single value for an entity
+	 *
+	 * @param string $hook         the name of the hook
+	 * @param string $type         the type of the hook
+	 * @param mixed  $return_value the current return value
+	 * @param array  $params       supplied params
+	 *
+	 * @return void|mixed
+	 */
+	public static function exportEntityValue($hook, $type, $return_value, $params) {
+		
+		if (!is_null($return_value)) {
+			// someone already provided output
+			return;
+		}
+		
+		$entity = elgg_extract('entity', $params);
+		if (!($entity instanceof \ElggEntity)) {
+			return;
+		}
+		
+		$exportable_value = elgg_extract('exportable_value', $params);
+		
+		$owner = $entity->getOwnerEntity();
+		$container = $entity->getContainerEntity();
+		
+		if ((stristr($exportable_value, 'csv_exporter_owner_') !== false) && !($owner instanceof \ElggEntity)) {
+			// trying to export owner information, but owner not available
+			return;
+		}
+		
+		if ((stristr($exportable_value, 'csv_exporter_container_') !== false) && !($container instanceof \ElggEntity)) {
+			// trying to export container information, but container not available
+			return;
+		}
+		
+		switch ($exportable_value) {
+			case 'csv_exporter_owner_name';
+				if ($owner instanceof \ElggObject) {
+					return $owner->title;
+				} else {
+					return $owner->name;
+				}
+				break;
+			case 'csv_exporter_owner_username';
+				if ($owner instanceof \ElggUser) {
+					return $owner->username;
+				} else {
+					return $owner->getGUID();
+				}
+				break;
+			case 'csv_exporter_owner_email';
+				$email = $owner->email;
+				if (is_email_address($email)) {
+					return $email;
+				}
+				break;
+			case 'csv_exporter_owner_url';
+				return $owner->getURL();
+				break;
+			case 'csv_exporter_container_name';
+				if ($container instanceof \ElggObject) {
+					return $container->title;
+				} else {
+					return $container->name;
+				}
+				break;
+			case 'csv_exporter_container_username';
+				if ($container instanceof \ElggUser) {
+					return $container->username;
+				} else {
+					return $container->getGUID();
+				}
+				break;
+			case 'csv_exporter_container_email';
+				$email = $container->email;
+				if (is_email_address($email)) {
+					return $email;
+				}
+				break;
+			case 'csv_exporter_container_url';
+				return $container->getURL();
+				break;
+			case 'csv_exporter_time_created_readable';
+				return date(elgg_echo('friendlytime:date_format'), $entity->time_created);
+				break;
+			case 'csv_exporter_time_updated_readable';
+				return date(elgg_echo('friendlytime:date_format'), $entity->time_updated);
+				break;
+			case 'csv_exporter_url';
+				return $entity->getURL();
+				break;
+		}
+	}
+	
+	/**
+	 * Export a single value for an object
+	 *
+	 * @param string $hook         the name of the hook
+	 * @param string $type         the type of the hook
+	 * @param mixed  $return_value the current return value
+	 * @param array  $params       supplied params
+	 *
+	 * @return void|mixed
+	 */
+	public static function exportObjectValue($hook, $type, $return_value, $params) {
+		
+		if (!is_null($return_value)) {
+			// someone already provided output
+			return;
+		}
+		
+		$entity = elgg_extract('entity', $params);
+		if (!($entity instanceof \ElggObject)) {
+			return;
+		}
+		
+		$exportable_value = elgg_extract('exportable_value', $params);
+		
+		switch ($exportable_value) {
+			case 'csv_exporter_object_tags':
+				if ($entity->tags) {
+					return (array) $entity->tags;
+				}
+				break;
+		}
+	}
+	
+	/**
+	 * Export a single value for a user
+	 *
+	 * @param string $hook         the name of the hook
+	 * @param string $type         the type of the hook
+	 * @param mixed  $return_value the current return value
+	 * @param array  $params       supplied params
+	 *
+	 * @return void|mixed
+	 */
+	public static function exportUserValue($hook, $type, $return_value, $params) {
+		
+		if (!is_null($return_value)) {
+			// someone already provided output
+			return;
+		}
+		
+		$entity = elgg_extract('entity', $params);
+		if (!($entity instanceof \ElggUser)) {
+			return;
+		}
+		
+		$exportable_value = elgg_extract('exportable_value', $params);
+		
+		switch ($exportable_value) {
+			case 'csv_exporter_user_last_action':
+				return (int) $entity->last_action;
+				break;
+			case 'csv_exporter_user_last_action_readable':
+				return date(elgg_echo('friendlytime:date_format'), $entity->last_action);
+				break;
+		}
+	}
+	
+	/**
+	 * Export a single value for a group
+	 *
+	 * @param string $hook         the name of the hook
+	 * @param string $type         the type of the hook
+	 * @param mixed  $return_value the current return value
+	 * @param array  $params       supplied params
+	 *
+	 * @return void|mixed
+	 */
+	public static function exportGroupValue($hook, $type, $return_value, $params) {
+		
+		if (!is_null($return_value)) {
+			// someone already provided output
+			return;
+		}
+		
+		$entity = elgg_extract('entity', $params);
+		if (!($entity instanceof \ElggGroup)) {
+			return;
+		}
+		
+		$exportable_value = elgg_extract('exportable_value', $params);
+		
+		switch ($exportable_value) {
+			case 'csv_exporter_group_member_count':
+				return $entity->getMembers(['count' => true]);
+				break;
+			case 'csv_exporter_group_last_activity':
+				return csv_exporter_get_last_group_activity($entity);
+				break;
+			case 'csv_exporter_group_last_activity_readable':
+				$ts = csv_exporter_get_last_group_activity($entity);
+				return date(elgg_echo('friendlytime:date_format'), $ts);
+				break;
+		}
+	}
 }
