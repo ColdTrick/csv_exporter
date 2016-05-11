@@ -101,7 +101,7 @@ function csv_exporter_get_last_group_activity(ElggGroup $entity) {
 	$query .= " OR (r.object_guid = {$entity->getGUID()})";
 	
 	$data = get_data($query);
-	if ($data) {
+	if (!empty($data)) {
 		$result = (int) $data[0]->posted;
 	}
 	
