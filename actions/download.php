@@ -44,7 +44,7 @@ switch ($time) {
 		$options['created_time_upper'] = strtotime('today');
 		break;
 	case 'this_week':
-		if (date('w') === 1) {
+		if (date('w') == 1) {
 			// today is monday
 			$options['created_time_lower'] = strtotime('today');
 		} else {
@@ -52,7 +52,7 @@ switch ($time) {
 		}
 		break;
 	case 'last_week':
-		if (date('w') === 1) {
+		if (date('w') == 1) {
 			// today is monday
 			$options['created_time_lower'] = strtotime('today -1 week');
 			$options['created_time_upper'] = strtotime('today');
