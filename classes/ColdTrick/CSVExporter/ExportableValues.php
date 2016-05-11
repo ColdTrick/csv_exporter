@@ -125,6 +125,8 @@ class ExportableValues {
 		}
 		
 		// add defaults
+		$result[elgg_echo('csv_exporter:exportable_value:group:membership')] = 'csv_exporter_group_membership';
+		$result[elgg_echo('csv_exporter:exportable_value:group:visibility')] = 'csv_exporter_group_visibility';
 		$result[elgg_echo('csv_exporter:exportable_value:group:member_count')] = 'csv_exporter_group_member_count';
 		$result[elgg_echo('csv_exporter:exportable_value:group:last_activity')] = 'csv_exporter_group_last_activity';
 		$result[elgg_echo('csv_exporter:exportable_value:group:last_activity_readable')] = 'csv_exporter_group_last_activity_readable';
@@ -329,6 +331,27 @@ class ExportableValues {
 			case 'csv_exporter_group_last_activity_readable':
 				$ts = csv_exporter_get_last_group_activity($entity);
 				return date(elgg_echo('friendlytime:date_format'), $ts);
+				break;
+			case 'csv_exporter_group_membership':
+				if ($entity->isPublicMembership()) {
+					return elgg_echo('groups:open');
+				} else {
+					return elgg_echo('groups:closed');
+				}
+				break;
+			case 'csv_exporter_group_visibility':
+				
+				switch ($entity->access_id) {
+					case ACCESS_PUBLIC:
+						return elgg_echo('PUBLIC');
+						break;
+					case ACCESS_LOGGED_IN:
+						return elgg_echo('LOGGED_IN');
+						break;
+					default:
+						return elgg_echo('groups:access:group');
+						break;
+				}
 				break;
 		}
 	}

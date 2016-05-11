@@ -27,6 +27,8 @@ return array(
 	'csv_exporter:exportable_value:url' => "Entity URL",
 	'csv_exporter:exportable_value:user:last_action' => "Last action",
 	'csv_exporter:exportable_value:user:last_action_readable' => "Last action (readable)",
+	'csv_exporter:exportable_value:group:membership' => "Membership",
+	'csv_exporter:exportable_value:group:visibility' => "Visibility",
 	'csv_exporter:exportable_value:group:member_count' => "Member count",
 	'csv_exporter:exportable_value:group:last_activity' => "Last activity",
 	'csv_exporter:exportable_value:group:last_activity_readable' => "Last activity (readable)",
