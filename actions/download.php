@@ -56,6 +56,10 @@ foreach ($batch as $entity) {
 			$value = $entity->$export_value;
 		}
 		
+		if (is_array($value)) {
+			$value = implode(', ', $value);
+		}
+		
 		$values[] = $value;
 	}
 	
