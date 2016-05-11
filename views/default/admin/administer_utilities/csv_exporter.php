@@ -26,7 +26,7 @@ $preview = '';
 $type_subtype = elgg_get_sticky_value('csv_exporter', 'type_subtype', get_input('type_subtype'));
 $form_body .= '<div>';
 $form_body .= elgg_format_element('label', ['for' => 'csv-exporter-type-subtype'], elgg_echo('csv_exporter:admin:type_subtype'));
-$form_body .= elgg_view('input/dropdown', [
+$form_body .= elgg_view('input/select', [
 	'name' => 'type_subtype',
 	'value' => $type_subtype,
 	'options_values' => $type_subtype_options,
@@ -34,6 +34,53 @@ $form_body .= elgg_view('input/dropdown', [
 	'class' => 'mls',
 ]);
 $form_body .= '</div>';
+
+// time options
+$time_value = elgg_get_sticky_value('csv_exporter', 'time', get_input('time'));
+$time_options = [
+	'' => elgg_echo('csv_exporter:admin:time:select'),
+	'today' => elgg_echo('csv_exporter:admin:time:today'),
+	'yesterday' => elgg_echo('csv_exporter:admin:time:yesterday'),
+	'this_week' => elgg_echo('csv_exporter:admin:time:this_week'),
+	'last_week' => elgg_echo('csv_exporter:admin:time:last_week'),
+	'this_month' => elgg_echo('csv_exporter:admin:time:this_month'),
+	'last_month' => elgg_echo('csv_exporter:admin:time:last_month'),
+	'range' => elgg_echo('csv_exporter:admin:time:range'),
+];
+$time = elgg_format_element('label', ['for' => 'csv-exporter-time'], elgg_echo('csv_exporter:admin:time'));
+$time .= elgg_view('input/select', [
+	'name' => 'time',
+	'value' => $time_value,
+	'options_values' => $time_options,
+	'class' => 'mls',
+	'id' => 'csv-exporter-time',
+]);
+$time .= elgg_format_element('div', ['class' => 'elgg-subtext'], elgg_echo('csv_exporter:admin:time:description'));
+$range = elgg_echo('csv_exporter:admin:time:range:created_time_lower');
+$range .= elgg_view('input/date', [
+	'name' => 'created_time_lower',
+	'value' => elgg_get_sticky_value('csv_exporter', 'created_time_lower', get_input('created_time_lower')),
+	'timestamp' => true,
+	'datepicker_options' => [
+		'maxDate' => '-1d',
+	],
+	'class' => 'mhs',
+]);
+$range .= elgg_echo('csv_exporter:admin:time:range:created_time_upper');
+$range .= elgg_view('input/date', [
+	'name' => 'created_time_upper',
+	'value' => elgg_get_sticky_value('csv_exporter', 'created_time_upper', get_input('created_time_upper')),
+	'timestamp' => true,
+	'datepicker_options' => [
+		'maxDate' => '+1d',
+	],
+	'class' => 'mls',
+]);
+$time .= elgg_format_element('div', [
+	'id' => 'csv-exporter-range',
+	'class' => ($time_value === 'range') ? '' : 'hidden',
+], $range);
+$form_body .= elgg_format_element('div', [], $time);
 
 // additional fields
 if (!empty($type_subtype)) {

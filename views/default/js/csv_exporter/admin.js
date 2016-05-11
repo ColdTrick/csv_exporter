@@ -8,7 +8,16 @@ define(['jquery', 'elgg'], function($, elgg) {
 		$(document).on('change', '#csv-exporter-type-subtype', function() {
 			$(this).parents('form').submit();
 		});
-	
+		
+		$(document).on('change', '#csv-exporter-time', function() {
+			
+			if ($(this).val() === 'range') {
+				$('#csv-exporter-range').show();
+			} else {
+				$('#csv-exporter-range').hide();
+			}
+		});
+		
 		$(document).on('click', '#csv-exporter-download', function() {
 			var $form = $(this).parents('form');
 	

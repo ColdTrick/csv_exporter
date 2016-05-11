@@ -33,6 +33,47 @@ if ($type == 'user') {
 	$options['inverse_relationship'] = true;
 }
 
+// add time constraints
+$time = get_input('time');
+switch ($time) {
+	case 'today':
+		$options['created_time_lower'] = strtotime('today');
+		break;
+	case 'yesterday':
+		$options['created_time_lower'] = strtotime('yesterday');
+		$options['created_time_upper'] = strtotime('today');
+		break;
+	case 'this_week':
+		if (date('w') === 1) {
+			// today is monday
+			$options['created_time_lower'] = strtotime('today');
+		} else {
+			$options['created_time_lower'] = strtotime('last monday');
+		}
+		break;
+	case 'last_week':
+		if (date('w') === 1) {
+			// today is monday
+			$options['created_time_lower'] = strtotime('today -1 week');
+			$options['created_time_upper'] = strtotime('today');
+		} else {
+			$options['created_time_lower'] = strtotime('last monday -1 week');
+			$options['created_time_upper'] = strtotime('last monday');
+		}
+		break;
+	case 'this_month':
+		$options['created_time_lower'] = strtotime('first day of this month 00:00:00');
+		break;
+	case 'last_month':
+		$options['created_time_lower'] = strtotime('first day of last month 00:00:00');
+		$options['created_time_upper'] = strtotime('first day of this month 00:00:00');
+		break;
+	case 'range':
+		$options['created_time_lower'] = get_input('created_time_lower');
+		$options['created_time_upper'] = get_input('created_time_upper');
+		break;
+}
+
 // exporting on large sites could take a while
 set_time_limit(0);
 
