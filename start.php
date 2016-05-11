@@ -4,7 +4,6 @@
  */
 
 require_once(dirname(__FILE__) . '/lib/functions.php');
-require_once(dirname(__FILE__) . '/lib/hooks.php');
 
 // register default Elgg events
 elgg_register_event_handler('init', 'system', 'csv_exporter_init');
