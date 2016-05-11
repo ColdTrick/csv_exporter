@@ -121,7 +121,8 @@ function csv_exporter_get_separator() {
 		$result = ';';
 		
 		$setting = elgg_get_plugin_setting('separator', 'csv_exporter');
-		if (!empty($setting)) {
+		if (strlen($setting) === 1) {
+			// php fputcsv only supports 1 char seperators
 			$result = $setting;
 		}
 	}
