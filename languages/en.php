@@ -1,7 +1,21 @@
 <?php
 
 return array(
+	
+	'item:object:csv_export' => "CSV Export configuration",
 	'admin:administer_utilities:csv_exporter' => "CSV Exporter",
+	'admin:administer_utilities:csv_exporter:download' => "Download CSV exports",
+	'admin:administer_utilities:csv_exporter:scheduled' => "Scheduled CSV exports",
+	
+	'csv_exporter:menu:csv_exporter:configure' => "Configure",
+	'csv_exporter:menu:csv_exporter:download' => "Download",
+	'csv_exporter:menu:csv_exporter:scheduled' => "Scheduled",
+	
+	'csv_exporter:object:csv_export:title' => "CSV export for: %s",
+	'csv_exporter:object:csv_export:title:custom' => "CSV export for: %s - %s",
+	'csv_exporter:object:csv_export:processing' => "Processing started: %s",
+	'csv_exporter:object:csv_export:scheduled' => "Scheduled for processing: %s",
+	'csv_exporter:object:csv_export:completed' => "Ready for download: %s",
 	
 	'csv_exporter:settings:separator' => "The separator to use in the CSV file",
 	
@@ -42,7 +56,8 @@ return array(
 	'csv_exporter:admin:preview' => "Preview",
 	'csv_exporter:admin:preview:title' => "This will be in the CSV",
 	
-	'csv_exporter:admin:download' => "Download CSV",
+	'csv_exporter:admin:schedule' => "Schedule",
+	'csv_exporter:admin:schedule:description' => "Schedule the CSV to be created. You'll receive an e-mail when the CSV is available for download",
 	
 	'csv_exporter:admin:time' => "Limit export period",
 	'csv_exporter:admin:time:description' => "This will limit the content being exported on the creation date of the content",
@@ -56,4 +71,26 @@ return array(
 	'csv_exporter:admin:time:range' => "Date range",
 	'csv_exporter:admin:time:range:created_time_lower' => "Start day",
 	'csv_exporter:admin:time:range:created_time_upper' => "End day",
+	
+	'csv_exporter:admin:title' => "Title for export (optional)",
+	
+	// download page
+	'csv_exporter:download:none' => "No CSV exports are ready for download",
+	
+	// scheduled page
+	'csv_exporter:scheduled:none' => "No CSV exports are scheduled for processing",
+	
+	// notifications
+	// on complete
+	'csv_exporter:notify:complete:subject' => "Your CSV export '%s' is ready for download",
+	'csv_exporter:notify:complete:message' => "Hi %s,
+	
+Your CSV export '%s' is ready for download.
+
+You can find it in the overview here:
+%s",
+	
+	// actions
+	// edit
+	'csv_exporter:action:edit:success' => "The export configuration was saved, you'll receive an e-mail when the download is available",
 );

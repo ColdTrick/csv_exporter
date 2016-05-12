@@ -18,11 +18,11 @@ define(['jquery', 'elgg'], function($, elgg) {
 			}
 		});
 		
-		$(document).on('click', '#csv-exporter-download', function() {
+		$(document).on('click', '#csv-exporter-schedule', function() {
 			var $form = $(this).parents('form');
 	
 			var old_action = $form.attr('action');
-			$form.attr('action', elgg.normalize_url('action/csv_exporter/download'));
+			$form.attr('action', elgg.normalize_url('action/csv_exporter/edit'));
 			$form.submit();
 	
 			$form.attr('action', old_action);
