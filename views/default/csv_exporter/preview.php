@@ -107,6 +107,9 @@ foreach ($entities as $entity) {
 		if ($value === null) {
 			$value = $entity->$metadata_name;
 		}
+		if (is_array($value)) {
+			$value = implode(', ', $value);
+		}
 		
 		$content .= '<td>' . $value . '</td>';
 	}
