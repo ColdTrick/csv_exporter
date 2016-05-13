@@ -51,4 +51,50 @@ class Cron {
 		// restore access
 		elgg_set_ignore_access($ia);
 	}
+	
+	/**
+	 * Cleanup the old exports
+	 *
+	 * @param string $hook         the name of the hook
+	 * @param string $type         the type of the hook
+	 * @param string $return_value current return value
+	 * @param array  $params       supplied params
+	 *
+	 * @return void
+	 */
+	public static function cleanupExports($hook, $type, $return_value, $params) {
+		
+		$time = (int) elgg_extract('time', $params, time());
+		$retention = (int) elgg_get_plugin_setting('retention', 'csv_exporter');
+		if ($retention < 1) {
+			// no cleanup
+			return;
+		}
+		
+		// prepare options
+		$options = [
+			'type' => 'object',
+			'subtype' => \CSVExport::SUBTYPE,
+			'limit' => false,
+			'metadata_name_value_pairs' => [
+				'name' => 'completed',
+				'value' => strtotime("today -{$retention} days", $time),
+				'operand' => '<',
+			],
+		];
+		
+		// ignore access
+		$ia = elgg_set_ignore_access(true);
+		
+		$batch = new \ElggBatch('elgg_get_entities_from_metadata', $options);
+		$batch->setIncrementOffset(false);
+		
+		/* @var $entity \CSVExport */
+		foreach ($batch as $entity) {
+			$entity->delete();
+		}
+		
+		// restore access
+		elgg_set_ignore_access($ia);
+	}
 }

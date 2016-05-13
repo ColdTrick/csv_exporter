@@ -30,6 +30,7 @@ function csv_exporter_init() {
 	elgg_register_plugin_hook_handler('register', 'menu:entity', '\ColdTrick\CSVExporter\EntityMenu::csvExport');
 	
 	elgg_register_plugin_hook_handler('cron', 'minute', '\ColdTrick\CSVExporter\Cron::processExports');
+	elgg_register_plugin_hook_handler('cron', 'daily', '\ColdTrick\CSVExporter\Cron::cleanupExports');
 	
 	// events
 	elgg_register_event_handler('upgrade', 'system', '\ColdTrick\CSVExporter\Upgrade::setClassHandler');

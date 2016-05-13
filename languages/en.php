@@ -18,6 +18,8 @@ return array(
 	'csv_exporter:object:csv_export:completed' => "Ready for download: %s",
 	
 	'csv_exporter:settings:separator' => "The separator to use in the CSV file",
+	'csv_exporter:settings:retention' => "Cleanup finished exports after x days (optional)",
+	'csv_exporter:settings:retention:description' => "If you create many exports they can take up some diskspace. Here you can configure after how many days the finished exports will be removed automaticly. Leave it empty (or 0) to never cleanup any exports.",
 	
 	'csv_exporter:exportable_value:guid' => "GUID",
 	'csv_exporter:exportable_value:type' => "Type",
