@@ -1,10 +1,49 @@
 <?php
 /**
- * This file was created by Translation Editor v4.0
- * On 2015-07-08 15:09
+ * This file was created by Translation Editor v5.1
+ * On 2016-05-13 10:11
  */
 
 return array (
+  'admin:administer_utilities:csv_exporter:download' => 'CSV exports downloaden',
+  'admin:administer_utilities:csv_exporter:scheduled' => 'Ingeplande CSV exports',
+  'csv_exporter:menu:csv_exporter:configure' => 'Configureer',
+  'csv_exporter:menu:csv_exporter:download' => 'Download',
+  'csv_exporter:menu:csv_exporter:scheduled' => 'Ingepland',
+  'csv_exporter:object:csv_export:title' => 'CSV export voor: %s',
+  'csv_exporter:object:csv_export:title:custom' => 'CSV export voor: %s - %s',
+  'csv_exporter:object:csv_export:processing' => 'Verwerking gestart: %s',
+  'csv_exporter:object:csv_export:scheduled' => 'Ingepland voor verwerking: %s',
+  'csv_exporter:object:csv_export:completed' => 'Klaar voor download: %s',
+  'csv_exporter:settings:retention' => 'Afgeronde exports automatisch opruimen naar x dagen (optioneel)',
+  'csv_exporter:settings:retention:description' => 'Als je veel exports maakt kan dit enige schijfruimte innemen. Hier kun je configureren na hoeveel dagen de afgeronde exports automatisch worden opgeruimd. Laat dit veld leeg (of 0) om de export niet op te ruimen',
+  'csv_exporter:exportable_value:group:membership' => 'Lidmaatschap',
+  'csv_exporter:exportable_value:group:visibility' => 'Zichtbaarheid',
+  'csv_exporter:admin:schedule' => 'Inplannen',
+  'csv_exporter:admin:schedule:description' => 'Bewaar de configuratie om ingepland te worden voor verwerking. Je ontvangt een e-mail zodra de verwerking klaar is',
+  'csv_exporter:admin:time' => 'Beperk de export periode',
+  'csv_exporter:admin:time:description' => 'Dit zal de content in de export limiteren op de aanmaak datum van de content',
+  'csv_exporter:admin:time:select' => 'Selecteer een periode (optioneel)',
+  'csv_exporter:admin:time:today' => 'Vandaag',
+  'csv_exporter:admin:time:yesterday' => 'Gisteren',
+  'csv_exporter:admin:time:this_week' => 'Deze week',
+  'csv_exporter:admin:time:last_week' => 'Vorige week',
+  'csv_exporter:admin:time:this_month' => 'Deze maand',
+  'csv_exporter:admin:time:last_month' => 'Vorige maand',
+  'csv_exporter:admin:time:range' => 'Vrije periode',
+  'csv_exporter:admin:time:range:created_time_lower' => 'Start dag',
+  'csv_exporter:admin:time:range:created_time_upper' => 'Eind dag',
+  'csv_exporter:admin:title' => 'Titel voor de export (optioneel)',
+  'csv_exporter:download:none' => 'Er zijn nog geen CSV export klaar voor download',
+  'csv_exporter:scheduled:none' => 'Er zijn geen CSV exports ingepland',
+  'csv_exporter:notify:complete:subject' => 'Je CSV export \'%s\' in beschikbaar om te downloaden',
+  'csv_exporter:notify:complete:message' => 'Beste %s,
+
+Je CSV export \'%s\' is beschikbaar om te downloaden
+
+Je kunt je export vinden in het overzicht:
+%s',
+  'csv_exporter:action:edit:success' => 'De export configuratie is opgeslagen, je ontvangt een e-mail wanneer de download beschikbaar is',
   'csv_exporter:settings:separator' => 'Het te gebruiken scheidingsteken in het CSV-bestand',
   'admin:administer_utilities:csv_exporter' => 'CSV Exporter',
   'csv_exporter:exportable_value:guid' => 'GUID',
@@ -38,5 +77,4 @@ return array (
   'csv_exporter:admin:exportable_values:choose' => 'Selecteer eerst wat je wilt exporteren',
   'csv_exporter:admin:preview' => 'Voorbeeld',
   'csv_exporter:admin:preview:title' => 'Dit zal zich in de CSV bevinden',
-  'csv_exporter:admin:download' => 'Download CSV',
 );
