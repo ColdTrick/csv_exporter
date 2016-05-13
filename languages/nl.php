@@ -1,10 +1,11 @@
 <?php
 /**
  * This file was created by Translation Editor v5.1
- * On 2016-05-13 10:11
+ * On 2016-05-13 12:37
  */
 
 return array (
+  'csv_exporter:exportable_value:user:groups_owned_url' => 'Eigenaar van groep url',
   'admin:administer_utilities:csv_exporter:download' => 'CSV exports downloaden',
   'admin:administer_utilities:csv_exporter:scheduled' => 'Ingeplande CSV exports',
   'csv_exporter:menu:csv_exporter:configure' => 'Configureer',
