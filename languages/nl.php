@@ -5,6 +5,8 @@
  */
 
 return array (
+  'item:object:csv_export' => 'CSV Export configuratie',
+  'csv_exporter:exportable_value:user:groups_owned_name' => 'Eigenaar van groep naam',
   'csv_exporter:exportable_value:user:groups_owned_url' => 'Eigenaar van groep url',
   'admin:administer_utilities:csv_exporter:download' => 'CSV exports downloaden',
   'admin:administer_utilities:csv_exporter:scheduled' => 'Ingeplande CSV exports',
