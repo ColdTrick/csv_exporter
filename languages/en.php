@@ -41,8 +41,12 @@ return array(
 	'csv_exporter:exportable_value:time_created_readable' => "Time created (readable)",
 	'csv_exporter:exportable_value:time_updated_readable' => "Time updated (readable)",
 	'csv_exporter:exportable_value:url' => "Entity URL",
+	
 	'csv_exporter:exportable_value:user:last_action' => "Last action",
 	'csv_exporter:exportable_value:user:last_action_readable' => "Last action (readable)",
+	'csv_exporter:exportable_value:user:groups_owned_name' => "Groups owned name",
+	'csv_exporter:exportable_value:user:groups_owned_url' => "Groups owned url",
+	
 	'csv_exporter:exportable_value:group:membership' => "Membership",
 	'csv_exporter:exportable_value:group:visibility' => "Visibility",
 	'csv_exporter:exportable_value:group:member_count' => "Member count",

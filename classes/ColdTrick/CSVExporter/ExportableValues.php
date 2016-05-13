@@ -99,6 +99,8 @@ class ExportableValues {
 		$result[elgg_echo('email')] = 'email';
 		$result[elgg_echo('csv_exporter:exportable_value:user:last_action')] = 'csv_exporter_user_last_action';
 		$result[elgg_echo('csv_exporter:exportable_value:user:last_action_readable')] = 'csv_exporter_user_last_action_readable';
+		$result[elgg_echo('csv_exporter:exportable_value:user:groups_owned_name')] = 'csv_exporter_user_groups_owned_name';
+		$result[elgg_echo('csv_exporter:exportable_value:user:groups_owned_url')] = 'csv_exporter_user_groups_owned_url';
 		
 		return $result;
 	}
@@ -285,14 +287,41 @@ class ExportableValues {
 			return;
 		}
 		
-		$exportable_value = elgg_extract('exportable_value', $params);
+		$group_options = [
+			'type' => 'group',
+			'limit' => false,
+			'owner_guid' => $entity->getGUID(),
+		];
 		
+		$exportable_value = elgg_extract('exportable_value', $params);
 		switch ($exportable_value) {
 			case 'csv_exporter_user_last_action':
 				return (int) $entity->last_action;
 				break;
 			case 'csv_exporter_user_last_action_readable':
 				return date(elgg_echo('friendlytime:date_format'), $entity->last_action);
+				break;
+			case 'csv_exporter_user_groups_owned_name':
+				$result = [];
+				
+				$batch = new \ElggBatch('elgg_get_entities', $group_options);
+				/* @var $group \ElggGroup */
+				foreach ($batch as $group) {
+					$result[] = "\"{$group->name}\"";
+				}
+				
+				return $result;
+				break;
+			case 'csv_exporter_user_groups_owned_url':
+				$result = [];
+				
+				$batch = new \ElggBatch('elgg_get_entities', $group_options);
+				/* @var $group \ElggGroup */
+				foreach ($batch as $group) {
+					$result[] = $group->getURL();
+				}
+				
+				return $result;
 				break;
 		}
 	}
