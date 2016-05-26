@@ -1,6 +1,22 @@
 Version history
 ===============
 
+3.1 (2016-05-26):
+
+- added: group visibility and membership
+- added: option to export groups owned for users
+- added: plugin setting to cleaup older finished exports
+- added: time constraints to the export settings
+- changed: csv processing is now offloaded to the minute cron
+- changed: get export value moved to class callbacks
+- changed: moved exportable values hook to class callback
+- fixed: disallow commenting on exports
+- fixed: generic handling of array export values
+- fixed: possible error if seperator > 1 char
+- fixed: possible invalid return for group last activity
+- fixed: undefined class in upgrade script
+- fixed: wrong display of array values in preview
+
 3.0.2 (2016-02-16):
 
 - fixed: timeout while exporting large datasets
