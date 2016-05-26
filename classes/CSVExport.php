@@ -46,6 +46,14 @@ class CSVExport extends ElggObject {
 	}
 	
 	/**
+	 * (non-PHPdoc)
+	 * @see ElggObject::canComment()
+	 */
+	public function canComment($user_guid = 0) {
+		return false;
+	}
+	
+	/**
 	 * Get data from the csv configuration
 	 *
 	 * @param string $field (optional) the field to get, leave empty for all fields
