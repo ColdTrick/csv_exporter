@@ -15,10 +15,10 @@ class Upgrade {
 	 */
 	public static function setClassHandler($event, $type, $object) {
 		
-		if (get_subtype_id('object', CSVExport::SUBTYPE)) {
-			update_subtype('object', CSVExport::SUBTYPE, 'CSVExport');
+		if (get_subtype_id('object', \CSVExport::SUBTYPE)) {
+			update_subtype('object', \CSVExport::SUBTYPE, 'CSVExport');
 		} else {
-			add_subtype('object', CSVExport::SUBTYPE, 'CSVExport');
+			add_subtype('object', \CSVExport::SUBTYPE, 'CSVExport');
 		}
 	}
 }
