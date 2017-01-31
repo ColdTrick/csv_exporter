@@ -108,6 +108,7 @@ class ExportableValues {
 		$result[elgg_echo('csv_exporter:exportable_value:user:last_action_readable')] = 'csv_exporter_user_last_action_readable';
 		$result[elgg_echo('csv_exporter:exportable_value:user:groups_owned_name')] = 'csv_exporter_user_groups_owned_name';
 		$result[elgg_echo('csv_exporter:exportable_value:user:groups_owned_url')] = 'csv_exporter_user_groups_owned_url';
+		$result[elgg_echo('csv_exporter:exportable_value:user:banned')] = 'banned';
 		
 		return $result;
 	}

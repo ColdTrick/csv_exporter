@@ -48,6 +48,7 @@ return array(
 	'csv_exporter:exportable_value:user:last_action_readable' => "Last action (readable)",
 	'csv_exporter:exportable_value:user:groups_owned_name' => "Groups owned name",
 	'csv_exporter:exportable_value:user:groups_owned_url' => "Groups owned url",
+	'csv_exporter:exportable_value:user:banned' => "Banned",
 	
 	'csv_exporter:exportable_value:group:membership' => "Membership",
 	'csv_exporter:exportable_value:group:visibility' => "Visibility",
