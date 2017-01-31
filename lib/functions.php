@@ -129,3 +129,16 @@ function csv_exporter_get_separator() {
 	
 	return $result;
 }
+
+/**
+ * Convert a timestamp to a readable date/time
+ *
+ * @param int $time the timestamp to convert
+ *
+ * @return string
+ */
+function csv_exported_get_readable_timestamp($time) {
+	$time = (int) $time;
+	
+	return date(elgg_echo('friendlytime:date_format'), $time);
+}

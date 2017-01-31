@@ -228,10 +228,10 @@ class ExportableValues {
 				return $container->getURL();
 				break;
 			case 'csv_exporter_time_created_readable';
-				return date(elgg_echo('friendlytime:date_format'), $entity->time_created);
+				return csv_exported_get_readable_timestamp($entity->time_created);
 				break;
 			case 'csv_exporter_time_updated_readable';
-				return date(elgg_echo('friendlytime:date_format'), $entity->time_updated);
+				return csv_exported_get_readable_timestamp($entity->time_updated);
 				break;
 			case 'csv_exporter_url';
 				return $entity->getURL();
@@ -309,7 +309,7 @@ class ExportableValues {
 				return (int) $entity->last_action;
 				break;
 			case 'csv_exporter_user_last_action_readable':
-				return date(elgg_echo('friendlytime:date_format'), $entity->last_action);
+				return csv_exported_get_readable_timestamp($entity->last_action);
 				break;
 			case 'csv_exporter_user_groups_owned_name':
 				$result = [];
@@ -369,7 +369,7 @@ class ExportableValues {
 				break;
 			case 'csv_exporter_group_last_activity_readable':
 				$ts = csv_exporter_get_last_group_activity($entity);
-				return date(elgg_echo('friendlytime:date_format'), $ts);
+				return csv_exported_get_readable_timestamp($ts);
 				break;
 			case 'csv_exporter_group_membership':
 				if ($entity->isPublicMembership()) {
