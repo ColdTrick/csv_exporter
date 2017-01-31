@@ -36,6 +36,8 @@ class ExportableValues {
 			elgg_echo('csv_exporter:exportable_value:time_created_readable') => 'csv_exporter_time_created_readable',
 			elgg_echo('csv_exporter:exportable_value:time_updated_readable') => 'csv_exporter_time_updated_readable',
 			elgg_echo('csv_exporter:exportable_value:url') => 'csv_exporter_url',
+			elgg_echo('csv_exporter:exportable_value:access_id') => 'access_id',
+			elgg_echo('csv_exporter:exportable_value:access_id_readable') => 'csv_exporter_access_id_readable',
 		];
 		
 		$content_fields = [];
@@ -53,6 +55,11 @@ class ExportableValues {
 		
 		// combine default and type fields
 		$fields = array_merge($defaults, $content_fields);
+		
+		$read_access_key = array_search('read_access', $return_value);
+		if ($read_access_key !== false) {
+			unset($return_value[$read_access_key]);
+		}
 		
 		// which version did we want
 		if (!$readable) {
@@ -228,6 +235,9 @@ class ExportableValues {
 				break;
 			case 'csv_exporter_url';
 				return $entity->getURL();
+				break;
+			case 'csv_exporter_access_id_readable';
+				return get_readable_access_level($entity->access_id);
 				break;
 		}
 	}
