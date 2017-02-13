@@ -1,10 +1,13 @@
 <?php
 /**
- * This file was created by Translation Editor v5.1
- * On 2016-05-13 12:37
+ * This file was created by Translation Editor v5.2
+ * On 2017-02-13 12:16
  */
 
 return array (
+  'csv_exporter:exportable_value:access_id' => 'Toegang',
+  'csv_exporter:exportable_value:access_id_readable' => 'Toegang (leesbaar)',
+  'csv_exporter:exportable_value:user:banned' => 'Geblokkeerd',
   'item:object:csv_export' => 'CSV Export configuratie',
   'csv_exporter:exportable_value:user:groups_owned_name' => 'Eigenaar van groep naam',
   'csv_exporter:exportable_value:user:groups_owned_url' => 'Eigenaar van groep url',
