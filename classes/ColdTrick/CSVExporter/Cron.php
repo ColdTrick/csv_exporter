@@ -16,6 +16,9 @@ class Cron {
 	 */
 	public static function processExports($hook, $type, $return_value, $params) {
 		
+		echo 'Stating CSVExporter processing' . PHP_EOL;
+		elgg_log('Stating CSVExporter processing', 'NOTICE');
+		
 		$time = (int) elgg_extract('time', $params, time());
 		
 		$options = [
@@ -50,6 +53,9 @@ class Cron {
 		
 		// restore access
 		elgg_set_ignore_access($ia);
+		
+		echo 'Done with CSVExporter processing' . PHP_EOL;
+		elgg_log('Done with CSVExporter processing', 'NOTICE');
 	}
 	
 	/**
@@ -70,6 +76,9 @@ class Cron {
 			// no cleanup
 			return;
 		}
+		
+		echo 'Stating CSVExporter cleanup' . PHP_EOL;
+		elgg_log('Starting CSVExporter cleanup', 'NOTICE');
 		
 		// prepare options
 		$options = [
@@ -96,5 +105,8 @@ class Cron {
 		
 		// restore access
 		elgg_set_ignore_access($ia);
+		
+		echo 'Done with CSVExporter cleanup' . PHP_EOL;
+		elgg_log('Done with CSVExporter cleanup', 'NOTICE');
 	}
 }
