@@ -108,6 +108,8 @@ class ExportableValues {
 		$result[elgg_echo('csv_exporter:exportable_value:user:last_action_readable')] = 'csv_exporter_user_last_action_readable';
 		$result[elgg_echo('csv_exporter:exportable_value:user:groups_owned_name')] = 'csv_exporter_user_groups_owned_name';
 		$result[elgg_echo('csv_exporter:exportable_value:user:groups_owned_url')] = 'csv_exporter_user_groups_owned_url';
+		$result[elgg_echo('csv_exporter:exportable_value:user:friends')] = 'csv_exporter_user_friends';
+		$result[elgg_echo('csv_exporter:exportable_value:user:friends:of')] = 'csv_exporter_user_friends_of';
 		$result[elgg_echo('csv_exporter:exportable_value:user:banned')] = 'banned';
 		
 		return $result;
@@ -333,6 +335,21 @@ class ExportableValues {
 				}
 				
 				return $result;
+				break;
+			case 'csv_exporter_user_friends':
+				return (int) $entity->getEntitiesFromRelationship([
+					'type' => 'user',
+					'relationship' => 'friend',
+					'count' => true,
+				]);
+				break;
+			case 'csv_exporter_user_friends_of':
+				return (int) $entity->getEntitiesFromRelationship([
+					'type' => 'user',
+					'relationship' => 'friend',
+					'inverse_relationship' => true,
+					'count' => true,
+				]);
 				break;
 		}
 	}

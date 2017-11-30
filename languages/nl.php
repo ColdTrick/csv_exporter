@@ -1,10 +1,12 @@
 <?php
 /**
- * This file was created by Translation Editor v5.2
- * On 2017-02-13 12:16
+ * This file was created by Translation Editor v6.0
+ * On 2017-11-30 10:50
  */
 
 return array (
+  'csv_exporter:exportable_value:user:friends' => 'Aantal gevolgde gebruikers',
+  'csv_exporter:exportable_value:user:friends:of' => 'Aantal volgers',
   'csv_exporter:exportable_value:access_id' => 'Toegang',
   'csv_exporter:exportable_value:access_id_readable' => 'Toegang (leesbaar)',
   'csv_exporter:exportable_value:user:banned' => 'Geblokkeerd',
