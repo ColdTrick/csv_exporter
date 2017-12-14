@@ -1,6 +1,10 @@
 Version history
 ===============
 
+4.2 (2017-12-14):
+
+- added: option to export number of followers/following for users
+
 4.1.1 (2017-09-06):
 
 - several small chores/fixes
