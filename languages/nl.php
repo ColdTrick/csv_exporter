@@ -1,10 +1,13 @@
 <?php
 /**
  * This file was created by Translation Editor v6.0
- * On 2017-11-30 10:50
+ * On 2018-01-16 15:31
  */
 
 return array (
+  'csv_exporter:exportable_value:group:tools' => 'Tools',
+  'csv_exporter:exportable_value:group:tool' => 'Tool: %s',
+  'csv_exporter:exportable_value:group:content_stats' => 'Content statistieken',
   'csv_exporter:exportable_value:user:friends' => 'Aantal gevolgde gebruikers',
   'csv_exporter:exportable_value:user:friends:of' => 'Aantal volgers',
   'csv_exporter:exportable_value:access_id' => 'Toegang',
