@@ -16,14 +16,14 @@ $subtype = elgg_extract('subtype', $vars);
 $exportable_values = elgg_extract('exportable_values', $vars);
 $form_fields = elgg_get_sticky_values('csv_exporter_preview');
 
-$readable_values = csv_exporter_get_exportable_values($type, $subtype, true);
+$column_config = csv_exporter_prepare_exportable_columns($exportable_values, $type, $subtype);
 
 $content = '<table class="elgg-table">';
 
 $content .= '<thead>';
 $content .= '<tr>';
-foreach ($exportable_values as $name) {
-	$content .= '<th>' . array_search($name, $readable_values) . '</th>';
+foreach ($column_config as $label) {
+	$content .= '<th>' . $label . '</th>';
 }
 $content .= '</tr>';
 $content .= '</thead>';
@@ -87,6 +87,8 @@ switch ($time) {
 		$options['created_time_upper'] = elgg_extract('created_time_upper', $form_fields);
 		break;
 }
+
+$exportable_values = array_keys($column_config);
 
 $entities = new ElggBatch('elgg_get_entities_from_relationship', $options);
 foreach ($entities as $entity) {

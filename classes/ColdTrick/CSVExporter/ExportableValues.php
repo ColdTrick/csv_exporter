@@ -16,11 +16,11 @@ class ExportableValues {
 	 */
 	public static function getExportableValues($hook, $type, $return_value, $params) {
 		
-		if (empty($params) || !is_array($params)) {
+		$content_type = elgg_extract('type', $params);
+		if (empty($content_type)) {
 			return;
 		}
 		
-		$content_type = elgg_extract('type', $params);
 		$readable = (bool) elgg_extract('readable', $params, false);
 		
 		// default exportable values
@@ -411,5 +411,43 @@ class ExportableValues {
 				}
 				break;
 		}
+	}
+	
+	/**
+	 * Change the label of the exported value
+	 *
+	 * @param string $hook         the name of the hook
+	 * @param string $type         the type of the hook
+	 * @param mixed  $return_value the current return value
+	 * @param array  $params       supplied params
+	 *
+	 * @return void|mixed
+	 */
+	public static function exportableColumnLabels($hook, $type, $return_value, $params) {
+		
+		$type = elgg_extract('type', $params);
+		if (empty($type)) {
+			return;
+		}
+		
+		$subtype = elgg_extract('subtype', $params);
+		
+		$available_columns = csv_exporter_get_exportable_values($type, $subtype, true);
+		
+		foreach ($return_value as $column_id => $label) {
+			if ($column_id !== $label) {
+				continue;
+			}
+			
+			$new_label = array_search($column_id, $available_columns);
+			if ($new_label === false) {
+				// no better label found
+				continue;
+			}
+			
+			$return_value[$column_id] = $new_label;
+		}
+		
+		return $return_value;
 	}
 }

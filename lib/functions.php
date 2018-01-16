@@ -142,3 +142,28 @@ function csv_exported_get_readable_timestamp($time) {
 	
 	return date(elgg_echo('friendlytime:date_format'), $time);
 }
+
+/**
+ * Prepare the selected columns for export
+ *
+ * @param string[] $selected_columns the column id's
+ * @param string   $type             entity type
+ * @param string   $subtype          entity subtype
+ *
+ * @return array|mixed
+ */
+function csv_exporter_prepare_exportable_columns($selected_columns, $type, $subtype = '') {
+	
+	if (empty($selected_columns) || !is_array($selected_columns) || empty($type)) {
+		return $selected_columns;
+	}
+	
+	$column_config = array_combine($selected_columns, $selected_columns);
+	
+	$params = [
+		'type' => $type,
+		'subtype' => $subtype,
+		'selected_columns' => $selected_columns,
+	];
+	return elgg_trigger_plugin_hook('prepare:exportable_columns', 'csv_exporter', $params, $column_config);
+}

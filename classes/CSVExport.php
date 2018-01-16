@@ -149,12 +149,14 @@ class CSVExport extends ElggObject {
 		$type = $this->getFormData('type');
 		$subtype = $this->getFormData('subtype');
 		
-		// get possible exportable values for this content type/subtype
-		$available_values = csv_exporter_get_exportable_values($type, $subtype, true);
-		
 		// get configured export fields
 		$exportable_values = $this->getFormData('exportable_values');
-		if (empty($exportable_values)) {
+		
+		// prepare values for export
+		$column_config = csv_exporter_prepare_exportable_columns($exportable_values, $type, $subtype);
+		
+		// check hook results
+		if (empty($column_config) || !is_array($column_config)) {
 			$this->unlockProcessing();
 			return;
 		}
@@ -162,12 +164,10 @@ class CSVExport extends ElggObject {
 		// prepare for exporting
 		$fo = $this->getFileObject();
 		$seperator = csv_exporter_get_separator();
+		$exportable_values = array_keys($column_config);
 		
 		// make csv header row
-		$headers = [];
-		foreach ($exportable_values as $export_value) {
-			$headers[] = array_search($export_value, $available_values);
-		}
+		$headers = array_values($column_config);
 		
 		// create the new file with the headers
 		$fh = $fo->open('write');
