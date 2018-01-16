@@ -167,3 +167,44 @@ function csv_exporter_prepare_exportable_columns($selected_columns, $type, $subt
 	];
 	return elgg_trigger_plugin_hook('prepare:exportable_columns', 'csv_exporter', $params, $column_config);
 }
+
+/**
+ * Check if a group tool option is enabled in a group
+ *
+ * @param ElggGroup $group the group to check
+ * @param string    $tool  the too to check
+ *
+ * @return bool
+ */
+function csv_exporter_is_group_tool_enabled(ElggGroup $group, $tool) {
+	
+	if (!$group instanceof ElggGroup || empty($tool)) {
+		return false;
+	}
+	
+	static $tool_config;
+	if (!isset($tool_config)) {
+		$tool_config = elgg_get_config('group_tool_options');
+		if (is_callable('groups_get_group_tool_options')) {
+			$tool_config = groups_get_group_tool_options();
+		}
+	}
+	
+	if (empty($tool_config)) {
+		return false;
+	}
+	
+	foreach ($tool_config as $config) {
+		if ($config->name !== $tool) {
+			continue;
+		}
+		
+		if (!isset($group->{"{$tool}_enable"})) {
+			return $config->default_on;
+		}
+		
+		return $group->{"{$tool}_enable"} === 'yes';
+	}
+	
+	return false;
+}

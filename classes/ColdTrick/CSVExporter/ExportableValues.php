@@ -142,6 +142,7 @@ class ExportableValues {
 		$result[elgg_echo('csv_exporter:exportable_value:group:member_count')] = 'csv_exporter_group_member_count';
 		$result[elgg_echo('csv_exporter:exportable_value:group:last_activity')] = 'csv_exporter_group_last_activity';
 		$result[elgg_echo('csv_exporter:exportable_value:group:last_activity_readable')] = 'csv_exporter_group_last_activity_readable';
+		$result[elgg_echo('csv_exporter:exportable_value:group:tools')] = 'csv_exporter_group_tools';
 		
 		return $result;
 	}
@@ -410,6 +411,14 @@ class ExportableValues {
 						break;
 				}
 				break;
+			default:
+				if (stripos($exportable_value, 'csv_exporter_group_tool_') === false) {
+					break;
+				}
+				
+				$group_tool = str_ireplace('csv_exporter_group_tool_', '', $exportable_value);
+				return (int) csv_exporter_is_group_tool_enabled($entity, $group_tool);
+				break;
 		}
 	}
 	
@@ -446,6 +455,42 @@ class ExportableValues {
 			}
 			
 			$return_value[$column_id] = $new_label;
+		}
+		
+		return $return_value;
+	}
+	
+	/**
+	 * Change the columns when selecting group tools
+	 *
+	 * @param string $hook         the name of the hook
+	 * @param string $type         the type of the hook
+	 * @param mixed  $return_value the current return value
+	 * @param array  $params       supplied params
+	 *
+	 * @return void|mixed
+	 */
+	public static function exportableColumnGroupTools($hook, $type, $return_value, $params) {
+		
+		$type = elgg_extract('type', $params);
+		if ($type !== 'group' || !array_key_exists('csv_exporter_group_tools', $return_value)) {
+			return;
+		}
+		
+		// remove 'display' column
+		unset($return_value['csv_exporter_group_tools']);
+		
+		// get available tools
+		$tool_options = elgg_get_config('group_tool_options');
+		if (is_callable('groups_get_group_tool_options')) {
+			$tool_options = groups_get_group_tool_options();
+		}
+		
+		foreach ($tool_options as $tool_config) {
+			$tool_id = $tool_config->name;
+			$label = elgg_echo('csv_exporter:exportable_value:group:tool', [$tool_id]);
+			
+			$return_value["csv_exporter_group_tool_{$tool_id}"] = $label;
 		}
 		
 		return $return_value;

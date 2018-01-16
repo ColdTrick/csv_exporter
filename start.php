@@ -24,6 +24,8 @@ function csv_exporter_init() {
 	elgg_register_plugin_hook_handler('export_value', 'csv_exporter', '\ColdTrick\CSVExporter\ExportableValues::exportObjectValue');
 	elgg_register_plugin_hook_handler('export_value', 'csv_exporter', '\ColdTrick\CSVExporter\ExportableValues::exportUserValue');
 	elgg_register_plugin_hook_handler('export_value', 'csv_exporter', '\ColdTrick\CSVExporter\ExportableValues::exportGroupValue');
+	
+	elgg_register_plugin_hook_handler('prepare:exportable_columns', 'csv_exporter', '\ColdTrick\CSVExporter\ExportableValues::exportableColumnGroupTools');
 	elgg_register_plugin_hook_handler('prepare:exportable_columns', 'csv_exporter', '\ColdTrick\CSVExporter\ExportableValues::exportableColumnLabels', 9999);
 	
 	elgg_register_plugin_hook_handler('register', 'menu:page', '\ColdTrick\CSVExporter\PageMenu::adminMenu');

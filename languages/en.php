@@ -57,6 +57,8 @@ return array(
 	'csv_exporter:exportable_value:group:member_count' => "Member count",
 	'csv_exporter:exportable_value:group:last_activity' => "Last activity",
 	'csv_exporter:exportable_value:group:last_activity_readable' => "Last activity (readable)",
+	'csv_exporter:exportable_value:group:tools' => "Tools",
+	'csv_exporter:exportable_value:group:tool' => "Tool: %s",
 	
 	'csv_exporter:admin:type_subtype' => "What do you wish to export",
 	'csv_exporter:admin:type_subtype:choose' => "Please choose from the list",
