@@ -1,6 +1,12 @@
 Version history
 ===============
 
+4.3 (2018-01-25):
+
+- added: hook to change exported columns
+- added: option to export group content statistics
+- added: option to export group tools per group
+
 4.2 (2017-12-14):
 
 - added: option to export number of followers/following for users
