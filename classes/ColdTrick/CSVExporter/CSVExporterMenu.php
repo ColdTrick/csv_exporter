@@ -7,18 +7,17 @@ class CSVExporterMenu {
 	/**
 	 * Add menu items to the csv_exporter menu
 	 *
-	 * @param string          $hook         the name of the hook
-	 * @param string          $type         the type of the hook
-	 * @param \ElggMenuItem[] $return_value current return value
-	 * @param array           $params       supplied params
+	 * @param \Elgg\Hook $hook 'register', 'menu:csv_exporter'
 	 *
 	 * @return void|\ElggMenuItem[]
 	 */
-	public static function register($hook, $type, $return_value, $params) {
+	public static function register(\Elgg\Hook $hook) {
 		
 		if (!elgg_is_admin_logged_in()) {
 			return;
 		}
+		
+		$return_value = $hook->getValue();
 		
 		$return_value[] = \ElggMenuItem::factory([
 			'name' => 'configure',

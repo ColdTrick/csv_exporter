@@ -7,22 +7,17 @@ class PageMenu {
 	/**
 	 * Add a menu item in the admin sidebar
 	 *
-	 * @param string          $hook         the name of the hook
-	 * @param string          $type         the type of the hook
-	 * @param \ElggMenuItem[] $return_value current return value
-	 * @param array           $params       supplied params
+	 * @param \Elgg\Hook $hook 'register', 'menu:page'
 	 *
 	 * @return void|\ElggMenuItem[]
 	 */
-	public static function adminMenu($hook, $type, $return_value, $params) {
+	public static function adminMenu(\Elgg\Hook $hook) {
 		
-		if (!elgg_is_admin_logged_in()) {
+		if (!elgg_is_admin_logged_in() || !elgg_in_context('admin')) {
 			return;
 		}
 		
-		if (!elgg_in_context('admin')) {
-			return;
-		}
+		$return_value = $hook->getValue();
 		
 		$return_value[] = \ElggMenuItem::factory([
 			'name' => 'csv_exporter',

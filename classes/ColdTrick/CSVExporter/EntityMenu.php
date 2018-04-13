@@ -7,19 +7,18 @@ class EntityMenu {
 	/**
 	 * Change items in the CSVExport entity menu
 	 *
-	 * @param string          $hook
-	 * @param string          $type
-	 * @param \ElggMenuItem[] $return_value
-	 * @param array           $params
+	 * @param \Elgg\Hook $hook 'register', 'menu:entity'
 	 *
 	 * @return void|\ElggMenuItem[]
 	 */
-	public static function csvExport($hook, $type, $return_value, $params) {
+	public static function csvExport(\Elgg\Hook $hook) {
 		
-		$entity = elgg_extract('entity', $params);
-		if (!($entity instanceof \CSVExport)) {
+		$entity = $hook->getEntityParam();
+		if (!$entity instanceof \CSVExport) {
 			return;
 		}
+		
+		$return_value = $hook->getValue();
 		
 		$remove_items = [
 			'edit',
@@ -37,9 +36,9 @@ class EntityMenu {
 		if ($entity->isCompleted() && ($download_url = $entity->getDownloadURL())) {
 			$return_value[] = \ElggMenuItem::factory([
 				'name' => 'download',
-				'text' => elgg_view_icon('download'),
-				'title' => elgg_echo('download'),
+				'text' => elgg_echo('download'),
 				'href' => $download_url,
+				'icon' => 'download',
 				'priority' => 100,
 			]);
 		}
