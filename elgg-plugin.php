@@ -9,9 +9,12 @@ return [
 	'entities' => [
 		[
 			'type' => 'object',
-			'subtype' => CSVExport::SUBTYPE,
+			'subtype' => 'csv_export',
 			'class' => CSVExport::class,
 		],
+	],
+	'settings' => [
+		'separator' => ';',
 	],
 	'actions' => [
 		'csv_exporter/edit' => [
