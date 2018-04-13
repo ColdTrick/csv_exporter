@@ -6,23 +6,32 @@ if (!$entity instanceof CSVExport) {
 }
 
 // prepare some content
-$content = '';
+$imprint = [];
 if ($entity->isProcessing()) {
 	$processing_since = elgg_view_friendly_time($entity->started);
-	$content .= elgg_echo('csv_exporter:object:csv_export:processing', [$processing_since]);
+	$imprint[] = [
+		'icon_name' => 'sync',
+		'content' => elgg_echo('csv_exporter:object:csv_export:processing', [$processing_since]),
+	];
 } elseif ($entity->isScheduled()) {
-	$scheduled_since = elgg_view_friendly_time($entity->scheduled);
-	$content .= elgg_echo('csv_exporter:object:csv_export:scheduled', [$scheduled_since]);
+	$imprint[] = [
+		'icon_name' => 'clock-o',
+		'content' => elgg_echo('csv_exporter:object:csv_export:scheduled'),
+	];
 } elseif ($entity->isCompleted()) {
 	$completed_since = elgg_view_friendly_time($entity->completed);
-	$content .= elgg_echo('csv_exporter:object:csv_export:completed', [$completed_since]);
+	$imprint[] = [
+		'icon_name' => 'flag-checkered',
+		'content' => elgg_echo('csv_exporter:object:csv_export:completed', [$completed_since]),
+	];
 }
 
 // listing view
 $params = [
 	'entity' => $entity,
 	'title' => $entity->getDisplayName(),
-	'content' => $content,
+	'imprint' => $imprint,
+	'access' => false,
 ];
 $params = $params + $vars;
 echo elgg_view('object/elements/summary', $params);

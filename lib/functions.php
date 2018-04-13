@@ -23,7 +23,7 @@ function csv_exporter_get_exportable_values($type, $subtype = '', $readable = fa
 		return $result;
 	}
 	
-	$class = get_subtype_class($type, $subtype);
+	$class = elgg_get_entity_class($type, $subtype);
 	if (!empty($class)) {
 		$dummy = new $class();
 	} else {
@@ -207,4 +207,49 @@ function csv_exporter_is_group_tool_enabled(ElggGroup $group, $tool) {
 	}
 	
 	return false;
+}
+
+/**
+ * Get form vars for CSV export
+ *
+ * @param CSVExport $entity entity to edit
+ *
+ * @return array
+ */
+function csv_exporter_prepare_edit_form_vars(CSVExport $entity = null) {
+	
+	$result = [
+		'type_subtype' => null,
+		'time' => null,
+		'created_time_lower' => null,
+		'created_time_upper' => null,
+		'title' => null,
+		'exportable_values' => [],
+	];
+	
+	// edit of an export
+	if ($entity instanceof CSVExport) {
+		foreach ($result as $name => $default_value) {
+			$result[$name] = $entity->getFormData($name);
+		}
+		
+		$result['entity'] = $entity;
+	}
+	
+	// preview
+	foreach ($result as $name => $default_value) {
+		$result[$name] = get_input($name, $default_value);
+	}
+	
+	// sticky form vars
+	$stick_vars = elgg_get_sticky_values('csv_exporter');
+	if (!empty($stick_vars)) {
+		foreach ($stick_vars as $name => $value) {
+			$result[$name] = $value;
+		}
+		
+		elgg_clear_sticky_form('csv_exporter');
+	}
+	
+	return $result;
 }

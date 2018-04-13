@@ -40,6 +40,7 @@ class EntityMenu {
 				'href' => $download_url,
 				'icon' => 'download',
 				'priority' => 100,
+				'section' => 'alt',
 			]);
 		}
 		

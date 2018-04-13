@@ -6,20 +6,20 @@ define(['jquery', 'elgg'], function($, elgg) {
 	elgg.csv_exporter.admin.init = function() {
 	
 		$(document).on('change', '#csv-exporter-type-subtype', function() {
-			$(this).parents('form').submit();
+			$(this).closest('form').submit();
 		});
 		
 		$(document).on('change', '#csv-exporter-time', function() {
 			
 			if ($(this).val() === 'range') {
-				$('#csv-exporter-range').show();
+				$('#csv-exporter-range').closest('.elgg-field').show();
 			} else {
-				$('#csv-exporter-range').hide();
+				$('#csv-exporter-range').closest('.elgg-field').hide();
 			}
 		});
 		
 		$(document).on('click', '#csv-exporter-schedule', function() {
-			var $form = $(this).parents('form');
+			var $form = $(this).closest('form');
 	
 			var old_action = $form.attr('action');
 			$form.attr('action', elgg.normalize_url('action/csv_exporter/edit'));

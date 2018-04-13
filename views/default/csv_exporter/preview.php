@@ -7,28 +7,19 @@
  * @uses $vars['exportable_values'] the values to export
  */
 
-// make a temp sticky form for easy reuse
-elgg_make_sticky_form('csv_exporter_preview');
-
 $type = elgg_extract('type', $vars);
 $subtype = elgg_extract('subtype', $vars);
 
 $exportable_values = elgg_extract('exportable_values', $vars);
-$form_fields = elgg_get_sticky_values('csv_exporter_preview');
 
 $column_config = csv_exporter_prepare_exportable_columns($exportable_values, $type, $subtype);
 
-$content = '<table class="elgg-table">';
-
-$content .= '<thead>';
-$content .= '<tr>';
+$header = [];
 foreach ($column_config as $label) {
-	$content .= '<th>' . $label . '</th>';
+	$header[] = elgg_format_element('th', [], $label);
 }
-$content .= '</tr>';
-$content .= '</thead>';
-
-$content .= '<tbody>';
+$header = elgg_format_element('tr', [], implode(PHP_EOL, $header));
+$table_content = elgg_format_element('thead', [], $header);
 
 // make selection options
 $limit = max(0, get_input('limit', 25));
@@ -38,17 +29,11 @@ $options = [
 	'subtype' => $subtype,
 	'limit' => $limit,
 	'offset' => $offset,
+	'batch' => true,
 ];
 
-// limit users to members of site
-if ($type == 'user') {
-	$options['relationship'] = 'member_of_site';
-	$options['relationship_guid'] = elgg_get_site_entity()->getGUID();
-	$options['inverse_relationship'] = true;
-}
-
 // add time constraints
-$time = elgg_extract('time', $form_fields);
+$time = elgg_extract('time', $vars);
 switch ($time) {
 	case 'today':
 		$options['created_time_lower'] = strtotime('today');
@@ -83,15 +68,19 @@ switch ($time) {
 		$options['created_time_upper'] = strtotime('first day of this month 00:00:00');
 		break;
 	case 'range':
-		$options['created_time_lower'] = elgg_extract('created_time_lower', $form_fields);
-		$options['created_time_upper'] = elgg_extract('created_time_upper', $form_fields);
+		$options['created_time_lower'] = elgg_extract('created_time_lower', $vars);
+		$options['created_time_upper'] = elgg_extract('created_time_upper', $vars);
 		break;
 }
 
 $exportable_values = array_keys($column_config);
 
-$entities = new ElggBatch('elgg_get_entities_from_relationship', $options);
+$rows = [];
+/* @var $entities ElggBatch */
+$entities = elgg_get_entities($options);
+/* @var $entity ElggEntity */
 foreach ($entities as $entity) {
+	$row = [];
 	
 	// params for hook
 	$params = [
@@ -99,8 +88,6 @@ foreach ($entities as $entity) {
 		'subtype' => $subtype,
 		'entity' => $entity,
 	];
-	
-	$content .= '<tr>';
 	
 	foreach ($exportable_values as $metadata_name) {
 		$params['exportable_value'] = $metadata_name;
@@ -113,15 +100,14 @@ foreach ($entities as $entity) {
 			$value = implode(', ', $value);
 		}
 		
-		$content .= '<td>' . $value . '</td>';
+		$row[] = elgg_format_element('td', [], $value);
 	}
 	
-	$content .= '</tr>';
-	
+	$rows[] = elgg_format_element('tr', [], implode(PHP_EOL, $row));
 }
+$table_content .= elgg_format_element('tbody', [], implode(PHP_EOL, $rows));
 
-$content .= '</tbody>';
-$content .= '</table>';
+$content = elgg_format_element('table', ['class' => 'elgg-table'], $table_content);
 
 $options['count'] = true;
 $content .= elgg_view('navigation/pagination', [
@@ -134,7 +120,4 @@ $content .= elgg_view('navigation/pagination', [
 	]),
 ]);
 
-echo elgg_view_module('inline', elgg_echo('csv_exporter:admin:preview:title'), $content, ['id' => 'preview']);
-
-// clear sticky form
-elgg_clear_sticky_form('csv_exporter_preview');
+echo elgg_view_module('info', elgg_echo('csv_exporter:admin:preview:title'), $content, ['id' => 'preview']);

@@ -26,9 +26,9 @@ class CSVExporterMenu {
 			'priority' => 100,
 		]);
 		$return_value[] = \ElggMenuItem::factory([
-			'name' => 'download',
-			'text' => elgg_echo('csv_exporter:menu:csv_exporter:download'),
-			'href' => 'admin/administer_utilities/csv_exporter/download',
+			'name' => 'downloads',
+			'text' => elgg_echo('csv_exporter:menu:csv_exporter:downloads'),
+			'href' => 'admin/administer_utilities/csv_exporter/downloads',
 			'priority' => 200,
 		]);
 		$return_value[] = \ElggMenuItem::factory([

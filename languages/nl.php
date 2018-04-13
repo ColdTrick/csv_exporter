@@ -24,7 +24,7 @@ return array (
   'csv_exporter:object:csv_export:title' => 'CSV export voor: %s',
   'csv_exporter:object:csv_export:title:custom' => 'CSV export voor: %s - %s',
   'csv_exporter:object:csv_export:processing' => 'Verwerking gestart: %s',
-  'csv_exporter:object:csv_export:scheduled' => 'Ingepland voor verwerking: %s',
+  'csv_exporter:object:csv_export:scheduled' => 'Ingepland voor verwerking',
   'csv_exporter:object:csv_export:completed' => 'Klaar voor download: %s',
   'csv_exporter:settings:retention' => 'Afgeronde exports automatisch opruimen na x dagen (optioneel)',
   'csv_exporter:settings:retention:description' => 'Als je veel exports maakt kan dit enige schijfruimte innemen. Hier kun je configureren na hoeveel dagen de afgeronde exports automatisch worden opgeruimd. Laat dit veld leeg (of 0) om de export niet op te ruimen',

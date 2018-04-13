@@ -4,17 +4,17 @@ return array(
 	
 	'item:object:csv_export' => "CSV Export configuration",
 	'admin:administer_utilities:csv_exporter' => "CSV Exporter",
-	'admin:administer_utilities:csv_exporter:download' => "Download CSV exports",
+	'admin:administer_utilities:csv_exporter:downloads' => "Download CSV exports",
 	'admin:administer_utilities:csv_exporter:scheduled' => "Scheduled CSV exports",
 	
 	'csv_exporter:menu:csv_exporter:configure' => "Configure",
-	'csv_exporter:menu:csv_exporter:download' => "Download",
+	'csv_exporter:menu:csv_exporter:downloads' => "Downloads",
 	'csv_exporter:menu:csv_exporter:scheduled' => "Scheduled",
 	
 	'csv_exporter:object:csv_export:title' => "CSV export for: %s",
 	'csv_exporter:object:csv_export:title:custom' => "CSV export for: %s - %s",
 	'csv_exporter:object:csv_export:processing' => "Processing started: %s",
-	'csv_exporter:object:csv_export:scheduled' => "Scheduled for processing: %s",
+	'csv_exporter:object:csv_export:scheduled' => "Scheduled for processing",
 	'csv_exporter:object:csv_export:completed' => "Ready for download: %s",
 	
 	'csv_exporter:settings:separator' => "The separator to use in the CSV file",
