@@ -117,7 +117,7 @@ if (!empty($type_subtype)) {
 	$form_body .= '</div>';
 	
 	$form_body .= '<div class="elgg-foot">';
-	$form_body .= '<div class="float-alt elgg-discover csv-exporter-align-right">';
+	$form_body .= '<div class="float-alt elgg-discover">';
 	$form_body .= elgg_view('input/button', [
 		'value' => elgg_echo('csv_exporter:admin:schedule'),
 		'class' => 'elgg-button-action',

@@ -1,6 +1,11 @@
 <?php
 
+use ColdTrick\CSVExporter\Bootstrap;
+
+require_once(dirname(__FILE__) . '/lib/functions.php');
+
 return [
+	'bootstrap' => Bootstrap::class,
 	'entities' => [
 		[
 			'type' => 'object',
