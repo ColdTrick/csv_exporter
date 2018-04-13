@@ -7,10 +7,10 @@ elgg_make_sticky_form('csv_exporter');
 
 $guid = (int) get_input('guid');
 if (!empty($guid)) {
-	elgg_entity_gatekeeper($guid, 'object', CSVExport::SUBTYPE);
-	
-	/* @var $entity CSVExport */
 	$entity = get_entity($guid);
+	if (!$entity instanceof CSVExport || !$entity->canEdit()) {
+		return elgg_error_response(elgg_echo('actionunauthorized'));
+	}
 } else {
 	$entity = new CSVExport();
 }
@@ -18,16 +18,14 @@ if (!empty($guid)) {
 $form_fields = elgg_get_sticky_values('csv_exporter');
 
 // save all the form data
-$entity->title = get_input('title');
+$entity->title = elgg_get_title_input();
 $entity->description = json_encode($form_fields);
 
 // schedule the export for processing
 $entity->scheduled = time();
 
-if ($entity->save()) {
-	system_message(elgg_echo('csv_exporter:action:edit:success'));
-} else {
-	register_error(elgg_echo('save:fail'));
+if (!$entity->save()) {
+	return elgg_error_response(elgg_echo('save:fail'));
 }
 
-forward(REFERER);
+return elgg_ok_response('', elgg_echo('csv_exporter:action:edit:success'));

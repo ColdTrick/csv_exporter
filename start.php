@@ -38,7 +38,4 @@ function csv_exporter_init() {
 	
 	// events
 	elgg_register_event_handler('upgrade', 'system', '\ColdTrick\CSVExporter\Upgrade::setClassHandler');
-	
-	// register actions
-	elgg_register_action('csv_exporter/edit', dirname(__FILE__) . '/actions/edit.php', 'admin');
 }

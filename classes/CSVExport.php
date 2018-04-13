@@ -181,14 +181,8 @@ class CSVExport extends ElggObject {
 			'type' => $type,
 			'subtype' => $subtype,
 			'limit' => false,
+			'batch' => true,
 		];
-		
-		// limit users to members of the site
-		if ($type == 'user') {
-			$entity_options['relationship'] = 'member_of_site';
-			$entity_options['relationship_guid'] = elgg_get_site_entity()->getGUID();
-			$entity_options['inverse_relationship'] = true;
-		}
 		
 		// add time constraints
 		$this->addTimeContraints($entity_options);
@@ -196,7 +190,8 @@ class CSVExport extends ElggObject {
 		// this could take a while
 		set_time_limit(0);
 		
-		$entities = new ElggBatch('elgg_get_entities_from_relationship', $entity_options);
+		/* @var $entities ElggBatch */
+		$entities = elgg_get_entities($entity_options);
 		/* @var $entity ElggEntity */
 		foreach ($entities as $entity) {
 			
@@ -260,7 +255,7 @@ class CSVExport extends ElggObject {
 	 */
 	protected function getFileObject() {
 		
-		if (!$this->getGUID()) {
+		if (!$this->guid) {
 			return false;
 		}
 		
@@ -271,9 +266,9 @@ class CSVExport extends ElggObject {
 		}
 		
 		$fh = new ElggFile();
-		$fh->owner_guid = $this->getGUID();
+		$fh->owner_guid = $this->guid;
 		
-		$fh->setFilename($filename . '.csv');
+		$fh->setFilename("{$filename}.csv");
 		
 		return $fh;
 	}
@@ -351,7 +346,7 @@ class CSVExport extends ElggObject {
 		
 		$subject = elgg_echo('csv_exporter:notify:complete:subject', [$title]);
 		$message = elgg_echo('csv_exporter:notify:complete:message', [
-			$owner->name,
+			$owner->getDisplayName(),
 			$title,
 			$admin_link,
 		]);
