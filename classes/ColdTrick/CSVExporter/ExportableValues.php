@@ -416,7 +416,7 @@ class ExportableValues {
 				if (stripos($exportable_value, 'csv_exporter_group_tool_') !== false) {
 					$group_tool = str_ireplace('csv_exporter_group_tool_', '', $exportable_value);
 					
-					return (int) csv_exporter_is_group_tool_enabled($entity, $group_tool);
+					return (int) $entity->isToolEnabled($group_tool);
 				} elseif (stripos($exportable_value, 'csv_exporter_group_content_stats_') !== false) {
 					$subtype = str_ireplace('csv_exporter_group_content_stats_', '', $exportable_value);
 					
