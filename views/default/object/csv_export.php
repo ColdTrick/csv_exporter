@@ -16,9 +16,6 @@ if (!elgg_in_context('widgets')) {
 	]);
 }
 
-// entity icon
-$entity_icon = elgg_view_entity_icon($entity, 'small');
-
 // prepare some content
 $content = '';
 if ($entity->isProcessing()) {
@@ -43,4 +40,4 @@ $params = [
 $params = $params + $vars;
 $list_body = elgg_view('object/elements/summary', $params);
 
-echo elgg_view_image_block($entity_icon, $list_body);
+echo elgg_view_image_block('', $list_body);
