@@ -9,7 +9,8 @@ return array(
 	'csv_exporter:menu:group_profile' => "Group CSV Exports",
 	
 	'csv_exporter:menu:csv_exporter:configure' => "Configure",
-	'csv_exporter:menu:csv_exporter:download' => "Download",
+	'csv_exporter:menu:csv_exporter:download' => "My downloads",
+	'csv_exporter:menu:csv_exporter:download:all' => "All downloads",
 	'csv_exporter:menu:csv_exporter:scheduled' => "Scheduled",
 	
 	'csv_exporter:object:csv_export:title' => "CSV export for: %s",

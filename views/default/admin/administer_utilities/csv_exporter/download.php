@@ -6,7 +6,7 @@ echo elgg_view_menu('csv_exporter', [
 	'sort_by' => 'priority',
 ]);
 
-echo elgg_list_entities_from_metadata([
+$options = [
 	'type' => 'object',
 	'subtype' => CSVExport::SUBTYPE,
 	'metadata_name' => 'completed',
@@ -16,4 +16,10 @@ echo elgg_list_entities_from_metadata([
 		'as' => 'integer',
 	],
 	'no_results' => elgg_echo('csv_exporter:download:none'),
-]);
+];
+
+if (get_input('filter') !== 'all') {
+	$options['container_guid'] = elgg_get_logged_in_user_guid();
+}
+
+echo elgg_list_entities_from_metadata($options);

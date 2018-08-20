@@ -33,6 +33,12 @@ class CSVExporterMenu {
 			'priority' => 200,
 		]);
 		$return_value[] = \ElggMenuItem::factory([
+			'name' => 'download_all',
+			'text' => elgg_echo('csv_exporter:menu:csv_exporter:download:all'),
+			'href' => 'admin/administer_utilities/csv_exporter/download?filter=all',
+			'priority' => 250,
+		]);
+		$return_value[] = \ElggMenuItem::factory([
 			'name' => 'scheduled',
 			'text' => elgg_echo('csv_exporter:menu:csv_exporter:scheduled'),
 			'href' => 'admin/administer_utilities/csv_exporter/scheduled',
