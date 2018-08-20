@@ -110,17 +110,16 @@ function csv_exporter_get_exportable_group_values($type = 'object', $subtype = '
 		'csv_exporter_time_updated_readable',
 	];
 	
-	$result = array_intersect($default_allowed, $available);
-	var_dump($result);
+	$defaults = array_intersect($default_allowed, $available);
+	
 	$params = [
 		'type' => $type,
 		'subtype' => $subtype,
-		'readable' => $readable,
-		'defaults' => $default_allowed,
+		'defaults' => $defaults,
 		'available' => $available,
 	];
 	
-	$result = elgg_trigger_plugin_hook('get_exportable_values:group', 'csv_exporter', $params, $result);
+	$result = elgg_trigger_plugin_hook('get_exportable_values:group', 'csv_exporter', $params, $defaults);
 	
 	if (is_array($result)) {
 		// prevent duplications
