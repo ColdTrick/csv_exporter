@@ -1,10 +1,17 @@
 <?php
 /**
- * This file was created by Translation Editor v6.0
- * On 2018-01-16 15:31
+ * This file was created by Translation Editor v6.1
+ * On 2018-08-20 14:35
  */
 
 return array (
+  'csv_exporter:menu:group_profile' => 'Groep CSV Exports',
+  'csv_exporter:settings:group:title' => 'Groepsinstellingen',
+  'csv_exporter:settings:group:subtypes' => 'Groepsbeheerders mogen basis gegevens exporteren van de volgende content',
+  'csv_exporter:group:title' => 'CSV Export voor: %s',
+  'csv_exporter:forms:group:description' => 'Hieronder kun je een content type selecteren om te exporteren.
+Er zal een export worden ingepland en je ontvangt een notificatie zodra de export gereed is om te downloaden.',
+  'csv_exporter:forms:group:subtype' => 'Welk content type wil je exporteren',
   'csv_exporter:exportable_value:group:tools' => 'Tools',
   'csv_exporter:exportable_value:group:tool' => 'Tool: %s',
   'csv_exporter:exportable_value:group:content_stats' => 'Content statistieken',
