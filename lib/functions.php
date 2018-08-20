@@ -98,7 +98,7 @@ function csv_exporter_get_exportable_group_values($type = 'object', $subtype = '
 		return [];
 	}
 	
-	$available = csv_exporter_get_exportable_values($type, $subtype, true);
+	$available = csv_exporter_get_exportable_values($type, $subtype);
 	
 	$default_allowed = [
 		'title',
@@ -122,8 +122,12 @@ function csv_exporter_get_exportable_group_values($type = 'object', $subtype = '
 	$result = elgg_trigger_plugin_hook('get_exportable_values:group', 'csv_exporter', $params, $defaults);
 	
 	if (is_array($result)) {
+		// must be available
+		$result = array_intersect($result, $available);
 		// prevent duplications
 		$result = array_unique($result);
+		// only values matter
+		$result = array_values($result);
 	}
 	
 	return $result;
