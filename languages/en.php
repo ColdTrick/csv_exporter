@@ -24,6 +24,8 @@ return array(
 	
 	'csv_exporter:settings:group:title' => "Group admin settings",
 	'csv_exporter:settings:group:subtypes' => "Allow group admins to export basic information about the following content",
+	'csv_exporter:settings:group:subtypes:help' => "Group admins don't get to choose which columns to export, but get a predefined set of columns.
+Plugins can extend this list of columns",
 	
 	'csv_exporter:exportable_value:guid' => "GUID",
 	'csv_exporter:exportable_value:type' => "Type",

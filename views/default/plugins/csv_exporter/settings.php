@@ -36,6 +36,7 @@ if (!empty($objects)) {
 	$content = elgg_view_field([
 		'#type' => 'checkboxes',
 		'#label' => elgg_echo('csv_exporter:settings:group:subtypes'),
+		'#help' => elgg_echo('csv_exporter:settings:group:subtypes:help'),
 		'name' => 'params[allowed_group_subtypes]',
 		'options' => $options_values,
 		'value' => $plugin->allowed_group_subtypes ? json_decode($plugin->allowed_group_subtypes, true) : null,

@@ -8,6 +8,8 @@ return array (
   'csv_exporter:menu:group_profile' => 'Groep CSV Exports',
   'csv_exporter:settings:group:title' => 'Groepsinstellingen',
   'csv_exporter:settings:group:subtypes' => 'Groepsbeheerders mogen basis gegevens exporteren van de volgende content',
+  'csv_exporter:settings:group:subtypes:help' => 'Groepsbeheerders hebben niet de mogelijkheid om de kolommen te configureren welke worden geëxporteerd.
+Er wordt een standaard lijst geëxporteerd, plugins kunnen deze lijst uitbreiden.',
   'csv_exporter:group:title' => 'CSV Export voor: %s',
   'csv_exporter:forms:group:description' => 'Hieronder kun je een content type selecteren om te exporteren.
 Er zal een export worden ingepland en je ontvangt een notificatie zodra de export gereed is om te downloaden.',
