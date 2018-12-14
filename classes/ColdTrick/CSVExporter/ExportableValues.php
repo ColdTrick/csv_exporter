@@ -402,10 +402,10 @@ class ExportableValues {
 				
 				switch ($entity->access_id) {
 					case ACCESS_PUBLIC:
-						return elgg_echo('PUBLIC');
+						return elgg_echo('access:label:public');
 						break;
 					case ACCESS_LOGGED_IN:
-						return elgg_echo('LOGGED_IN');
+						return elgg_echo('access:label:logged_in');
 						break;
 					default:
 						return elgg_echo('groups:access:group');
