@@ -1,10 +1,12 @@
 <?php
 /**
- * This file was created by Translation Editor v6.0
- * On 2018-01-16 15:31
+ * This file was created by Translation Editor v7.0-beta
+ * On 2018-12-14 14:56
  */
 
 return array (
+  'admin:administer_utilities:csv_exporter:downloads' => 'Download CSV exports',
+  'csv_exporter:menu:csv_exporter:downloads' => 'Downloads',
   'csv_exporter:exportable_value:group:tools' => 'Tools',
   'csv_exporter:exportable_value:group:tool' => 'Tool: %s',
   'csv_exporter:exportable_value:group:content_stats' => 'Content statistieken',
@@ -16,10 +18,8 @@ return array (
   'item:object:csv_export' => 'CSV Export configuratie',
   'csv_exporter:exportable_value:user:groups_owned_name' => 'Eigenaar van groep naam',
   'csv_exporter:exportable_value:user:groups_owned_url' => 'Eigenaar van groep url',
-  'admin:administer_utilities:csv_exporter:download' => 'CSV exports downloaden',
   'admin:administer_utilities:csv_exporter:scheduled' => 'Ingeplande CSV exports',
   'csv_exporter:menu:csv_exporter:configure' => 'Configureer',
-  'csv_exporter:menu:csv_exporter:download' => 'Download',
   'csv_exporter:menu:csv_exporter:scheduled' => 'Ingepland',
   'csv_exporter:object:csv_export:title' => 'CSV export voor: %s',
   'csv_exporter:object:csv_export:title:custom' => 'CSV export voor: %s - %s',
@@ -64,7 +64,6 @@ Je kunt je export vinden in het overzicht:
   'csv_exporter:exportable_value:time_updated' => 'Datum aangepast',
   'csv_exporter:exportable_value:container_guid' => 'Container GUID',
   'csv_exporter:exportable_value:owner_guid' => 'Eigenaar GUID',
-  'csv_exporter:exportable_value:site_guid' => 'Site GUID',
   'csv_exporter:exportable_value:language' => 'Taal',
   'csv_exporter:exportable_value:owner_name' => 'Eigenaar naam',
   'csv_exporter:exportable_value:owner_username' => 'Eigenaar gebruikersnaam',

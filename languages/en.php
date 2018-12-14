@@ -28,7 +28,6 @@ return array(
 	'csv_exporter:exportable_value:time_updated' => "Time updated",
 	'csv_exporter:exportable_value:container_guid' => "Container GUID",
 	'csv_exporter:exportable_value:owner_guid' => "Owner GUID",
-	'csv_exporter:exportable_value:site_guid' => "Site GUID",
 	'csv_exporter:exportable_value:language' => "Language",
 	'csv_exporter:exportable_value:owner_name' => "Owner name",
 	'csv_exporter:exportable_value:owner_username' => "Owner username",
