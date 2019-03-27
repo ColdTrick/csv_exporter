@@ -4,6 +4,7 @@ return array(
 	
 	'item:object:csv_export' => "CSV Export configuration",
 	'admin:administer_utilities:csv_exporter' => "CSV Exporter",
+	'admin:administer_utilities:csv_exporter:download' => "All CSV exports",
 	'admin:administer_utilities:csv_exporter:downloads' => "Download CSV exports",
 	'admin:administer_utilities:csv_exporter:scheduled' => "Scheduled CSV exports",
 	'csv_exporter:menu:group_profile' => "Group CSV Exports",

@@ -5,6 +5,7 @@
  */
 
 return array (
+  'admin:administer_utilities:csv_exporter:download' => 'Alle CSV exports',
   'admin:administer_utilities:csv_exporter:downloads' => 'Download CSV exports',
   'csv_exporter:menu:csv_exporter:downloads' => 'Downloads',
   'csv_exporter:menu:group_profile' => 'Groep CSV Exports',
