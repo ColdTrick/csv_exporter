@@ -33,6 +33,7 @@ $params = [
 	'imprint' => $imprint,
 	'access' => false,
 	'icon' => false,
+	'content' => false,
 ];
 $params = $params + $vars;
 
