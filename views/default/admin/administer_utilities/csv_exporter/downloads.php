@@ -6,7 +6,7 @@ echo elgg_view_menu('csv_exporter', [
 	'sort_by' => 'priority',
 ]);
 
-echo elgg_list_entities_from_metadata([
+echo elgg_list_entities([
 	'type' => 'object',
 	'subtype' => CSVExport::SUBTYPE,
 	'metadata_name' => 'completed',
