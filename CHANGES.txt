@@ -1,6 +1,16 @@
 Version history
 ===============
 
+5.0 (2019-03-27):
+
+- changed: increased Elgg version requirement to 3.0
+- changed: moved class and action registration to elgg-plugin.php
+- changed: moved start.php to bootstrap class
+- changed: reworked object view
+- changed: rewrite for Elgg 3.0
+- fixed: don't show summary content
+- fixed: use correct language keys for access labels
+
 4.4 (2018-09-07):
 
 - added: admin filter for downloads 
