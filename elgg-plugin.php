@@ -1,6 +1,7 @@
 <?php
 
 use ColdTrick\CSVExporter\Bootstrap;
+use Elgg\Router\Middleware\Gatekeeper;
 
 require_once(dirname(__FILE__) . '/lib/functions.php');
 
@@ -13,6 +14,18 @@ return [
 			'class' => CSVExport::class,
 		],
 	],
+	'routes' => [
+		'collection:object:csv_export:group' => [
+			'path' => '/csv_exporter/group/{guid}/{filter?}',
+			'defaults' => [
+				'filter' => 'configure',
+			],
+			'middleware' => [
+				Gatekeeper::class,
+			],
+			'resource' => 'csv_exporter/group',
+		],
+	],
 	'settings' => [
 		'separator' => ';',
 	],
@@ -20,5 +33,6 @@ return [
 		'csv_exporter/edit' => [
 			'access' => 'admin',
 		],
+		'csv_exporter/group' => [],
 	],
 ];

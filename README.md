@@ -32,7 +32,7 @@ This hook get the following params:
 
 - __type__: the type of the entity to supply the values for
 - __subtype__: the subtype of the entity to supply the values for
-- __readable__: true|false, if __true__ the result must be an associative array in the format array(label => value), 
+- __readable__: true|false, if __true__ the result must be an associative array in the format `array(label => value)`, 
 this is used to display the checkboxes to the user.  
 If __false__ just return the value as part of an array (eg array(value)).
 
@@ -48,3 +48,16 @@ This hook get the following params:
 - __exportable_value__: the value to export
 
 If you return anything other than __null__ this value will be used, otherwise the system will try to get the __exportable_value__ as a metadata field.
+
+In order to allow group admins to export basic information add the configuration with the following plugin hook:  
+
+`elgg_register_plugin_hook_handler("get_exportable_values:group", "csv_exporter", "your function");` 
+ 
+This hook get the following params:
+
+- __type__: the type of the entity to supply the values for
+- __subtype__: the subtype of the entity to supply the values for
+
+Return an array with `[value]` where:
+
+- __value__: the same name as in the `get_exportable_values`, `csv_exporter` hook

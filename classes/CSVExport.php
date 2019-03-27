@@ -184,6 +184,11 @@ class CSVExport extends ElggObject {
 			'batch' => true,
 		];
 		
+		// limit to group content?
+		if ($this->getContainerEntity() instanceof ElggGroup) {
+			$entity_options['container_guid'] = $this->container_guid;
+		}
+		
 		// add time constraints
 		$this->addTimeContraints($entity_options);
 		
@@ -341,14 +346,23 @@ class CSVExport extends ElggObject {
 		$this->completed = time();
 		
 		$title = $this->getDisplayName();
-		$admin_link = elgg_normalize_url('admin/administer_utilities/csv_exporter/download');
+		if ($this->getContainerEntity() instanceof ElggGroup) {
+			// group export
+			$download_link = elgg_generate_url('collection:object:csv_export:group', [
+				'guid' => $this->container_guid,
+				'filter' => 'download',
+			]);
+		} else {
+			// admin export
+			$download_link = elgg_normalize_url('admin/administer_utilities/csv_exporter/download');
+		}
 		$owner = $this->getOwnerEntity();
 		
 		$subject = elgg_echo('csv_exporter:notify:complete:subject', [$title]);
 		$message = elgg_echo('csv_exporter:notify:complete:message', [
 			$owner->getDisplayName(),
 			$title,
-			$admin_link,
+			$download_link,
 		]);
 		
 		$params = [

@@ -1,6 +1,11 @@
 Version history
 ===============
 
+4.4 (2018-09-07):
+
+- added: admin filter for downloads 
+- added: option to allow group admins to export content
+
 4.3 (2018-01-25):
 
 - added: hook to change exported columns

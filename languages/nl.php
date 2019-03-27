@@ -7,6 +7,15 @@
 return array (
   'admin:administer_utilities:csv_exporter:downloads' => 'Download CSV exports',
   'csv_exporter:menu:csv_exporter:downloads' => 'Downloads',
+  'csv_exporter:menu:group_profile' => 'Groep CSV Exports',
+  'csv_exporter:settings:group:title' => 'Groepsinstellingen',
+  'csv_exporter:settings:group:subtypes' => 'Groepsbeheerders mogen basis gegevens exporteren van de volgende content',
+  'csv_exporter:settings:group:subtypes:help' => 'Groepsbeheerders hebben niet de mogelijkheid om de kolommen te configureren welke worden geëxporteerd.
+Er wordt een standaard lijst geëxporteerd, plugins kunnen deze lijst uitbreiden.',
+  'csv_exporter:group:title' => 'CSV Export voor: %s',
+  'csv_exporter:forms:group:description' => 'Hieronder kun je een content type selecteren om te exporteren.
+Er zal een export worden ingepland en je ontvangt een notificatie zodra de export gereed is om te downloaden.',
+  'csv_exporter:forms:group:subtype' => 'Welk content type wil je exporteren',
   'csv_exporter:exportable_value:group:tools' => 'Tools',
   'csv_exporter:exportable_value:group:tool' => 'Tool: %s',
   'csv_exporter:exportable_value:group:content_stats' => 'Content statistieken',
@@ -20,6 +29,8 @@ return array (
   'csv_exporter:exportable_value:user:groups_owned_url' => 'Eigenaar van groep url',
   'admin:administer_utilities:csv_exporter:scheduled' => 'Ingeplande CSV exports',
   'csv_exporter:menu:csv_exporter:configure' => 'Configureer',
+  'csv_exporter:menu:csv_exporter:download' => 'Mijn downloads',
+  'csv_exporter:menu:csv_exporter:download:all' => 'Alle downloads',
   'csv_exporter:menu:csv_exporter:scheduled' => 'Ingepland',
   'csv_exporter:object:csv_export:title' => 'CSV export voor: %s',
   'csv_exporter:object:csv_export:title:custom' => 'CSV export voor: %s - %s',

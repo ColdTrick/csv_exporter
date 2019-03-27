@@ -32,6 +32,8 @@ $params = [
 	'title' => $entity->getDisplayName(),
 	'imprint' => $imprint,
 	'access' => false,
+	'icon' => false,
 ];
 $params = $params + $vars;
+
 echo elgg_view('object/elements/summary', $params);

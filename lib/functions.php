@@ -79,6 +79,61 @@ function csv_exporter_get_exportable_values($type, $subtype = '', $readable = fa
 }
 
 /**
+ * Get a list of all the exportable values for the given type/subtype
+ *
+ * @param string $type     the entity type
+ * @param string $subtype  the entity subtype
+ * @param bool   $readable readable values or just for processing (default: false)
+ *
+ * @return array
+ */
+function csv_exporter_get_exportable_group_values($type = 'object', $subtype = '') {
+	
+	if ($type !== 'object') {
+		// @todo support more?
+		return [];
+	}
+	
+	if($type === 'object' && empty($subtype)) {
+		return [];
+	}
+	
+	$available = csv_exporter_get_exportable_values($type, $subtype);
+	
+	$default_allowed = [
+		'title',
+		'description',
+		'csv_exporter_object_tags',
+		'csv_exporter_owner_name',
+		'csv_exporter_container_name',
+		'csv_exporter_time_created_readable',
+		'csv_exporter_time_updated_readable',
+	];
+	
+	$defaults = array_intersect($default_allowed, $available);
+	
+	$params = [
+		'type' => $type,
+		'subtype' => $subtype,
+		'defaults' => $defaults,
+		'available' => $available,
+	];
+	
+	$result = elgg_trigger_plugin_hook('get_exportable_values:group', 'csv_exporter', $params, $defaults);
+	
+	if (is_array($result)) {
+		// must be available
+		$result = array_intersect($result, $available);
+		// prevent duplications
+		$result = array_unique($result);
+		// only values matter
+		$result = array_values($result);
+	}
+	
+	return $result;
+}
+
+/**
  * Get the latest activity of this group based on the river
  *
  * @param ElggGroup $entity the group to check
@@ -209,6 +264,33 @@ function csv_exporter_prepare_edit_form_vars(CSVExport $entity = null) {
 		}
 		
 		elgg_clear_sticky_form('csv_exporter');
+	}
+	
+	return $result;
+}
+
+/**
+ * Get the allowed group subtypes to export
+ *
+ * @return false|string[]
+ */
+function csv_exporter_get_group_subtypes() {
+	static $result;
+	
+	if (isset($result)) {
+		return $result;
+	}
+	
+	$result = false;
+	
+	$setting = elgg_get_plugin_setting('allowed_group_subtypes', 'csv_exporter');
+	if (!empty($setting)) {
+		$result = json_decode($setting, true);
+		
+		$objects = get_registered_entity_types('object');
+		$result = array_intersect($result, $objects);
+		
+		$result = array_values($result);
 	}
 	
 	return $result;

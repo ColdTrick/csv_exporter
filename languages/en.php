@@ -6,9 +6,12 @@ return array(
 	'admin:administer_utilities:csv_exporter' => "CSV Exporter",
 	'admin:administer_utilities:csv_exporter:downloads' => "Download CSV exports",
 	'admin:administer_utilities:csv_exporter:scheduled' => "Scheduled CSV exports",
+	'csv_exporter:menu:group_profile' => "Group CSV Exports",
 	
 	'csv_exporter:menu:csv_exporter:configure' => "Configure",
 	'csv_exporter:menu:csv_exporter:downloads' => "Downloads",
+	'csv_exporter:menu:csv_exporter:download' => "My downloads",
+	'csv_exporter:menu:csv_exporter:download:all' => "All downloads",
 	'csv_exporter:menu:csv_exporter:scheduled' => "Scheduled",
 	
 	'csv_exporter:object:csv_export:title' => "CSV export for: %s",
@@ -20,6 +23,11 @@ return array(
 	'csv_exporter:settings:separator' => "The separator to use in the CSV file",
 	'csv_exporter:settings:retention' => "Cleanup finished exports after x days (optional)",
 	'csv_exporter:settings:retention:description' => "If you create many exports they can take up some diskspace. Here you can configure after how many days the finished exports will be removed automaticly. Leave it empty (or 0) to never cleanup any exports.",
+	
+	'csv_exporter:settings:group:title' => "Group admin settings",
+	'csv_exporter:settings:group:subtypes' => "Allow group admins to export basic information about the following content",
+	'csv_exporter:settings:group:subtypes:help' => "Group admins don't get to choose which columns to export, but get a predefined set of columns.
+Plugins can extend this list of columns",
 	
 	'csv_exporter:exportable_value:guid' => "GUID",
 	'csv_exporter:exportable_value:type' => "Type",
@@ -102,6 +110,12 @@ Your CSV export '%s' is ready for download.
 
 You can find it in the overview here:
 %s",
+	
+	// group config
+	'csv_exporter:group:title' => "CSV export for: %s",
+	'csv_exporter:forms:group:description' => "Below you can select a content type which you wish to export.
+An export will be scheduled and you'll be notified once the export is ready for download.",
+	'csv_exporter:forms:group:subtype' => "Which content type do you wish to export",
 	
 	// actions
 	// edit
