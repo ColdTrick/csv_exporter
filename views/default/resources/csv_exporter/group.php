@@ -20,7 +20,7 @@ elgg_push_breadcrumb($group->getDisplayName(), $group->getURL());
 $title = elgg_echo('csv_exporter:group:title', [$group->getDisplayName()]);
 
 $filter = elgg_view_menu('csv_exporter_group', [
-	'class' => 'elgg-menu-hz elgg-tabs',
+	'class' => 'elgg-tabs',
 	'sort_by' => 'priority',
 	'entity' => $group,
 	'selected' => $selected,

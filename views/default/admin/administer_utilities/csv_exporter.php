@@ -4,7 +4,7 @@ elgg_require_js('csv_exporter/admin');
 
 // add tab menu
 echo elgg_view_menu('csv_exporter', [
-	'class' => 'elgg-menu-hz elgg-tabs',
+	'class' => 'elgg-tabs',
 	'sort_by' => 'priority',
 ]);
 
