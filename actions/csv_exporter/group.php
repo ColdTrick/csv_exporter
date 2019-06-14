@@ -21,7 +21,9 @@ if (!in_array($subtype, $allowed_subtypes)) {
 
 $entity = new CSVExport();
 $entity->container_guid = $container->guid;
-$entity->access_id = $container->group_acl;
+
+$group_acl = $container->getOwnedAccessCollection('group_acl');
+$entity->access_id = ($group_acl instanceof ElggAccessCollection) ? $group_acl->id : ACCESS_PRIVATE;
 
 $entity->title = get_input('title');
 
