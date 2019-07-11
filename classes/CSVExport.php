@@ -354,7 +354,7 @@ class CSVExport extends ElggObject {
 			]);
 		} else {
 			// admin export
-			$download_link = elgg_normalize_url('admin/administer_utilities/csv_exporter/download');
+			$download_link = 'admin/administer_utilities/csv_exporter/download';
 		}
 		$owner = $this->getOwnerEntity();
 		
@@ -362,7 +362,7 @@ class CSVExport extends ElggObject {
 		$message = elgg_echo('csv_exporter:notify:complete:message', [
 			$owner->getDisplayName(),
 			$title,
-			$download_link,
+			elgg_normalize_url($download_link),
 		]);
 		
 		$params = [
