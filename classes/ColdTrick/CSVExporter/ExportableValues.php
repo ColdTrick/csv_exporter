@@ -7,21 +7,18 @@ class ExportableValues {
 	/**
 	 * Get the default exportable values
 	 *
-	 * @param string $hook         the name of the hook
-	 * @param string $type         the type of the hook
-	 * @param array  $return_value the current return value
-	 * @param array  $params       supplied params
+	 * @param \Elgg\Hook $hook 'get_exportable_values', 'csv_exporter'
 	 *
 	 * @return void|array
 	 */
-	public static function getExportableValues($hook, $type, $return_value, $params) {
+	public static function getExportableValues(\Elgg\Hook $hook) {
 		
-		$content_type = elgg_extract('type', $params);
+		$content_type = $hook->getParam('type');
 		if (empty($content_type)) {
 			return;
 		}
 		
-		$readable = (bool) elgg_extract('readable', $params, false);
+		$readable = (bool) $hook->getParam('readable', false);
 		
 		// default exportable values
 		$defaults = [
@@ -56,9 +53,11 @@ class ExportableValues {
 		// combine default and type fields
 		$fields = array_merge($defaults, $content_fields);
 		
-		$read_access_key = array_search('read_access', $return_value);
+		$return = $hook->getValue();
+		
+		$read_access_key = array_search('read_access', $return);
 		if ($read_access_key !== false) {
-			unset($return_value[$read_access_key]);
+			unset($return[$read_access_key]);
 		}
 		
 		// which version did we want
@@ -66,7 +65,7 @@ class ExportableValues {
 			$fields = array_values($fields);
 		}
 		
-		return array_merge($return_value, $fields);
+		return array_merge($return, $fields);
 	}
 	
 	/**
@@ -151,55 +150,48 @@ class ExportableValues {
 	/**
 	 * Export a single value for an entity
 	 *
-	 * @param string $hook         the name of the hook
-	 * @param string $type         the type of the hook
-	 * @param mixed  $return_value the current return value
-	 * @param array  $params       supplied params
+	 * @param \Elgg\Hook $hook 'export_value', 'csv_exporter'
 	 *
 	 * @return void|mixed
 	 */
-	public static function exportEntityValue($hook, $type, $return_value, $params) {
+	public static function exportEntityValue(\Elgg\Hook $hook) {
 		
-		if (!is_null($return_value)) {
+		if (!is_null($hook->getValue())) {
 			// someone already provided output
 			return;
 		}
 		
-		$entity = elgg_extract('entity', $params);
-		if (!($entity instanceof \ElggEntity)) {
+		$entity = $hook->getEntityParam();
+		if (!$entity instanceof \ElggEntity) {
 			return;
 		}
 		
-		$exportable_value = elgg_extract('exportable_value', $params);
+		$exportable_value = $hook->getParam('exportable_value');
 		
 		$owner = $entity->getOwnerEntity();
 		$container = $entity->getContainerEntity();
 		
-		if ((stristr($exportable_value, 'csv_exporter_owner_') !== false) && !($owner instanceof \ElggEntity)) {
+		if ((stristr($exportable_value, 'csv_exporter_owner_') !== false) && !$owner instanceof \ElggEntity) {
 			// trying to export owner information, but owner not available
 			return;
 		}
 		
-		if ((stristr($exportable_value, 'csv_exporter_container_') !== false) && !($container instanceof \ElggEntity)) {
+		if ((stristr($exportable_value, 'csv_exporter_container_') !== false) && !$container instanceof \ElggEntity) {
 			// trying to export container information, but container not available
 			return;
 		}
 		
 		switch ($exportable_value) {
 			case 'csv_exporter_owner_name';
-				if ($owner instanceof \ElggObject) {
-					return $owner->title;
-				} else {
-					return $owner->name;
-				}
-				break;
+				return $owner->getDisplayName();
+			
 			case 'csv_exporter_owner_username';
 				if ($owner instanceof \ElggUser) {
 					return $owner->username;
-				} else {
-					return $owner->getGUID();
 				}
-				break;
+				
+				return $owner->guid;
+			
 			case 'csv_exporter_owner_email';
 				$email = $owner->email;
 				if (is_email_address($email)) {
@@ -208,21 +200,17 @@ class ExportableValues {
 				break;
 			case 'csv_exporter_owner_url';
 				return $owner->getURL();
-				break;
+			
 			case 'csv_exporter_container_name';
-				if ($container instanceof \ElggObject) {
-					return $container->title;
-				} else {
-					return $container->name;
-				}
-				break;
+				return $container->getDisplayName();
+			
 			case 'csv_exporter_container_username';
 				if ($container instanceof \ElggUser) {
 					return $container->username;
-				} else {
-					return $container->getGUID();
 				}
-				break;
+				
+				return $container->guid;
+			
 			case 'csv_exporter_container_email';
 				$email = $container->email;
 				if (is_email_address($email)) {
@@ -231,49 +219,44 @@ class ExportableValues {
 				break;
 			case 'csv_exporter_container_url';
 				return $container->getURL();
-				break;
+			
 			case 'csv_exporter_time_created_readable';
 				return csv_exported_get_readable_timestamp($entity->time_created);
-				break;
+			
 			case 'csv_exporter_time_updated_readable';
 				return csv_exported_get_readable_timestamp($entity->time_updated);
-				break;
+			
 			case 'csv_exporter_url';
 				return $entity->getURL();
-				break;
+			
 			case 'csv_exporter_access_id_readable';
 				return get_readable_access_level($entity->access_id);
-				break;
 		}
 	}
 	
 	/**
 	 * Export a single value for an object
 	 *
-	 * @param string $hook         the name of the hook
-	 * @param string $type         the type of the hook
-	 * @param mixed  $return_value the current return value
-	 * @param array  $params       supplied params
+	 * @param \Elgg\Hook $hook 'export_value', 'csv_exporter'
 	 *
 	 * @return void|mixed
 	 */
-	public static function exportObjectValue($hook, $type, $return_value, $params) {
+	public static function exportObjectValue(\Elgg\Hook $hook) {
 		
-		if (!is_null($return_value)) {
+		if (!is_null($hook->getValue())) {
 			// someone already provided output
 			return;
 		}
 		
-		$entity = elgg_extract('entity', $params);
-		if (!($entity instanceof \ElggObject)) {
+		$entity = $hook->getEntityParam();
+		if (!$entity instanceof \ElggObject) {
 			return;
 		}
 		
-		$exportable_value = elgg_extract('exportable_value', $params);
-		
+		$exportable_value = $hook->getParam('exportable_value');
 		switch ($exportable_value) {
 			case 'csv_exporter_object_tags':
-				if ($entity->tags) {
+				if (!elgg_is_empty($entity->tags)) {
 					return (array) $entity->tags;
 				}
 				break;
@@ -283,68 +266,66 @@ class ExportableValues {
 	/**
 	 * Export a single value for a user
 	 *
-	 * @param string $hook         the name of the hook
-	 * @param string $type         the type of the hook
-	 * @param mixed  $return_value the current return value
-	 * @param array  $params       supplied params
+	 * @param \Elgg\Hook $hook 'export_value', 'csv_exporter'
 	 *
 	 * @return void|mixed
 	 */
-	public static function exportUserValue($hook, $type, $return_value, $params) {
+	public static function exportUserValue(\Elgg\Hook $hook) {
 		
-		if (!is_null($return_value)) {
+		if (!is_null($hook->getValue())) {
 			// someone already provided output
 			return;
 		}
 		
-		$entity = elgg_extract('entity', $params);
-		if (!($entity instanceof \ElggUser)) {
+		$entity = $hook->getEntityParam();
+		if (!$entity instanceof \ElggUser) {
 			return;
 		}
 		
 		$group_options = [
 			'type' => 'group',
 			'limit' => false,
-			'owner_guid' => $entity->getGUID(),
+			'owner_guid' => $entity->guid,
+			'batch' => true,
 		];
 		
-		$exportable_value = elgg_extract('exportable_value', $params);
+		$exportable_value = $hook->getParam('exportable_value');
 		switch ($exportable_value) {
 			case 'csv_exporter_user_last_action':
 				return (int) $entity->last_action;
-				break;
+			
 			case 'csv_exporter_user_last_action_readable':
 				return csv_exported_get_readable_timestamp($entity->last_action);
-				break;
+			
 			case 'csv_exporter_user_groups_owned_name':
 				$result = [];
 				
-				$batch = new \ElggBatch('elgg_get_entities', $group_options);
+				$batch = elgg_get_entities($group_options);
 				/* @var $group \ElggGroup */
 				foreach ($batch as $group) {
-					$result[] = "\"{$group->name}\"";
+					$result[] = "\"{$group->getDisplayName()}\"";
 				}
 				
 				return $result;
-				break;
+			
 			case 'csv_exporter_user_groups_owned_url':
 				$result = [];
 				
-				$batch = new \ElggBatch('elgg_get_entities', $group_options);
+				$batch = elgg_get_entities($group_options);
 				/* @var $group \ElggGroup */
 				foreach ($batch as $group) {
 					$result[] = $group->getURL();
 				}
 				
 				return $result;
-				break;
+			
 			case 'csv_exporter_user_friends':
 				return (int) $entity->getEntitiesFromRelationship([
 					'type' => 'user',
 					'relationship' => 'friend',
 					'count' => true,
 				]);
-				break;
+			
 			case 'csv_exporter_user_friends_of':
 				return (int) $entity->getEntitiesFromRelationship([
 					'type' => 'user',
@@ -352,66 +333,58 @@ class ExportableValues {
 					'inverse_relationship' => true,
 					'count' => true,
 				]);
-				break;
 		}
 	}
 	
 	/**
 	 * Export a single value for a group
 	 *
-	 * @param string $hook         the name of the hook
-	 * @param string $type         the type of the hook
-	 * @param mixed  $return_value the current return value
-	 * @param array  $params       supplied params
+	 * @param \Elgg\Hook $hook 'export_value', 'csv_exporter'
 	 *
 	 * @return void|mixed
 	 */
-	public static function exportGroupValue($hook, $type, $return_value, $params) {
+	public static function exportGroupValue(\Elgg\Hook $hook) {
 		
-		if (!is_null($return_value)) {
+		if (!is_null($hook->getValue())) {
 			// someone already provided output
 			return;
 		}
 		
-		$entity = elgg_extract('entity', $params);
-		if (!($entity instanceof \ElggGroup)) {
+		$entity = $hook->getEntityParam();
+		if (!$entity instanceof \ElggGroup) {
 			return;
 		}
 		
-		$exportable_value = elgg_extract('exportable_value', $params);
-		
+		$exportable_value = $hook->getParam('exportable_value');
 		switch ($exportable_value) {
 			case 'csv_exporter_group_member_count':
 				return $entity->getMembers(['count' => true]);
-				break;
+			
 			case 'csv_exporter_group_last_activity':
 				return csv_exporter_get_last_group_activity($entity);
-				break;
+			
 			case 'csv_exporter_group_last_activity_readable':
 				$ts = csv_exporter_get_last_group_activity($entity);
 				return csv_exported_get_readable_timestamp($ts);
-				break;
+			
 			case 'csv_exporter_group_membership':
 				if ($entity->isPublicMembership()) {
 					return elgg_echo('groups:open');
-				} else {
-					return elgg_echo('groups:closed');
 				}
-				break;
+				return elgg_echo('groups:closed');
+			
 			case 'csv_exporter_group_visibility':
 				
 				switch ($entity->access_id) {
 					case ACCESS_PUBLIC:
 						return elgg_echo('access:label:public');
-						break;
+			
 					case ACCESS_LOGGED_IN:
 						return elgg_echo('access:label:logged_in');
-						break;
-					default:
-						return elgg_echo('groups:access:group');
-						break;
 				}
-				break;
+				
+				return elgg_echo('groups:access:group');
+			
 			default:
 				if (stripos($exportable_value, 'csv_exporter_group_tool_') !== false) {
 					$group_tool = str_ireplace('csv_exporter_group_tool_', '', $exportable_value);
@@ -434,25 +407,23 @@ class ExportableValues {
 	/**
 	 * Change the label of the exported value
 	 *
-	 * @param string $hook         the name of the hook
-	 * @param string $type         the type of the hook
-	 * @param mixed  $return_value the current return value
-	 * @param array  $params       supplied params
+	 * @param \Elgg\Hook $hook 'prepare:exportable_columns', 'csv_exporter'
 	 *
 	 * @return void|mixed
 	 */
-	public static function exportableColumnLabels($hook, $type, $return_value, $params) {
+	public static function exportableColumnLabels(\Elgg\Hook $hook) {
 		
-		$type = elgg_extract('type', $params);
+		$type = $hook->getParam('type');
 		if (empty($type)) {
 			return;
 		}
 		
-		$subtype = elgg_extract('subtype', $params);
+		$subtype = $hook->getParam('subtype');
 		
 		$available_columns = csv_exporter_get_exportable_values($type, $subtype, true);
 		
-		foreach ($return_value as $column_id => $label) {
+		$return = $hook->getValue();
+		foreach ($return as $column_id => $label) {
 			if ($column_id !== $label) {
 				continue;
 			}
@@ -463,31 +434,29 @@ class ExportableValues {
 				continue;
 			}
 			
-			$return_value[$column_id] = $new_label;
+			$return[$column_id] = $new_label;
 		}
 		
-		return $return_value;
+		return $return;
 	}
 	
 	/**
 	 * Change the columns when selecting group tools
 	 *
-	 * @param string $hook         the name of the hook
-	 * @param string $type         the type of the hook
-	 * @param mixed  $return_value the current return value
-	 * @param array  $params       supplied params
+	 * @param \Elgg\Hook $hook 'prepare:exportable_columns', 'csv_exporter'
 	 *
 	 * @return void|mixed
 	 */
-	public static function exportableColumnGroupTools($hook, $type, $return_value, $params) {
+	public static function exportableColumnGroupTools(\Elgg\Hook $hook) {
 		
-		$type = elgg_extract('type', $params);
-		if ($type !== 'group' ||  !array_key_exists('csv_exporter_group_tools', $return_value)) {
+		$return = $hook->getValue();
+		$type = $hook->getParam('type');
+		if ($type !== 'group' ||  !array_key_exists('csv_exporter_group_tools', $return)) {
 			return;
 		}
 		
 		// remove 'display' column
-		unset($return_value['csv_exporter_group_tools']);
+		unset($return['csv_exporter_group_tools']);
 		
 		// get available tools
 		$tool_options = elgg_get_config('group_tool_options');
@@ -499,31 +468,29 @@ class ExportableValues {
 			$tool_id = $tool_config->name;
 			$label = elgg_echo('csv_exporter:exportable_value:group:tool', [$tool_id]);
 			
-			$return_value["csv_exporter_group_tool_{$tool_id}"] = $label;
+			$return["csv_exporter_group_tool_{$tool_id}"] = $label;
 		}
 		
-		return $return_value;
+		return $return;
 	}
 	
 	/**
 	 * Change the columns when selecting group content stats
 	 *
-	 * @param string $hook         the name of the hook
-	 * @param string $type         the type of the hook
-	 * @param mixed  $return_value the current return value
-	 * @param array  $params       supplied params
+	 * @param \Elgg\Hook $hook 'prepare:exportable_columns', 'csv_exporter'
 	 *
 	 * @return void|mixed
 	 */
-	public static function exportableColumnGroupContentStats($hook, $type, $return_value, $params) {
+	public static function exportableColumnGroupContentStats(\Elgg\Hook $hook) {
 		
-		$type = elgg_extract('type', $params);
-		if ($type !== 'group' || !array_key_exists('csv_exporter_group_content_stats', $return_value)) {
+		$return = $hook->getValue();
+		$type = $hook->getParam('type');
+		if ($type !== 'group' || !array_key_exists('csv_exporter_group_content_stats', $return)) {
 			return;
 		}
 		
 		// remove 'display' column
-		unset($return_value['csv_exporter_group_content_stats']);
+		unset($return['csv_exporter_group_content_stats']);
 		
 		// get available tools
 		$object_subtypes = get_registered_entity_types('object');
@@ -534,9 +501,9 @@ class ExportableValues {
 				$label = elgg_echo("item:object:{$subtype}");
 			}
 			
-			$return_value["csv_exporter_group_content_stats_{$subtype}"] = $label;
+			$return["csv_exporter_group_content_stats_{$subtype}"] = $label;
 		}
 		
-		return $return_value;
+		return $return;
 	}
 }
