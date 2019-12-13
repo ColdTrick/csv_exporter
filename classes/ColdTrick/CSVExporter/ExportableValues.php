@@ -35,6 +35,9 @@ class ExportableValues {
 			elgg_echo('csv_exporter:exportable_value:url') => 'csv_exporter_url',
 			elgg_echo('csv_exporter:exportable_value:access_id') => 'access_id',
 			elgg_echo('csv_exporter:exportable_value:access_id_readable') => 'csv_exporter_access_id_readable',
+			elgg_echo('csv_exporter:exportable_value:icontime') => 'icontime',
+			elgg_echo('csv_exporter:exportable_value:icontime_readable') => 'csv_exporter_icontime_readable',
+			elgg_echo('csv_exporter:exportable_value:icon_url:master') => 'csv_exporter_icon_url_master',
 		];
 		
 		$content_fields = [];
@@ -182,55 +185,68 @@ class ExportableValues {
 		}
 		
 		switch ($exportable_value) {
-			case 'csv_exporter_owner_name';
+			case 'csv_exporter_owner_name':
 				return $owner->getDisplayName();
 			
-			case 'csv_exporter_owner_username';
+			case 'csv_exporter_owner_username':
 				if ($owner instanceof \ElggUser) {
 					return $owner->username;
 				}
 				
 				return $owner->guid;
 			
-			case 'csv_exporter_owner_email';
+			case 'csv_exporter_owner_email':
 				$email = $owner->email;
 				if (is_email_address($email)) {
 					return $email;
 				}
 				break;
-			case 'csv_exporter_owner_url';
+			case 'csv_exporter_owner_url':
 				return $owner->getURL();
 			
-			case 'csv_exporter_container_name';
+			case 'csv_exporter_container_name':
 				return $container->getDisplayName();
 			
-			case 'csv_exporter_container_username';
+			case 'csv_exporter_container_username':
 				if ($container instanceof \ElggUser) {
 					return $container->username;
 				}
 				
 				return $container->guid;
 			
-			case 'csv_exporter_container_email';
+			case 'csv_exporter_container_email':
 				$email = $container->email;
 				if (is_email_address($email)) {
 					return $email;
 				}
 				break;
-			case 'csv_exporter_container_url';
+			case 'csv_exporter_container_url':
 				return $container->getURL();
 			
-			case 'csv_exporter_time_created_readable';
+			case 'csv_exporter_time_created_readable':
 				return csv_exported_get_readable_timestamp($entity->time_created);
 			
-			case 'csv_exporter_time_updated_readable';
+			case 'csv_exporter_time_updated_readable':
 				return csv_exported_get_readable_timestamp($entity->time_updated);
 			
-			case 'csv_exporter_url';
+			case 'csv_exporter_url':
 				return $entity->getURL();
 			
-			case 'csv_exporter_access_id_readable';
+			case 'csv_exporter_access_id_readable':
 				return get_readable_access_level($entity->access_id);
+			
+			case 'csv_exporter_icontime_readable':
+				if (!isset($entity->icontime)) {
+					return '';
+				}
+				return csv_exported_get_readable_timestamp($entity->icontime);
+			case 'csv_exporter_icon_url_master':
+				if (!$entity->hasIcon('master')) {
+					return '';
+				}
+				return $entity->getIconURL([
+					'size' => 'master',
+				]);
 		}
 	}
 	
