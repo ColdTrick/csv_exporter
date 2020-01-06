@@ -1,6 +1,10 @@
 Version history
 ===============
 
+5.1 (2020-01-06):
+
+- added: icontime and icon url to export
+
 5.0.4 (2019-08-22):
 
 - several small chores/fixes
