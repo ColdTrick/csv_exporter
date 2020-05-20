@@ -3,6 +3,7 @@
 return array(
 	
 	'item:object:csv_export' => "CSV Export configuration",
+	'collection:object:csv_export' => "CSV Export configurations",
 	'admin:administer_utilities:csv_exporter' => "CSV Exporter",
 	'admin:administer_utilities:csv_exporter:download' => "All CSV exports",
 	'admin:administer_utilities:csv_exporter:downloads' => "Download CSV exports",

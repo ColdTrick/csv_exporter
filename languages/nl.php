@@ -29,6 +29,7 @@ Er zal een export worden ingepland en je ontvangt een notificatie zodra de expor
   'csv_exporter:exportable_value:access_id_readable' => 'Toegang (leesbaar)',
   'csv_exporter:exportable_value:user:banned' => 'Geblokkeerd',
   'item:object:csv_export' => 'CSV Export configuratie',
+  'collection:object:csv_export' => 'CSV Export configuraties',
   'csv_exporter:exportable_value:user:groups_owned_name' => 'Eigenaar van groep naam',
   'csv_exporter:exportable_value:user:groups_owned_url' => 'Eigenaar van groep url',
   'admin:administer_utilities:csv_exporter:scheduled' => 'Ingeplande CSV exports',
