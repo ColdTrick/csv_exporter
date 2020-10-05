@@ -4,7 +4,7 @@
  */
 
 // prepare type/subtype selector
-$type_subtypes = get_registered_entity_types();
+$type_subtypes = csv_exporter_get_allowed_entity_types();
 $type_subtype_options = [];
 foreach ($type_subtypes as $type => $subtypes) {
 	if (!empty($subtypes)) {

@@ -24,10 +24,16 @@ or you can click Download CSV to export all the content to a CSV file
 Developers
 ----------
 
+By default all searchable entities are exportable, if however you wish to change this list use the plugin hook
+
+`elgg_register_plugin_hook_handler("allowed_type_subtypes", "csv_exporter", "your function");`
+
+and change the result array.
+
 You can add your own values to the available list by registering a plugin hook like  
 
 `elgg_register_plugin_hook_handler("get_exportable_values", "csv_exporter", "your function");` 
- 
+
 This hook get the following params:
 
 - __type__: the type of the entity to supply the values for

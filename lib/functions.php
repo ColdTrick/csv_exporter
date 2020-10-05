@@ -295,3 +295,14 @@ function csv_exporter_get_group_subtypes() {
 	
 	return $result;
 }
+
+/**
+ * Get the allowed type/subtypes to be exported
+ *
+ * @return array
+ */
+function csv_exporter_get_allowed_entity_types() {
+	$type_subtypes = get_registered_entity_types();
+	
+	return elgg_trigger_plugin_hook('allowed_type_subtypes', 'csv_exporter', [], $type_subtypes);
+}
