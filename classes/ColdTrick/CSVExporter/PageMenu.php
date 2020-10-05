@@ -20,7 +20,7 @@ class PageMenu {
 		$return_value = $hook->getValue();
 		
 		$return_value[] = \ElggMenuItem::factory([
-			'name' => 'csv_exporter',
+			'name' => 'csv_exporter_admin',
 			'text' => elgg_echo('admin:administer_utilities:csv_exporter'),
 			'href' => 'admin/administer_utilities/csv_exporter',
 			'parent_name' => 'administer_utilities',
