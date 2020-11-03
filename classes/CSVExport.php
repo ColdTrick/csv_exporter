@@ -257,7 +257,7 @@ class CSVExport extends ElggObject {
 	 *
 	 * @return void
 	 */
-	protected function unlockProcessing() {
+	public function unlockProcessing() {
 		unset($this->started);
 	}
 	

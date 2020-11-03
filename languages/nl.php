@@ -1,10 +1,13 @@
 <?php
 /**
- * This file was created by Translation Editor v7.0.4
- * On 2019-12-13 13:35
+ * This file was created by Translation Editor v8.0
+ * On 2020-11-03 13:30
  */
 
 return array (
+  'csv_exporter:menu:entity:restart' => 'Opnieuw verwerken',
+  'csv_exporter:action:admin:restart:error:not_processing' => 'De CSV Export wordt op dit moment niet verwerkt, herstarten niet mogelijk',
+  'csv_exporter:action:admin:restart:success' => 'De CSV Export is herstart',
   'csv_exporter:exportable_value:icontime' => 'Icoon upload tijdstip',
   'csv_exporter:exportable_value:icontime_readable' => 'Icoon upload tijdstip (leesbaar)',
   'csv_exporter:exportable_value:icon_url:master' => 'Icoon url',

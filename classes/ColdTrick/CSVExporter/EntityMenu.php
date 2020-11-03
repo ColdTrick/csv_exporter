@@ -2,6 +2,8 @@
 
 namespace ColdTrick\CSVExporter;
 
+use Elgg\Menu\MenuItems;
+
 class EntityMenu {
 	
 	/**
@@ -9,7 +11,7 @@ class EntityMenu {
 	 *
 	 * @param \Elgg\Hook $hook 'register', 'menu:entity'
 	 *
-	 * @return void|\ElggMenuItem[]
+	 * @return void|MenuItems
 	 */
 	public static function csvExport(\Elgg\Hook $hook) {
 		
@@ -18,18 +20,14 @@ class EntityMenu {
 			return;
 		}
 		
+		/* @var $return_value MenuItems */
 		$return_value = $hook->getValue();
 		
 		$remove_items = [
 			'edit',
 		];
-		/* @var $menu_item \ElggMenuItem */
-		foreach ($return_value as $index => $menu_item) {
-			if (!in_array($menu_item->getName(), $remove_items)) {
-				continue;
-			}
-			
-			unset($return_value[$index]);
+		foreach ($remove_items as $menu_name) {
+			$return_value->remove($menu_name);
 		}
 		
 		// add download
@@ -41,6 +39,19 @@ class EntityMenu {
 				'icon' => 'download',
 				'priority' => 100,
 				'section' => 'alt',
+			]);
+		}
+		
+		// allow crashed entities to be restarted
+		if ($entity->isProcessing() && elgg_is_admin_logged_in()) {
+			$return_value[] = \ElggMenuItem::factory([
+				'name' => 'restart',
+				'icon' => 'refresh',
+				'text' => elgg_echo('csv_exporter:menu:entity:restart'),
+				'href' => elgg_generate_action_url('csv_exporter/admin/restart', [
+					'guid' => $entity->guid,
+				]),
+				'confirm' => true,
 			]);
 		}
 		

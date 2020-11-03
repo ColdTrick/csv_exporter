@@ -30,6 +30,9 @@ return [
 		'separator' => ';',
 	],
 	'actions' => [
+		'csv_exporter/admin/restart' => [
+			'access' => 'admin',
+		],
 		'csv_exporter/edit' => [
 			'access' => 'admin',
 		],

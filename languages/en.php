@@ -8,6 +8,7 @@ return array(
 	'admin:administer_utilities:csv_exporter:download' => "All CSV exports",
 	'admin:administer_utilities:csv_exporter:downloads' => "Download CSV exports",
 	'admin:administer_utilities:csv_exporter:scheduled' => "Scheduled CSV exports",
+	
 	'csv_exporter:menu:group_profile' => "Group CSV Exports",
 	
 	'csv_exporter:menu:csv_exporter:configure' => "Configure",
@@ -15,6 +16,8 @@ return array(
 	'csv_exporter:menu:csv_exporter:download' => "My downloads",
 	'csv_exporter:menu:csv_exporter:download:all' => "All downloads",
 	'csv_exporter:menu:csv_exporter:scheduled' => "Scheduled",
+	
+	'csv_exporter:menu:entity:restart' => 'Restart processing',
 	
 	'csv_exporter:object:csv_export:title' => "CSV export for: %s",
 	'csv_exporter:object:csv_export:title:custom' => "CSV export for: %s - %s",
@@ -125,4 +128,8 @@ An export will be scheduled and you'll be notified once the export is ready for 
 	// actions
 	// edit
 	'csv_exporter:action:edit:success' => "The export configuration was saved, you'll receive an e-mail when the download is available",
+	
+	// restart
+	'csv_exporter:action:admin:restart:error:not_processing' => "The CSV Export is not currently processing, unable to restart",
+	'csv_exporter:action:admin:restart:success' => "The CSV Export has been restarted",
 );
