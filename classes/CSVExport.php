@@ -195,11 +195,12 @@ class CSVExport extends ElggObject {
 		// this could take a while
 		set_time_limit(0);
 		
+		$batch_processing = 0;
 		/* @var $entities ElggBatch */
 		$entities = elgg_get_entities($entity_options);
 		/* @var $entity ElggEntity */
 		foreach ($entities as $entity) {
-			
+			$batch_processing++;
 			$values = [];
 			
 			// params for hook
@@ -226,6 +227,13 @@ class CSVExport extends ElggObject {
 			
 			// write row
 			fputcsv($fh, $values, $seperator);
+			
+			// clean up some memory
+			if ($batch_processing >= 100) {
+				$batch_processing = 0;
+				
+				$this->clearCaches();
+			}
 		}
 		
 		// cleanup
@@ -371,5 +379,18 @@ class CSVExport extends ElggObject {
 		];
 		
 		notify_user($owner->getGUID(), $owner->getGUID(), $subject, $message, $params, ['email']);
+	}
+	
+	/**
+	 * Clear caches to save memory
+	 *
+	 * @return void
+	 */
+	protected function clearCaches() {
+		_elgg_services()->accessCache->clear();
+		_elgg_services()->dataCache->clear();
+		_elgg_services()->entityCache->clear();
+		_elgg_services()->sessionCache->clear();
+		_elgg_services()->queryCache->clear();
 	}
 }
