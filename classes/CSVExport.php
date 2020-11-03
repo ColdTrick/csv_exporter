@@ -378,7 +378,7 @@ class CSVExport extends ElggObject {
 			'action' => 'complete',
 		];
 		
-		notify_user($owner->getGUID(), $owner->getGUID(), $subject, $message, $params, ['email']);
+		notify_user($owner->guid, $owner->guid, $subject, $message, $params, ['email']);
 	}
 	
 	/**
