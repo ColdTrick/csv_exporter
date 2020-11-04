@@ -11,6 +11,7 @@ return array (
   'csv_exporter:exportable_value:icontime' => 'Icoon upload tijdstip',
   'csv_exporter:exportable_value:icontime_readable' => 'Icoon upload tijdstip (leesbaar)',
   'csv_exporter:exportable_value:icon_url:master' => 'Icoon url',
+  'csv_exporter:exportable_value:icon_present' => "Icoon aanwezig",
   'admin:administer_utilities:csv_exporter:download' => 'Alle CSV exports',
   'admin:administer_utilities:csv_exporter:downloads' => 'Download CSV exports',
   'csv_exporter:menu:csv_exporter:downloads' => 'Downloads',

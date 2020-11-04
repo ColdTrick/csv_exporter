@@ -38,6 +38,7 @@ class ExportableValues {
 			elgg_echo('csv_exporter:exportable_value:icontime') => 'icontime',
 			elgg_echo('csv_exporter:exportable_value:icontime_readable') => 'csv_exporter_icontime_readable',
 			elgg_echo('csv_exporter:exportable_value:icon_url:master') => 'csv_exporter_icon_url_master',
+			elgg_echo('csv_exporter:exportable_value:icon_present') => 'csv_exporter_icon_present',
 		];
 		
 		$content_fields = [];
@@ -247,6 +248,11 @@ class ExportableValues {
 				return $entity->getIconURL([
 					'size' => 'master',
 				]);
+			case 'csv_exporter_icon_present':
+				if ($entity->hasIcon('master')) {
+					return elgg_echo('option:yes');
+				}
+				return elgg_echo('option:no');;
 		}
 	}
 	
