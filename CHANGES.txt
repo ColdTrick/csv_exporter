@@ -1,6 +1,12 @@
 Version history
 ===============
 
+6.2 (2020-11-11):
+
+- added: icon present exportable value
+- added: option to restart crashed csv exports
+- changed: clear memory during processing
+
 6.1 (2020-10-13):
 
 - added: plugin hook to register exportable entity types
