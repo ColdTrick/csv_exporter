@@ -1,6 +1,6 @@
 <?php
 
-elgg_require_js('csv_exporter/admin');
+elgg_require_js('admin/administer_utilities/csv_exporter');
 
 // add tab menu
 echo elgg_view_menu('csv_exporter', [

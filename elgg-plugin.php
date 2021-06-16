@@ -6,6 +6,9 @@ use Elgg\Router\Middleware\Gatekeeper;
 require_once(dirname(__FILE__) . '/lib/functions.php');
 
 return [
+	'plugin' => [
+		'version' => '6.2',
+	],
 	'bootstrap' => Bootstrap::class,
 	'entities' => [
 		[
