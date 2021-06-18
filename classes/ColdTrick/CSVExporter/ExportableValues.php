@@ -94,15 +94,12 @@ class ExportableValues {
 		$result = [];
 		
 		// add profile fields
-		$profile_fields = elgg_get_config('profile_fields');
-		if (!empty($profile_fields)) {
-			foreach ($profile_fields as $metadata_name => $input_type) {
-				$lan = $metadata_name;
-				if (elgg_language_key_exists("profile:{$metadata_name}")) {
-					$lan = elgg_echo("profile:{$metadata_name}");
-				}
-				$result[$lan] = $metadata_name;
-			}
+		$profile_fields = elgg()->fields->get('user', 'user');
+		foreach ($profile_fields as  $field) {
+			$metadata_name = $field['name'];
+			$lan = elgg_extract('#label', $field, $metadata_name);
+			
+			$result[$lan] = $metadata_name;
 		}
 		
 		// add defaults
@@ -128,15 +125,12 @@ class ExportableValues {
 		$result = [];
 		
 		// add profile fields
-		$profile_fields = elgg_get_config('group');
-		if (!empty($profile_fields)) {
-			foreach ($profile_fields as $metadata_name => $input_type) {
-				$lan = $metadata_name;
-				if (elgg_language_key_exists("groups:{$metadata_name}")) {
-					$lan = elgg_echo("groups:{$metadata_name}");
-				}
-				$result[$lan] = $metadata_name;
-			}
+		$profile_fields = elgg()->fields->get('group', 'group');
+		foreach ($profile_fields as  $field) {
+			$metadata_name = $field['name'];
+			$lan = elgg_extract('#label', $field, $metadata_name);
+			
+			$result[$lan] = $metadata_name;
 		}
 		
 		// add defaults
