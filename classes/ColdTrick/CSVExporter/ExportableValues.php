@@ -513,7 +513,9 @@ class ExportableValues {
 		
 		foreach ($object_subtypes as $subtype) {
 			$label = $subtype;
-			if (elgg_language_key_exists("item:object:{$subtype}")) {
+			if (elgg_language_key_exists("collection:object:{$subtype}")) {
+				$label = elgg_echo("collection:object:{$subtype}");
+			} elseif (elgg_language_key_exists("item:object:{$subtype}")) {
 				$label = elgg_echo("item:object:{$subtype}");
 			}
 			

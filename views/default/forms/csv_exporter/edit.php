@@ -9,7 +9,14 @@ $type_subtype_options = [];
 foreach ($type_subtypes as $type => $subtypes) {
 	if (!empty($subtypes)) {
 		foreach ($subtypes as $subtype) {
-			$type_subtype_options["{$type}:{$subtype}"] = elgg_echo("item:{$type}:{$subtype}");
+			$label = $subtype;
+			if (elgg_language_key_exists("collection:object:{$subtype}")) {
+				$label = elgg_echo("collection:object:{$subtype}");
+			} elseif (elgg_language_key_exists("item:object:{$subtype}")) {
+				$label = elgg_echo("item:object:{$subtype}");
+			}
+			
+			$type_subtype_options["{$type}:{$subtype}"] = $label;
 		}
 	} else {
 		$type_subtype_options[$type] = elgg_echo("item:{$type}");

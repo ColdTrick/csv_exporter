@@ -27,6 +27,7 @@ class CSVExport extends ElggObject {
 		$subtype = $this->getFormData('subtype');
 		
 		$lan_keys = [
+			"collection:{$type}:{$subtype}",
 			"item:{$type}:{$subtype}",
 			"item:{$type}",
 		];
