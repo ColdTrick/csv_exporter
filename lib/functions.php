@@ -1,4 +1,6 @@
 <?php
+use Elgg\Database\Select;
+
 /**
  * All helper functions for this plugin are bundled here
  */
@@ -140,28 +142,20 @@ function csv_exporter_get_exportable_group_values($type = 'object', $subtype = '
  *
  * @return int the UNIX timestamp of the latest activity
  */
-function csv_exporter_get_last_group_activity(ElggGroup $entity) {
-	$result = 0;
+function csv_exporter_get_last_group_activity(ElggGroup $entity): int {
+	$select = Select::fromTable('river', 'r');
+	$entities = $select->joinEntitiesTable('r', 'object_guid');
 	
-	if (!($entity instanceof ElggGroup)) {
-		return $result;
+	$select->addSelect('max(r.posted) as posted')
+		->where($select->compare("{$entities}.container_guid", '=', $entity->guid, ELGG_VALUE_GUID))
+		->orWhere($select->compare('r.object_guid', '=', $entity->guid, ELGG_VALUE_GUID));
+	
+	$data = get_data($select);
+	if (empty($data)) {
+		return 0;
 	}
 	
-	$dbprefix = elgg_get_config('dbprefix');
-	
-	// @todo rewrite this to QueryBuilder
-	$query = 'SELECT max(r.posted) as posted';
-	$query .= " FROM {$dbprefix}river r";
-	$query .= " INNER JOIN {$dbprefix}entities e ON r.object_guid = e.guid";
-	$query .= " WHERE (e.container_guid = {$entity->getGUID()})";
-	$query .= " OR (r.object_guid = {$entity->getGUID()})";
-	
-	$data = get_data($query);
-	if (!empty($data)) {
-		$result = (int) $data[0]->posted;
-	}
-	
-	return $result;
+	return (int) $data[0]->posted;
 }
 
 /**
