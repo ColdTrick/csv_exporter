@@ -1,6 +1,10 @@
 Version history
 ===============
 
+7.0 (2021-09-27):
+
+- changed: update for Elgg 4
+
 6.2 (2020-11-11):
 
 - added: icon present exportable value
