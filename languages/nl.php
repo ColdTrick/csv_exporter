@@ -68,9 +68,7 @@ Er zal een export worden ingepland en je ontvangt een notificatie zodra de expor
   'csv_exporter:download:none' => 'Er zijn nog geen CSV export klaar voor download',
   'csv_exporter:scheduled:none' => 'Er zijn geen CSV exports ingepland',
   'csv_exporter:notify:complete:subject' => 'Je CSV export \'%s\' in beschikbaar om te downloaden',
-  'csv_exporter:notify:complete:message' => 'Beste %s,
-
-Je CSV export \'%s\' is beschikbaar om te downloaden
+  'csv_exporter:notify:complete:message' => 'Je CSV export \'%s\' is beschikbaar om te downloaden
 
 Je kunt je export vinden in het overzicht:
 %s',

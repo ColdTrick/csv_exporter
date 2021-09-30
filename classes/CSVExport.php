@@ -369,7 +369,6 @@ class CSVExport extends ElggObject {
 		
 		$subject = elgg_echo('csv_exporter:notify:complete:subject', [$title]);
 		$message = elgg_echo('csv_exporter:notify:complete:message', [
-			$owner->getDisplayName(),
 			$title,
 			elgg_normalize_url($download_link),
 		]);

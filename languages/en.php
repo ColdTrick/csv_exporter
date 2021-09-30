@@ -113,9 +113,7 @@ Plugins can extend this list of columns",
 	// notifications
 	// on complete
 	'csv_exporter:notify:complete:subject' => "Your CSV export '%s' is ready for download",
-	'csv_exporter:notify:complete:message' => "Hi %s,
-	
-Your CSV export '%s' is ready for download.
+	'csv_exporter:notify:complete:message' => "Your CSV export '%s' is ready for download.
 
 You can find it in the overview here:
 %s",
