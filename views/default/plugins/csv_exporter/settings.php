@@ -20,29 +20,30 @@ echo elgg_view_field([
 	'min' => 0,
 ]);
 
-$objects = get_registered_entity_types('object');
-if (!empty($objects)) {
-	
-	$options_values = [];
-	foreach ($objects as $subtype) {
-		$label = $subtype;
-		if (elgg_language_key_exists("collection:object:{$subtype}")) {
-			$label = elgg_echo("collection:object:{$subtype}");
-		} elseif (elgg_language_key_exists("item:object:{$subtype}")) {
-			$label = elgg_echo("item:object:{$subtype}");
-		}
-		
-		$options_values[$label] = $subtype;
+$searchable_subtypes = elgg_extract('object', elgg_entity_types_with_capability('searchable'), []);
+if (empty($searchable_subtypes)) {
+	return;
+}
+
+$options_values = [];
+foreach ($searchable_subtypes as $subtype) {
+	$label = $subtype;
+	if (elgg_language_key_exists("collection:object:{$subtype}")) {
+		$label = elgg_echo("collection:object:{$subtype}");
+	} elseif (elgg_language_key_exists("item:object:{$subtype}")) {
+		$label = elgg_echo("item:object:{$subtype}");
 	}
 	
-	$content = elgg_view_field([
-		'#type' => 'checkboxes',
-		'#label' => elgg_echo('csv_exporter:settings:group:subtypes'),
-		'#help' => elgg_echo('csv_exporter:settings:group:subtypes:help'),
-		'name' => 'params[allowed_group_subtypes]',
-		'options' => $options_values,
-		'value' => $plugin->allowed_group_subtypes ? json_decode($plugin->allowed_group_subtypes, true) : null,
-	]);
-	
-	echo elgg_view_module('info', elgg_echo('csv_exporter:settings:group:title'), $content);
+	$options_values[$label] = $subtype;
 }
+
+$content = elgg_view_field([
+	'#type' => 'checkboxes',
+	'#label' => elgg_echo('csv_exporter:settings:group:subtypes'),
+	'#help' => elgg_echo('csv_exporter:settings:group:subtypes:help'),
+	'name' => 'params[allowed_group_subtypes]',
+	'options' => $options_values,
+	'value' => $plugin->allowed_group_subtypes ? json_decode($plugin->allowed_group_subtypes, true) : null,
+]);
+
+echo elgg_view_module('info', elgg_echo('csv_exporter:settings:group:title'), $content);

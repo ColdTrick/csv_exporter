@@ -281,8 +281,8 @@ function csv_exporter_get_group_subtypes() {
 	if (!empty($setting)) {
 		$result = json_decode($setting, true);
 		
-		$objects = get_registered_entity_types('object');
-		$result = array_intersect($result, $objects);
+		$searchable_subtypes = elgg_extract('object', elgg_entity_types_with_capability('searchable'), []);
+		$result = array_intersect($result, $searchable_subtypes);
 		
 		$result = array_values($result);
 	}
@@ -296,7 +296,7 @@ function csv_exporter_get_group_subtypes() {
  * @return array
  */
 function csv_exporter_get_allowed_entity_types() {
-	$type_subtypes = get_registered_entity_types();
+	$type_subtypes = elgg_entity_types_with_capability('searchable');
 	
 	return elgg_trigger_plugin_hook('allowed_type_subtypes', 'csv_exporter', [], $type_subtypes);
 }

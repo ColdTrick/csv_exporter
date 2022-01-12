@@ -509,9 +509,9 @@ class ExportableValues {
 		unset($return['csv_exporter_group_content_stats']);
 		
 		// get available tools
-		$object_subtypes = get_registered_entity_types('object');
+		$searchable_subtypes = elgg_extract('object', elgg_entity_types_with_capability('searchable'), []);
 		
-		foreach ($object_subtypes as $subtype) {
+		foreach ($searchable_subtypes as $subtype) {
 			$label = $subtype;
 			if (elgg_language_key_exists("collection:object:{$subtype}")) {
 				$label = elgg_echo("collection:object:{$subtype}");
