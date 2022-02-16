@@ -1,6 +1,10 @@
 Version history
 ===============
 
+8.0 (2022-02-16):
+
+- changed: updated code for new Elgg 4.1 capabilities system
+
 7.0.1 (2021-10-12):
 
 - fixed: updated notification body to not have double salutation
