@@ -31,10 +31,10 @@ class Cron {
 					'value' => $time,
 					'operand' => '<',
 				],
-				'order_by_metadata' => [
-					'name' => 'scheduled',
+				'sort_by' => [
+					'property' => 'scheduled',
 					'direction' => 'asc',
-					'as' => 'integer',
+					'signed' => true,
 				],
 				'batch' => true,
 				'batch_inc_offset' => false,

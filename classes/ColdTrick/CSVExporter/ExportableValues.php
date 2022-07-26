@@ -191,8 +191,8 @@ class ExportableValues {
 				return $owner->guid;
 			
 			case 'csv_exporter_owner_email':
-				$email = $owner->email;
-				if (is_email_address($email)) {
+				$email = (string) $owner->email;
+				if (elgg_is_valid_email($email)) {
 					return $email;
 				}
 				break;
@@ -210,8 +210,8 @@ class ExportableValues {
 				return $container->guid;
 			
 			case 'csv_exporter_container_email':
-				$email = $container->email;
-				if (is_email_address($email)) {
+				$email = (string) $container->email;
+				if (elgg_is_valid_email($email)) {
 					return $email;
 				}
 				break;
@@ -228,7 +228,7 @@ class ExportableValues {
 				return $entity->getURL();
 			
 			case 'csv_exporter_access_id_readable':
-				return get_readable_access_level($entity->access_id);
+				return elgg_get_readable_access_level($entity->access_id);
 			
 			case 'csv_exporter_icontime_readable':
 				if (!isset($entity->icontime)) {

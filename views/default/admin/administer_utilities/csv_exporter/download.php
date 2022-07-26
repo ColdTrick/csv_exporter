@@ -10,10 +10,10 @@ $options = [
 	'type' => 'object',
 	'subtype' => CSVExport::SUBTYPE,
 	'metadata_name' => 'completed',
-	'order_by_metadata' => [
-		'name' => 'completed',
+	'sort_by' => [
+		'property' => 'completed',
 		'direction' => 'desc',
-		'as' => 'integer',
+		'signed' => true,
 	],
 	'no_results' => elgg_echo('csv_exporter:download:none'),
 ];

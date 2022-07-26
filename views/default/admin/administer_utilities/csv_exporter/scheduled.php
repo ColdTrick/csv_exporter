@@ -10,10 +10,10 @@ echo elgg_list_entities([
 	'type' => 'object',
 	'subtype' => CSVExport::SUBTYPE,
 	'metadata_name' => 'scheduled',
-	'order_by_metadata' => [
-		'name' => 'scheduled',
+	'sort_by' => [
+		'property' => 'scheduled',
 		'direction' => 'asc',
-		'as' => 'integer',
+		'signed' => true,
 	],
 	'no_results' => elgg_echo('csv_exporter:scheduled:none'),
 ]);
