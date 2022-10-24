@@ -91,7 +91,7 @@ function csv_exporter_get_exportable_values($type, $subtype = '', $readable = fa
  */
 function csv_exporter_get_exportable_group_values($type = 'object', $subtype = '') {
 	
-	if ($type !== 'object') {
+	if ($type !== 'object' && $type !== 'user') {
 		// @todo support more?
 		return [];
 	}
@@ -102,15 +102,36 @@ function csv_exporter_get_exportable_group_values($type = 'object', $subtype = '
 	
 	$available = csv_exporter_get_exportable_values($type, $subtype);
 	
-	$default_allowed = [
-		'title',
-		'description',
-		'csv_exporter_object_tags',
-		'csv_exporter_owner_name',
-		'csv_exporter_container_name',
-		'csv_exporter_time_created_readable',
-		'csv_exporter_time_updated_readable',
-	];
+	$default_allowed = [];
+	switch ($type) {
+		case 'object':
+			$default_allowed = [
+				'title',
+				'description',
+				'csv_exporter_object_tags',
+				'csv_exporter_owner_name',
+				'csv_exporter_container_name',
+				'csv_exporter_time_created_readable',
+				'csv_exporter_time_updated_readable',
+			];
+			break;
+		case 'user':
+			$default_allowed = [
+				'name',
+				'username',
+				'email',
+				'banned',
+				'csv_exporter_group_member_since_unix',
+				'csv_exporter_group_member_since_readable',
+			];
+			
+			// add profile fields
+			$profile_fields = elgg()->fields->get('user', $subtype);
+			foreach ($profile_fields as $field) {
+				$default_allowed[] = $field['name'];
+			}
+			break;
+	}
 	
 	$defaults = array_intersect($default_allowed, $available);
 	
@@ -281,7 +302,11 @@ function csv_exporter_get_group_subtypes() {
 	if (!empty($setting)) {
 		$result = json_decode($setting, true);
 		
-		$searchable_subtypes = elgg_extract('object', elgg_entity_types_with_capability('searchable'), []);
+		$searchable = elgg_entity_types_with_capability('searchable');
+		$searchable_objects = elgg_extract('object', $searchable, []);
+		$searchable_users = elgg_extract('user', $searchable, []);
+		$searchable_subtypes = array_merge($searchable_objects, $searchable_users);
+		
 		$result = array_intersect($result, $searchable_subtypes);
 		
 		$result = array_values($result);

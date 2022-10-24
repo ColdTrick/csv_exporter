@@ -160,7 +160,11 @@ class CSVExport extends ElggObject {
 		$exportable_values = array_keys($column_config);
 		
 		// make csv header row
+		$postfix = elgg_echo('csv_exporter:exportable_value:group:postfix');
 		$headers = array_values($column_config);
+		array_walk($headers, function (&$header) use ($postfix) {
+			$header = trim(str_ireplace($postfix, '', $header));
+		});
 		
 		// create the new file with the headers
 		$fh = $fo->open('write');
@@ -178,8 +182,15 @@ class CSVExport extends ElggObject {
 		];
 		
 		// limit to group content?
-		if ($this->getContainerEntity() instanceof ElggGroup) {
-			$entity_options['container_guid'] = $this->container_guid;
+		if ($this->getContainerEntity() instanceof \ElggGroup) {
+			if ($type === 'user') {
+				$entity_options['relationship'] = 'member';
+				$entity_options['relationship_guid'] = $this->container_guid;
+				$entity_options['inverse_relationship'] = true;
+			} else {
+				// objects
+				$entity_options['container_guid'] = $this->container_guid;
+			}
 		}
 		
 		// add time constraints
@@ -189,9 +200,9 @@ class CSVExport extends ElggObject {
 		set_time_limit(0);
 		
 		$batch_processing = 0;
-		/* @var $entities ElggBatch */
+		/* @var $entities \ElggBatch */
 		$entities = elgg_get_entities($entity_options);
-		/* @var $entity ElggEntity */
+		/* @var $entity \ElggEntity */
 		foreach ($entities as $entity) {
 			$batch_processing++;
 			$values = [];
@@ -201,6 +212,7 @@ class CSVExport extends ElggObject {
 				'type' => $type,
 				'subtype' => $subtype,
 				'entity' => $entity,
+				'csv_export' => $this,
 			];
 			
 			foreach ($exportable_values as $export_value) {

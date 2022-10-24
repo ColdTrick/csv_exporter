@@ -68,6 +68,10 @@ Plugins can extend this list of columns",
 	'csv_exporter:exportable_value:user:friends' => "Number of users followed",
 	'csv_exporter:exportable_value:user:friends:of' => "Number of followers",
 	
+	'csv_exporter:exportable_value:group:postfix' => " (only during group export)",
+	'csv_exporter:exportable_value:user:group:member:unix' => "Member since (UNIX)",
+	'csv_exporter:exportable_value:user:group:member:readable' => "Member since",
+	
 	'csv_exporter:exportable_value:group:membership' => "Membership",
 	'csv_exporter:exportable_value:group:visibility' => "Visibility",
 	'csv_exporter:exportable_value:group:member_count' => "Member count",

@@ -18,6 +18,7 @@ class Bootstrap extends DefaultPluginBootstrap {
 		$hooks->registerHandler('export_value', 'csv_exporter', '\ColdTrick\CSVExporter\ExportableValues::exportEntityValue');
 		$hooks->registerHandler('export_value', 'csv_exporter', '\ColdTrick\CSVExporter\ExportableValues::exportObjectValue');
 		$hooks->registerHandler('export_value', 'csv_exporter', '\ColdTrick\CSVExporter\ExportableValues::exportUserValue');
+		$hooks->registerHandler('export_value', 'csv_exporter', '\ColdTrick\CSVExporter\ExportableValues::exportUserGroupValue');
 		$hooks->registerHandler('export_value', 'csv_exporter', '\ColdTrick\CSVExporter\ExportableValues::exportGroupValue');
 		
 		$hooks->registerHandler('prepare:exportable_columns', 'csv_exporter', '\ColdTrick\CSVExporter\ExportableValues::exportableColumnGroupTools');

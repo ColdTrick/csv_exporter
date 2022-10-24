@@ -33,6 +33,10 @@ foreach ($objects as $subtype) {
 		$label = elgg_echo("collection:object:{$subtype}");
 	} elseif (elgg_language_key_exists("item:object:{$subtype}")) {
 		$label = elgg_echo("item:object:{$subtype}");
+	} elseif (elgg_language_key_exists("collection:user:{$subtype}")) {
+		$label = elgg_echo("collection:user:{$subtype}");
+	} elseif (elgg_language_key_exists("item:user:{$subtype}")) {
+		$label = elgg_echo("item:user:{$subtype}");
 	}
 	
 	$options[$label] = $subtype;

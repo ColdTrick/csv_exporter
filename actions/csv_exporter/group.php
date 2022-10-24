@@ -19,6 +19,12 @@ if (!in_array($subtype, $allowed_subtypes)) {
 	return elgg_error_response(elgg_echo('actionunauthorized'));
 }
 
+$searchable = elgg_entity_types_with_capability('searchable');
+$type = 'object';
+if (!in_array($subtype, elgg_extract('object', $searchable, []))) {
+	$type = 'user';
+}
+
 $entity = new CSVExport();
 $entity->container_guid = $container->guid;
 
@@ -28,8 +34,8 @@ $entity->access_id = ($group_acl instanceof ElggAccessCollection) ? $group_acl->
 $entity->title = get_input('title');
 
 $data = elgg_get_sticky_values('csv_exporter_group');
-$data['type_subtype'] = "object:{$subtype}";
-$data['exportable_values'] = csv_exporter_get_exportable_group_values('object', $subtype);
+$data['type_subtype'] = "{$type}:{$subtype}";
+$data['exportable_values'] = csv_exporter_get_exportable_group_values($type, $subtype);
 
 $entity->description = json_encode($data);
 

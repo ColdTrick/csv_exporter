@@ -112,6 +112,12 @@ class ExportableValues {
 		$result[elgg_echo('csv_exporter:exportable_value:user:friends:of')] = 'csv_exporter_user_friends_of';
 		$result[elgg_echo('csv_exporter:exportable_value:user:banned')] = 'banned';
 		
+		// group only values
+		$postfix = elgg_echo('csv_exporter:exportable_value:group:postfix');
+		
+		$result[elgg_echo('csv_exporter:exportable_value:user:group:member:unix') . $postfix] = 'csv_exporter_group_member_since_unix';
+		$result[elgg_echo('csv_exporter:exportable_value:user:group:member:readable') . $postfix] = 'csv_exporter_group_member_since_readable';
+		
 		return $result;
 	}
 	
@@ -349,6 +355,51 @@ class ExportableValues {
 					'inverse_relationship' => true,
 					'count' => true,
 				]);
+		}
+	}
+	
+	/**
+	 * Export a single value for a user
+	 *
+	 * @param \Elgg\Hook $hook 'export_value', 'csv_exporter'
+	 *
+	 * @return void|mixed
+	 */
+	public static function exportUserGroupValue(\Elgg\Hook $hook) {
+		
+		if (!is_null($hook->getValue())) {
+			// someone already provided output
+			return;
+		}
+		
+		$entity = $hook->getEntityParam();
+		if (!$entity instanceof \ElggUser) {
+			return;
+		}
+		
+		$export = $hook->getParam('csv_export');
+		if (!$export instanceof \CSVExport) {
+			return;
+		}
+		$group = $export->getContainerEntity();
+		if (!$group instanceof \ElggGroup) {
+			return;
+		}
+		
+		$exportable_value = $hook->getParam('exportable_value');
+		switch ($exportable_value) {
+			case 'csv_exporter_group_member_since_unix':
+			case 'csv_exporter_group_member_since_readable':
+				$relationship = $entity->getRelationship($group->guid, 'member');
+				if (!$relationship instanceof \ElggRelationship) {
+					return;
+				}
+				
+				if ($exportable_value === 'csv_exporter_group_member_since_unix') {
+					return (int) $relationship->time_created;
+				}
+				
+				return csv_exported_get_readable_timestamp($relationship->time_created);
 		}
 	}
 	

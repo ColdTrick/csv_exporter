@@ -20,22 +20,31 @@ echo elgg_view_field([
 	'min' => 0,
 ]);
 
-$searchable_subtypes = elgg_extract('object', elgg_entity_types_with_capability('searchable'), []);
-if (empty($searchable_subtypes)) {
+// group export settings
+$searchable = elgg_entity_types_with_capability('searchable');
+if (empty($searchable)) {
 	return;
 }
 
 $options_values = [];
-foreach ($searchable_subtypes as $subtype) {
-	$label = $subtype;
-	if (elgg_language_key_exists("collection:object:{$subtype}")) {
-		$label = elgg_echo("collection:object:{$subtype}");
-	} elseif (elgg_language_key_exists("item:object:{$subtype}")) {
-		$label = elgg_echo("item:object:{$subtype}");
+foreach ($searchable as $type => $subtypes) {
+	if ($type !== 'object' && $type !== 'user') {
+		continue;
 	}
 	
-	$options_values[$label] = $subtype;
+	foreach ($subtypes as $subtype){
+		$label = $subtype;
+		if (elgg_language_key_exists("collection:{$type}:{$subtype}")) {
+			$label = elgg_echo("collection:{$type}:{$subtype}");
+		} elseif (elgg_language_key_exists("item:{$type}:{$subtype}")) {
+			$label = elgg_echo("item:{$type}:{$subtype}");
+		}
+		
+		$options_values[$label] = $subtype;
+	}
 }
+
+uksort($options_values, 'strnatcasecmp');
 
 $content = elgg_view_field([
 	'#type' => 'checkboxes',

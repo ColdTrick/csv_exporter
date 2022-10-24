@@ -10,10 +10,10 @@ foreach ($type_subtypes as $type => $subtypes) {
 	if (!empty($subtypes)) {
 		foreach ($subtypes as $subtype) {
 			$label = $subtype;
-			if (elgg_language_key_exists("collection:object:{$subtype}")) {
-				$label = elgg_echo("collection:object:{$subtype}");
-			} elseif (elgg_language_key_exists("item:object:{$subtype}")) {
-				$label = elgg_echo("item:object:{$subtype}");
+			if (elgg_language_key_exists("collection:{$type}:{$subtype}")) {
+				$label = elgg_echo("collection:{$type}:{$subtype}");
+			} elseif (elgg_language_key_exists("item:{$type}:{$subtype}")) {
+				$label = elgg_echo("item:{$type}:{$subtype}");
 			}
 			
 			$type_subtype_options["{$type}:{$subtype}"] = $label;
@@ -102,6 +102,13 @@ echo elgg_view_field([
 list($type, $subtype) = explode(':', $type_subtype);
 
 $exportable_values_options = csv_exporter_get_exportable_values($type, $subtype, true);
+
+// filter out group only values
+$postfix = elgg_echo('csv_exporter:exportable_value:group:postfix');
+$exportable_values_options = array_filter($exportable_values_options, function($value, $label) use ($postfix) {
+	return stristr($label, $postfix) === false;
+}, ARRAY_FILTER_USE_BOTH);
+
 uksort($exportable_values_options, 'strcasecmp');
 echo elgg_view_field([
 	'#type' => 'checkboxes',

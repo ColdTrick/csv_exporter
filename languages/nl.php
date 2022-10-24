@@ -1,17 +1,20 @@
 <?php
 /**
- * This file was created by Translation Editor v8.0
- * On 2020-11-03 13:30
+ * This file was created by Translation Editor v11.0
+ * On 2022-10-24 15:27
  */
 
 return array (
+  'csv_exporter:exportable_value:group:postfix' => ' (alleen gedurende groep export)',
+  'csv_exporter:exportable_value:user:group:member:unix' => 'Lid sinds (UNIX)',
+  'csv_exporter:exportable_value:user:group:member:readable' => 'Lid sinds',
   'csv_exporter:menu:entity:restart' => 'Opnieuw verwerken',
   'csv_exporter:action:admin:restart:error:not_processing' => 'De CSV Export wordt op dit moment niet verwerkt, herstarten niet mogelijk',
   'csv_exporter:action:admin:restart:success' => 'De CSV Export is herstart',
   'csv_exporter:exportable_value:icontime' => 'Icoon upload tijdstip',
   'csv_exporter:exportable_value:icontime_readable' => 'Icoon upload tijdstip (leesbaar)',
   'csv_exporter:exportable_value:icon_url:master' => 'Icoon url',
-  'csv_exporter:exportable_value:icon_present' => "Icoon aanwezig",
+  'csv_exporter:exportable_value:icon_present' => 'Icoon aanwezig',
   'admin:administer_utilities:csv_exporter:download' => 'Alle CSV exports',
   'admin:administer_utilities:csv_exporter:downloads' => 'Download CSV exports',
   'csv_exporter:menu:csv_exporter:downloads' => 'Downloads',
