@@ -1,6 +1,10 @@
 Version history
 ===============
 
+9.1 (2022-10-27):
+
+- added: group members can be exported by a group admin
+
 9.0 (2022-08-24):
 
 - changed: updated for Elgg 4.3
