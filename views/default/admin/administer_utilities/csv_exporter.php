@@ -19,7 +19,8 @@ echo elgg_view_form('csv_exporter/edit', $form_vars, $body_vars);
 // preview
 $type_subtype = elgg_extract('type_subtype', $body_vars);
 $exportable_values = elgg_extract('exportable_values', $body_vars);
-if (!empty($type_subtype) && !empty($exportable_values)) {
+$preview = (bool) elgg_extract('preview', $body_vars);
+if ($preview && !empty($type_subtype) && !empty($exportable_values)) {
 	list($type, $subtype) = explode(':', $type_subtype);
 	
 	$params = [

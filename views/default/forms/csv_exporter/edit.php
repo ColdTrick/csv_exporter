@@ -3,6 +3,12 @@
  * Configure CSV Export
  */
 
+echo elgg_view_field([
+	'#type' => 'hidden',
+	'name' => 'preview',
+	'value' => '1',
+]);
+
 // prepare type/subtype selector
 $type_subtypes = csv_exporter_get_allowed_entity_types();
 $type_subtype_options = [];
@@ -127,11 +133,11 @@ $footer = elgg_view_field([
 			'icon' => 'eye',
 		],
 		[
-			'#type' => 'button',
+			'#type' => 'submit',
 			'title' => elgg_echo('csv_exporter:admin:schedule:description'),
 			'value' => elgg_echo('csv_exporter:admin:schedule'),
 			'class' => 'elgg-button-action',
-			'id' => 'csv-exporter-schedule',
+			'formaction' => elgg_generate_action_url('csv_exporter/edit', [], false),
 			'icon' => 'clock-o',
 		],
 	],
