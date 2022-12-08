@@ -171,7 +171,7 @@ function csv_exporter_get_last_group_activity(ElggGroup $entity): int {
 		->where($select->compare("{$entities}.container_guid", '=', $entity->guid, ELGG_VALUE_GUID))
 		->orWhere($select->compare('r.object_guid', '=', $entity->guid, ELGG_VALUE_GUID));
 	
-	$data = get_data($select);
+	$data = elgg()->db->getData($select);
 	if (empty($data)) {
 		return 0;
 	}
@@ -255,6 +255,7 @@ function csv_exporter_prepare_edit_form_vars(CSVExport $entity = null) {
 		'created_time_upper' => null,
 		'title' => null,
 		'exportable_values' => [],
+		'preview' => 1,
 	];
 	
 	// edit of an export
