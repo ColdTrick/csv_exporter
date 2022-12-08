@@ -15,5 +15,14 @@ echo elgg_list_entities([
 		'direction' => 'desc',
 		'signed' => true,
 	],
+	'wheres' => [
+		function(\Elgg\Database\QueryBuilder $qb, $main_alias) {
+			$groups = $qb->subquery('entities');
+			$groups->select('guid')
+				->where($qb->compare('type', '=', 'group', ELGG_VALUE_STRING));
+			
+			return $qb->compare("{$main_alias}.container_guid", 'not in', $groups->getSQL());
+		},
+	],
 	'no_results' => elgg_echo('csv_exporter:download:none'),
 ]);
