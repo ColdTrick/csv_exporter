@@ -27,6 +27,9 @@ if ($preview && !empty($type_subtype) && !empty($exportable_values)) {
 		'type' => $type,
 		'subtype' => $subtype,
 		'exportable_values' => $exportable_values,
+		'time' => elgg_extract('time', $body_vars),
+		'created_time_lower' => elgg_extract('created_time_lower', $body_vars),
+		'created_time_upper' => elgg_extract('created_time_upper', $body_vars),
 	];
 	$params = $params  + $vars;
 	
