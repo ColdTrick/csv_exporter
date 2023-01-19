@@ -1,6 +1,13 @@
 Version history
 ===============
 
+9.1.1 (2023-01-19):
+
+- fixed: downloads tab should only show admin exports
+- fixed: preview respects export period
+- fixed: switching type/subtype now longer shows preview
+- fixed: use correct function to fetch data
+
 9.1 (2022-10-27):
 
 - added: group members can be exported by a group admin
