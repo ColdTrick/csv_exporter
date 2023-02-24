@@ -1,6 +1,4 @@
-// CSV exporter js
 define(['jquery'], function($) {
-
 	$(document).on('change', '#csv-exporter-type-subtype', function() {
 		var $form = $(this).closest('form');
 		

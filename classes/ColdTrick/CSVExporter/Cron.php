@@ -2,25 +2,27 @@
 
 namespace ColdTrick\CSVExporter;
 
+/**
+ * Cron handler
+ */
 class Cron {
 	
 	/**
 	 * Process the scheduled exports
 	 *
-	 * @param \Elgg\Hook $hook 'cron', 'minute'
+	 * @param \Elgg\Event $event 'cron', 'minute'
 	 *
 	 * @return void
 	 */
-	public static function processExports(\Elgg\Hook $hook) {
+	public static function processExports(\Elgg\Event $event): void {
 		
 		echo 'Starting CSVExporter processing' . PHP_EOL;
 		elgg_log('Starting CSVExporter processing', 'NOTICE');
 		
-		$time = (int) $hook->getParam('time', time());
+		$time = (int) $event->getParam('time', time());
 		
 		// ignore access
 		elgg_call(ELGG_IGNORE_ACCESS, function () use ($time) {
-			
 			/* @var $batch \ElggBatch */
 			$batch = elgg_get_entities([
 				'type' => 'object',
@@ -57,13 +59,12 @@ class Cron {
 	/**
 	 * Cleanup the old exports
 	 *
-	 * @param \Elgg\Hook $hook 'cron', 'daily'
+	 * @param \Elgg\Event $event 'cron', 'daily'
 	 *
 	 * @return void
 	 */
-	public static function cleanupExports(\Elgg\Hook $hook) {
-		
-		$time = (int) $hook->getParam('time', time());
+	public static function cleanupExports(\Elgg\Event $event): void {
+		$time = (int) $event->getParam('time', time());
 		$retention = (int) elgg_get_plugin_setting('retention', 'csv_exporter');
 		if ($retention < 1) {
 			// no cleanup
@@ -71,7 +72,7 @@ class Cron {
 		}
 		
 		echo 'Starting CSVExporter cleanup' . PHP_EOL;
-		elgg_log('Starrting CSVExporter cleanup', 'NOTICE');
+		elgg_log('Starting CSVExporter cleanup', 'NOTICE');
 		
 		// ignore access
 		elgg_call(ELGG_IGNORE_ACCESS, function() use($time, $retention) {

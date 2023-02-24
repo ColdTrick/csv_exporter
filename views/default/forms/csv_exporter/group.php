@@ -1,7 +1,7 @@
 <?php
 
 $entity = elgg_extract('entity', $vars);
-if (!$entity instanceof ElggGroup) {
+if (!$entity instanceof \ElggGroup) {
 	return;
 }
 
@@ -24,6 +24,7 @@ echo elgg_view_field([
 	'#type' => 'text',
 	'#label' => elgg_echo('title'),
 	'name' => 'title',
+	'value' => elgg_extract('title', $vars),
 ]);
 
 $options = [];
@@ -47,6 +48,7 @@ echo elgg_view_field([
 	'#label' => elgg_echo('csv_exporter:forms:group:subtype'),
 	'name' => 'subtype',
 	'options' => $options,
+	'value' => elgg_extract('subtype', $vars),
 ]);
 
 // form footer

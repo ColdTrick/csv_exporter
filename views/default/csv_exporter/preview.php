@@ -18,6 +18,7 @@ $header = [];
 foreach ($column_config as $label) {
 	$header[] = elgg_format_element('th', [], $label);
 }
+
 $header = elgg_format_element('tr', [], implode(PHP_EOL, $header));
 $table_content = elgg_format_element('thead', [], $header);
 
@@ -76,9 +77,9 @@ switch ($time) {
 $exportable_values = array_keys($column_config);
 
 $rows = [];
-/* @var $entities ElggBatch */
+/* @var $entities \ElggBatch */
 $entities = elgg_get_entities($options);
-/* @var $entity ElggEntity */
+/* @var $entity \ElggEntity */
 foreach ($entities as $entity) {
 	$row = [];
 	
@@ -92,10 +93,11 @@ foreach ($entities as $entity) {
 	foreach ($exportable_values as $metadata_name) {
 		$params['exportable_value'] = $metadata_name;
 		
-		$value = elgg_trigger_plugin_hook('export_value', 'csv_exporter', $params);
+		$value = elgg_trigger_event_results('export_value', 'csv_exporter', $params);
 		if ($value === null) {
 			$value = $entity->$metadata_name;
 		}
+		
 		if (is_array($value)) {
 			$value = implode(', ', $value);
 		}
@@ -105,6 +107,7 @@ foreach ($entities as $entity) {
 	
 	$rows[] = elgg_format_element('tr', [], implode(PHP_EOL, $row));
 }
+
 $table_content .= elgg_format_element('tbody', [], implode(PHP_EOL, $rows));
 
 $content = elgg_format_element('table', ['class' => 'elgg-table'], $table_content);

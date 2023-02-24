@@ -1,7 +1,7 @@
 <?php
 
 $entity = elgg_extract('entity', $vars);
-if (!$entity instanceof CSVExport) {
+if (!$entity instanceof \CSVExport) {
 	return;
 }
 

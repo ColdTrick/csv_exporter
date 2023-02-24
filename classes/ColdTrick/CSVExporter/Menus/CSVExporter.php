@@ -1,23 +1,28 @@
 <?php
 
-namespace ColdTrick\CSVExporter;
+namespace ColdTrick\CSVExporter\Menus;
 
-class CSVExporterMenu {
+use Elgg\Menu\MenuItems;
+
+/**
+ * Add menu items to the csv_exporter menu
+ */
+class CSVExporter {
 	
 	/**
 	 * Add menu items to the csv_exporter menu
 	 *
-	 * @param \Elgg\Hook $hook 'register', 'menu:csv_exporter'
+	 * @param \Elgg\Event $event 'register', 'menu:csv_exporter'
 	 *
-	 * @return void|\ElggMenuItem[]
+	 * @return null|MenuItems
 	 */
-	public static function register(\Elgg\Hook $hook) {
-		
+	public static function register(\Elgg\Event $event): ?MenuItems {
 		if (!elgg_is_admin_logged_in()) {
-			return;
+			return null;
 		}
 		
-		$return_value = $hook->getValue();
+		/* @var $return_value MenuItems */
+		$return_value = $event->getValue();
 		
 		$return_value[] = \ElggMenuItem::factory([
 			'name' => 'configure',
@@ -50,18 +55,18 @@ class CSVExporterMenu {
 	/**
 	 * Add menu items to the csv_exporter_group menu
 	 *
-	 * @param \Elgg\Hook $hook 'register', 'menu:csv_exporter_group'
+	 * @param \Elgg\Event $event 'register', 'menu:csv_exporter_group'
 	 *
-	 * @return void|\ElggMenuItem[]
+	 * @return null|MenuItems
 	 */
-	public static function registerGroup(\Elgg\Hook $hook) {
-		
-		$entity = $hook->getEntityParam();
+	public static function registerGroup(\Elgg\Event $event): ?MenuItems {
+		$entity = $event->getEntityParam();
 		if (!$entity instanceof \ElggGroup || !$entity->canEdit()) {
-			return;
+			return null;
 		}
 		
-		$return_value = $hook->getValue();
+		/* @var $return_value MenuItems */
+		$return_value = $event->getValue();
 		
 		$return_value[] = \ElggMenuItem::factory([
 			'name' => 'configure',

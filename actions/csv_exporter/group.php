@@ -1,7 +1,5 @@
 <?php
 
-elgg_make_sticky_form('csv_exporter_group');
-
 $container_guid = (int) get_input('container_guid');
 $subtype = get_input('subtype');
 
@@ -10,7 +8,7 @@ if (empty($container_guid) || empty($subtype)) {
 }
 
 $container = get_entity($container_guid);
-if (!$container instanceof ElggGroup || !$container->canEdit()) {
+if (!$container instanceof \ElggGroup || !$container->canEdit()) {
 	return elgg_error_response(elgg_echo('actionunauthorized'));
 }
 
@@ -25,15 +23,15 @@ if (!in_array($subtype, elgg_extract('object', $searchable, []))) {
 	$type = 'user';
 }
 
-$entity = new CSVExport();
+$entity = new \CSVExport();
 $entity->container_guid = $container->guid;
 
 $group_acl = $container->getOwnedAccessCollection('group_acl');
-$entity->access_id = ($group_acl instanceof ElggAccessCollection) ? $group_acl->id : ACCESS_PRIVATE;
+$entity->access_id = ($group_acl instanceof \ElggAccessCollection) ? $group_acl->id : ACCESS_PRIVATE;
 
-$entity->title = get_input('title');
+$entity->title = elgg_get_title_input();
 
-$data = elgg_get_sticky_values('csv_exporter_group');
+$data = elgg_get_sticky_values('csv_exporter/group');
 $data['type_subtype'] = "{$type}:{$subtype}";
 $data['exportable_values'] = csv_exporter_get_exportable_group_values($type, $subtype);
 

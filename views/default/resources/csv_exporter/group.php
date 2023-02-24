@@ -1,24 +1,14 @@
 <?php
 
-use Elgg\Exceptions\Http\EntityPermissionsException;
-
-$guid = (int) elgg_extract('guid', $vars);
-elgg_entity_gatekeeper($guid, 'group');
-
-$group = get_entity($guid);
-if (!$group->canEdit()) {
-	throw new EntityPermissionsException();
-}
-
-$selected = elgg_extract('filter', $vars);
-
-elgg_set_page_owner_guid($group->guid);
+/* @var $group \ElggGroup */
+$group = elgg_get_page_owner_entity();
 
 elgg_push_breadcrumb($group->getDisplayName(), $group->getURL());
 
 // page elements
 $title = elgg_echo('csv_exporter:group:title', [$group->getDisplayName()]);
 
+$selected = elgg_extract('filter', $vars);
 $filter = elgg_view_menu('csv_exporter_group', [
 	'class' => 'elgg-tabs',
 	'sort_by' => 'priority',
@@ -38,7 +28,9 @@ switch ($selected) {
 		]);
 		break;
 	default:
-		$content = elgg_view_form('csv_exporter/group', [], [
+		$content = elgg_view_form('csv_exporter/group', [
+			'sticky_enabled' => true,
+		], [
 			'entity' => $group,
 		]);
 		break;

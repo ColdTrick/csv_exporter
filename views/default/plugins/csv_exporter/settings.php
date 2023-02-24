@@ -1,6 +1,6 @@
 <?php
 
-/* @var $plugin ElggPlugin */
+/* @var $plugin \ElggPlugin */
 $plugin = elgg_extract('entity', $vars);
 
 echo elgg_view_field([
@@ -32,7 +32,7 @@ foreach ($searchable as $type => $subtypes) {
 		continue;
 	}
 	
-	foreach ($subtypes as $subtype){
+	foreach ($subtypes as $subtype) {
 		$label = $subtype;
 		if (elgg_language_key_exists("collection:{$type}:{$subtype}")) {
 			$label = elgg_echo("collection:{$type}:{$subtype}");

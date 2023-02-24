@@ -1,9 +1,9 @@
 <?php
-use Elgg\Database\Select;
-
 /**
  * All helper functions for this plugin are bundled here
  */
+
+use Elgg\Database\Select;
 
 /**
  * Get a list of all the exportable values for the given type/subtype
@@ -14,15 +14,13 @@ use Elgg\Database\Select;
  *
  * @return array
  */
-function csv_exporter_get_exportable_values($type, $subtype = '', $readable = false) {
-	$result = [];
-	
+function csv_exporter_get_exportable_values(string $type, string $subtype = '', bool $readable = false): array {
 	if (empty($type)) {
-		return $result;
+		return [];
 	}
 	
-	if (($type == 'object') && empty($subtype)) {
-		return $result;
+	if ($type == 'object' && empty($subtype)) {
+		return [];
 	}
 	
 	$class = elgg_get_entity_class($type, $subtype);
@@ -31,16 +29,16 @@ function csv_exporter_get_exportable_values($type, $subtype = '', $readable = fa
 	} else {
 		switch ($type) {
 			case 'object':
-				$dummy = new ElggObject();
+				$dummy = new \ElggObject();
 				break;
 			case 'group':
-				$dummy = new ElggGroup();
+				$dummy = new \ElggGroup();
 				break;
 			case 'site':
-				$dummy = new ElggSite();
+				$dummy = new \ElggSite();
 				break;
 			case 'user':
-				$dummy = new ElggUser();
+				$dummy = new \ElggUser();
 				break;
 		}
 	}
@@ -58,6 +56,7 @@ function csv_exporter_get_exportable_values($type, $subtype = '', $readable = fa
 			} else {
 				$lan = $name;
 			}
+			
 			$new_defaults[$lan] = $name;
 		}
 		
@@ -70,7 +69,7 @@ function csv_exporter_get_exportable_values($type, $subtype = '', $readable = fa
 		'readable' => $readable,
 		'defaults' => $defaults,
 	];
-	$result = elgg_trigger_plugin_hook('get_exportable_values', 'csv_exporter', $params, $defaults);
+	$result = elgg_trigger_event_results('get_exportable_values', 'csv_exporter', $params, $defaults);
 	
 	if (is_array($result)) {
 		// prevent duplications
@@ -83,20 +82,18 @@ function csv_exporter_get_exportable_values($type, $subtype = '', $readable = fa
 /**
  * Get a list of all the exportable values for the given type/subtype
  *
- * @param string $type     the entity type
- * @param string $subtype  the entity subtype
- * @param bool   $readable readable values or just for processing (default: false)
+ * @param string $type    the entity type
+ * @param string $subtype the entity subtype
  *
  * @return array
  */
-function csv_exporter_get_exportable_group_values($type = 'object', $subtype = '') {
-	
+function csv_exporter_get_exportable_group_values(string $type = 'object', string $subtype = ''): array {
 	if ($type !== 'object' && $type !== 'user') {
 		// @todo support more?
 		return [];
 	}
 	
-	if($type === 'object' && empty($subtype)) {
+	if ($type === 'object' && empty($subtype)) {
 		return [];
 	}
 	
@@ -142,7 +139,7 @@ function csv_exporter_get_exportable_group_values($type = 'object', $subtype = '
 		'available' => $available,
 	];
 	
-	$result = elgg_trigger_plugin_hook('get_exportable_values:group', 'csv_exporter', $params, $defaults);
+	$result = elgg_trigger_event_results('get_exportable_values:group', 'csv_exporter', $params, $defaults);
 	
 	if (is_array($result)) {
 		// must be available
@@ -159,11 +156,11 @@ function csv_exporter_get_exportable_group_values($type = 'object', $subtype = '
 /**
  * Get the latest activity of this group based on the river
  *
- * @param ElggGroup $entity the group to check
+ * @param \ElggGroup $entity the group to check
  *
  * @return int the UNIX timestamp of the latest activity
  */
-function csv_exporter_get_last_group_activity(ElggGroup $entity): int {
+function csv_exporter_get_last_group_activity(\ElggGroup $entity): int {
 	$select = Select::fromTable('river', 'r');
 	$entities = $select->joinEntitiesTable('r', 'object_guid');
 	
@@ -185,7 +182,7 @@ function csv_exporter_get_last_group_activity(ElggGroup $entity): int {
  *
  * @return string
  */
-function csv_exporter_get_separator() {
+function csv_exporter_get_separator(): string {
 	static $result;
 	
 	if (!isset($result)) {
@@ -193,7 +190,7 @@ function csv_exporter_get_separator() {
 		
 		$setting = elgg_get_plugin_setting('separator', 'csv_exporter');
 		if (strlen($setting) === 1) {
-			// php fputcsv only supports 1 char seperators
+			// php fputcsv only supports 1 char separators
 			$result = $setting;
 		}
 	}
@@ -208,9 +205,7 @@ function csv_exporter_get_separator() {
  *
  * @return string
  */
-function csv_exported_get_readable_timestamp($time) {
-	$time = (int) $time;
-	
+function csv_exported_get_readable_timestamp(int $time): string {
 	return date(elgg_echo('friendlytime:date_format'), $time);
 }
 
@@ -221,11 +216,10 @@ function csv_exported_get_readable_timestamp($time) {
  * @param string   $type             entity type
  * @param string   $subtype          entity subtype
  *
- * @return array|mixed
+ * @return array
  */
-function csv_exporter_prepare_exportable_columns($selected_columns, $type, $subtype = '') {
-	
-	if (empty($selected_columns) || !is_array($selected_columns) || empty($type)) {
+function csv_exporter_prepare_exportable_columns(array $selected_columns, string $type, string $subtype = ''): array {
+	if (empty($selected_columns) || empty($type)) {
 		return $selected_columns;
 	}
 	
@@ -236,68 +230,22 @@ function csv_exporter_prepare_exportable_columns($selected_columns, $type, $subt
 		'subtype' => $subtype,
 		'selected_columns' => $selected_columns,
 	];
-	return elgg_trigger_plugin_hook('prepare:exportable_columns', 'csv_exporter', $params, $column_config);
-}
-
-/**
- * Get form vars for CSV export
- *
- * @param CSVExport $entity entity to edit
- *
- * @return array
- */
-function csv_exporter_prepare_edit_form_vars(CSVExport $entity = null) {
-	
-	$result = [
-		'type_subtype' => null,
-		'time' => null,
-		'created_time_lower' => null,
-		'created_time_upper' => null,
-		'title' => null,
-		'exportable_values' => [],
-		'preview' => 1,
-	];
-	
-	// edit of an export
-	if ($entity instanceof CSVExport) {
-		foreach ($result as $name => $default_value) {
-			$result[$name] = $entity->getFormData($name);
-		}
-		
-		$result['entity'] = $entity;
-	}
-	
-	// preview
-	foreach ($result as $name => $default_value) {
-		$result[$name] = get_input($name, $default_value);
-	}
-	
-	// sticky form vars
-	$stick_vars = elgg_get_sticky_values('csv_exporter');
-	if (!empty($stick_vars)) {
-		foreach ($stick_vars as $name => $value) {
-			$result[$name] = $value;
-		}
-		
-		elgg_clear_sticky_form('csv_exporter');
-	}
-	
-	return $result;
+	return elgg_trigger_event_results('prepare:exportable_columns', 'csv_exporter', $params, $column_config);
 }
 
 /**
  * Get the allowed group subtypes to export
  *
- * @return false|string[]
+ * @return string[]
  */
-function csv_exporter_get_group_subtypes() {
+function csv_exporter_get_group_subtypes(): array {
 	static $result;
 	
 	if (isset($result)) {
 		return $result;
 	}
 	
-	$result = false;
+	$result = [];
 	
 	$setting = elgg_get_plugin_setting('allowed_group_subtypes', 'csv_exporter');
 	if (!empty($setting)) {
@@ -321,8 +269,8 @@ function csv_exporter_get_group_subtypes() {
  *
  * @return array
  */
-function csv_exporter_get_allowed_entity_types() {
+function csv_exporter_get_allowed_entity_types(): array {
 	$type_subtypes = elgg_entity_types_with_capability('searchable');
 	
-	return elgg_trigger_plugin_hook('allowed_type_subtypes', 'csv_exporter', [], $type_subtypes);
+	return elgg_trigger_event_results('allowed_type_subtypes', 'csv_exporter', [], $type_subtypes);
 }

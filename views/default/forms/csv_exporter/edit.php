@@ -115,7 +115,7 @@ $exportable_values_options = array_filter($exportable_values_options, function($
 	return stristr($label, $postfix) === false;
 }, ARRAY_FILTER_USE_BOTH);
 
-uksort($exportable_values_options, 'strcasecmp');
+uksort($exportable_values_options, 'strnatcasecmp');
 echo elgg_view_field([
 	'#type' => 'checkboxes',
 	'#label' => elgg_echo('csv_exporter:admin:exportable_values'),

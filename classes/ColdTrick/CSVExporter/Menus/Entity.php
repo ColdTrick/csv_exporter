@@ -1,27 +1,29 @@
 <?php
 
-namespace ColdTrick\CSVExporter;
+namespace ColdTrick\CSVExporter\Menus;
 
 use Elgg\Menu\MenuItems;
 
-class EntityMenu {
+/**
+ * Add menu items to the entity menu
+ */
+class Entity {
 	
 	/**
 	 * Change items in the CSVExport entity menu
 	 *
-	 * @param \Elgg\Hook $hook 'register', 'menu:entity'
+	 * @param \Elgg\Event $event 'register', 'menu:entity'
 	 *
-	 * @return void|MenuItems
+	 * @return null|MenuItems
 	 */
-	public static function csvExport(\Elgg\Hook $hook) {
-		
-		$entity = $hook->getEntityParam();
+	public static function csvExport(\Elgg\Event $event): ?MenuItems {
+		$entity = $event->getEntityParam();
 		if (!$entity instanceof \CSVExport) {
-			return;
+			return null;
 		}
 		
 		/* @var $return_value MenuItems */
-		$return_value = $hook->getValue();
+		$return_value = $event->getValue();
 		
 		$remove_items = [
 			'edit',
@@ -31,12 +33,13 @@ class EntityMenu {
 		}
 		
 		// add download
-		if ($entity->isCompleted() && ($download_url = $entity->getDownloadURL())) {
+		$download_url = $entity->getDownloadURL();
+		if ($entity->isCompleted() && !empty($download_url)) {
 			$return_value[] = \ElggMenuItem::factory([
 				'name' => 'download',
+				'icon' => 'download',
 				'text' => elgg_echo('download'),
 				'href' => $download_url,
-				'icon' => 'download',
 				'priority' => 100,
 				'section' => 'alt',
 			]);

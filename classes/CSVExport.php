@@ -1,6 +1,9 @@
 <?php
 
-class CSVExport extends ElggObject {
+/**
+ * CSV export entity class
+ */
+class CSVExport extends \ElggObject {
 	
 	const SUBTYPE = 'csv_export';
 	
@@ -8,8 +11,7 @@ class CSVExport extends ElggObject {
 	protected $form_data;
 	
 	/**
-	 * (non-PHPdoc)
-	 * @see ElggObject::initializeAttributes()
+	 * {@inheritdoc}
 	 */
 	protected function initializeAttributes() {
 		parent::initializeAttributes();
@@ -19,10 +21,9 @@ class CSVExport extends ElggObject {
 	}
 	
 	/**
-	 * (non-PHPdoc)
-	 * @see ElggObject::getDisplayName()
+	 * {@inheritdoc}
 	 */
-	public function getDisplayName() {
+	public function getDisplayName(): string {
 		$type = $this->getFormData('type');
 		$subtype = $this->getFormData('subtype');
 		
@@ -54,10 +55,10 @@ class CSVExport extends ElggObject {
 	 * @return void|string|array
 	 */
 	public function getFormData($field = '') {
-		
 		if (!isset($this->form_data)) {
 			$this->form_data = json_decode($this->description, true);
 		}
+		
 		if (empty($this->form_data) || !is_array($this->form_data)) {
 			return;
 		}
@@ -66,17 +67,18 @@ class CSVExport extends ElggObject {
 			return $this->form_data;
 		}
 		
-		if (($field === 'type') || ($field === 'subtype')) {
+		if ($field === 'type' || $field === 'subtype') {
 			$type_subtype = $this->getFormData('type_subtype');
 			if (!is_string($type_subtype)) {
 				return;
 			}
+			
 			list($type, $subtype) = explode(':', $type_subtype);
 			if ($field == 'type') {
 				return $type;
-			} else {
-				return $subtype;
 			}
+			
+			return $subtype;
 		}
 		
 		return elgg_extract($field, $this->form_data);
@@ -87,7 +89,7 @@ class CSVExport extends ElggObject {
 	 *
 	 * @return bool
 	 */
-	public function isProcessing() {
+	public function isProcessing(): bool {
 		return isset($this->started);
 	}
 	
@@ -96,7 +98,7 @@ class CSVExport extends ElggObject {
 	 *
 	 * @return bool
 	 */
-	public function isScheduled() {
+	public function isScheduled(): bool {
 		return isset($this->scheduled);
 	}
 	
@@ -105,20 +107,19 @@ class CSVExport extends ElggObject {
 	 *
 	 * @return bool
 	 */
-	public function isCompleted() {
+	public function isCompleted(): bool {
 		return isset($this->completed);
 	}
 	
 	/**
 	 * Get the download url for this export
 	 *
-	 * @return false|string
+	 * @return null|string
 	 */
-	public function getDownloadURL() {
-		
+	public function getDownloadURL(): ?string {
 		$fo = $this->getFileObject();
 		if (empty($fo) || !$fo->exists()) {
-			return false;
+			return null;
 		}
 		
 		return elgg_get_download_url($fo, true);
@@ -129,8 +130,7 @@ class CSVExport extends ElggObject {
 	 *
 	 * @return void
 	 */
-	public function process() {
-		
+	public function process(): void {
 		if ($this->isProcessing()) {
 			return;
 		}
@@ -156,7 +156,7 @@ class CSVExport extends ElggObject {
 		
 		// prepare for exporting
 		$fo = $this->getFileObject();
-		$seperator = csv_exporter_get_separator();
+		$separator = csv_exporter_get_separator();
 		$exportable_values = array_keys($column_config);
 		
 		// make csv header row
@@ -168,7 +168,7 @@ class CSVExport extends ElggObject {
 		
 		// create the new file with the headers
 		$fh = $fo->open('write');
-		fputcsv($fh, $headers, $seperator);
+		fputcsv($fh, $headers, $separator);
 		
 		// append the rest of the data
 		$fh = $fo->open('append');
@@ -218,7 +218,7 @@ class CSVExport extends ElggObject {
 			foreach ($exportable_values as $export_value) {
 				$params['exportable_value'] = $export_value;
 				
-				$value = elgg_trigger_plugin_hook('export_value', 'csv_exporter', $params);
+				$value = elgg_trigger_event_results('export_value', 'csv_exporter', $params);
 				if ($value === null) {
 					$value = $entity->$export_value;
 				}
@@ -231,7 +231,7 @@ class CSVExport extends ElggObject {
 			}
 			
 			// write row
-			fputcsv($fh, $values, $seperator);
+			fputcsv($fh, $values, $separator);
 			
 			// clean up some memory
 			if ($batch_processing >= 100) {
@@ -253,7 +253,7 @@ class CSVExport extends ElggObject {
 	 *
 	 * @return void
 	 */
-	protected function lockProcessing() {
+	protected function lockProcessing(): void {
 		$this->started = time();
 	}
 	
@@ -262,19 +262,18 @@ class CSVExport extends ElggObject {
 	 *
 	 * @return void
 	 */
-	public function unlockProcessing() {
+	public function unlockProcessing(): void {
 		unset($this->started);
 	}
 	
 	/**
 	 * Get a file handler to work with
 	 *
-	 * @return false|ElggFile
+	 * @return null|ElggFile
 	 */
-	protected function getFileObject() {
-		
+	protected function getFileObject(): ?\ElggFile {
 		if (!$this->guid) {
-			return false;
+			return null;
 		}
 		
 		$filename = $this->filename;
@@ -283,7 +282,7 @@ class CSVExport extends ElggObject {
 			$this->filename = $filename;
 		}
 		
-		$fh = new ElggFile();
+		$fh = new \ElggFile();
 		$fh->owner_guid = $this->guid;
 		
 		$fh->setFilename("{$filename}.csv");
@@ -292,14 +291,13 @@ class CSVExport extends ElggObject {
 	}
 	
 	/**
-	 * Add the time contraints to the entity options
+	 * Add the time constraints to the entity options
 	 *
 	 * @param array $options the current entity options
 	 *
 	 * @return void
 	 */
-	protected function addTimeContraints(&$options) {
-		
+	protected function addTimeContraints(&$options): void {
 		// add time constraints
 		$time = $this->getFormData('time');
 		if (empty($time)) {
@@ -353,13 +351,12 @@ class CSVExport extends ElggObject {
 	 *
 	 * @return void
 	 */
-	protected function complete() {
-		
+	protected function complete(): void {
 		unset($this->scheduled);
 		$this->completed = time();
 		
 		$title = $this->getDisplayName();
-		if ($this->getContainerEntity() instanceof ElggGroup) {
+		if ($this->getContainerEntity() instanceof \ElggGroup) {
 			// group export
 			$download_link = elgg_generate_url('collection:object:csv_export:group', [
 				'guid' => $this->container_guid,
@@ -369,6 +366,7 @@ class CSVExport extends ElggObject {
 			// admin export
 			$download_link = 'admin/administer_utilities/csv_exporter/download';
 		}
+		
 		$owner = $this->getOwnerEntity();
 		
 		$subject = elgg_echo('csv_exporter:notify:complete:subject', [$title]);
@@ -390,7 +388,7 @@ class CSVExport extends ElggObject {
 	 *
 	 * @return void
 	 */
-	protected function clearCaches() {
+	protected function clearCaches(): void {
 		_elgg_services()->accessCache->clear();
 		_elgg_services()->dataCache->clear();
 		_elgg_services()->entityCache->clear();

@@ -8,7 +8,7 @@ echo elgg_view_menu('csv_exporter', [
 
 echo elgg_list_entities([
 	'type' => 'object',
-	'subtype' => CSVExport::SUBTYPE,
+	'subtype' => \CSVExport::SUBTYPE,
 	'metadata_name' => 'completed',
 	'sort_by' => [
 		'property' => 'completed',

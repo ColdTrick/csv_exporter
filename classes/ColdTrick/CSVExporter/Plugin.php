@@ -2,24 +2,26 @@
 
 namespace ColdTrick\CSVExporter;
 
+/**
+ * Modify plugin settings
+ */
 class Plugin {
 	
 	/**
 	 * Save a plugin setting as an array
 	 *
-	 * @param \Elgg\Hook $hook 'setting', 'plugin'
+	 * @param \Elgg\Event $event 'setting', 'plugin'
 	 *
-	 * @return void|string
+	 * @return null|string
 	 */
-	public static function saveSettings(\Elgg\Hook $hook) {
-		
-		if ($hook->getParam('plugin_id') !== 'csv_exporter') {
-			return;
+	public static function saveSettings(\Elgg\Event $event): ?string {
+		if ($event->getParam('plugin_id') !== 'csv_exporter') {
+			return null;
 		}
 		
-		$result = $hook->getValue();
+		$result = $event->getValue();
 		if (!is_array($result)) {
-			return;
+			return null;
 		}
 		
 		return json_encode($result);
