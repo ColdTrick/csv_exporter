@@ -33,8 +33,6 @@ class PrepareFields {
 			foreach ($values as $name => $default_value) {
 				$values[$name] = $entity->getFormData($name);
 			}
-			
-			$values['entity'] = $entity;
 		}
 		
 		// preview
