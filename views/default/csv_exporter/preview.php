@@ -83,7 +83,7 @@ $entities = elgg_get_entities($options);
 foreach ($entities as $entity) {
 	$row = [];
 	
-	// params for hook
+	// params for event
 	$params = [
 		'type' => $type,
 		'subtype' => $subtype,

@@ -148,7 +148,7 @@ class CSVExport extends \ElggObject {
 		// prepare values for export
 		$column_config = csv_exporter_prepare_exportable_columns($exportable_values, $type, $subtype);
 		
-		// check hook results
+		// check event results
 		if (empty($column_config) || !is_array($column_config)) {
 			$this->unlockProcessing();
 			return;
@@ -207,7 +207,7 @@ class CSVExport extends \ElggObject {
 			$batch_processing++;
 			$values = [];
 			
-			// params for hook
+			// params for event
 			$params = [
 				'type' => $type,
 				'subtype' => $subtype,
