@@ -2,6 +2,11 @@
 
 /**
  * CSV export entity class
+ *
+ * @property int    $completed   timestamp when the CSV Export was completed
+ * @property string $description JSON encoded configuration of the CSV Export
+ * @property int    $scheduled   timestamp when the CSV Export is scheduled to be processed
+ * @property int    $started     timestamp when the CSV Export started processing
  */
 class CSVExport extends \ElggObject {
 	
