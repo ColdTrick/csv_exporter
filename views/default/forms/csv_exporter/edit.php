@@ -129,13 +129,13 @@ $footer = elgg_view_field([
 	'fields' => [
 		[
 			'#type' => 'submit',
-			'value' => elgg_echo('csv_exporter:admin:preview'),
+			'text' => elgg_echo('csv_exporter:admin:preview'),
 			'icon' => 'eye',
 		],
 		[
 			'#type' => 'submit',
 			'title' => elgg_echo('csv_exporter:admin:schedule:description'),
-			'value' => elgg_echo('csv_exporter:admin:schedule'),
+			'text' => elgg_echo('csv_exporter:admin:schedule'),
 			'class' => 'elgg-button-action',
 			'formaction' => elgg_generate_action_url('csv_exporter/edit', [], false),
 			'icon' => 'clock-o',
