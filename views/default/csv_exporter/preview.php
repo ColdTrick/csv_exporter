@@ -16,7 +16,7 @@ $column_config = csv_exporter_prepare_exportable_columns($exportable_values, $ty
 
 $header = [];
 foreach ($column_config as $label) {
-	$header[] = elgg_format_element('th', [], $label);
+	$header[] = elgg_format_element('th', [], (string) $label);
 }
 
 $header = elgg_format_element('tr', [], implode(PHP_EOL, $header));
@@ -102,7 +102,7 @@ foreach ($entities as $entity) {
 			$value = implode(', ', $value);
 		}
 		
-		$row[] = elgg_format_element('td', [], $value);
+		$row[] = elgg_format_element('td', [], (string) $value);
 	}
 	
 	$rows[] = elgg_format_element('tr', [], implode(PHP_EOL, $row));
