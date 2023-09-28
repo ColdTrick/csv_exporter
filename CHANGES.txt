@@ -1,6 +1,10 @@
 Version history
 ===============
 
+10.0.2 (2023-09-28):
+
+- fixed: make sure preview does not crash on null value fields
+
 10.0.1 (2023-07-26):
 
 - fixed: buttons have a discernible text
