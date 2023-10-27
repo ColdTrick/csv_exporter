@@ -3,10 +3,7 @@
 /* @var $group \ElggGroup */
 $group = elgg_get_page_owner_entity();
 
-elgg_push_breadcrumb($group->getDisplayName(), $group->getURL());
-
-// page elements
-$title = elgg_echo('csv_exporter:group:title', [$group->getDisplayName()]);
+elgg_push_entity_breadcrumbs($group);
 
 $selected = elgg_extract('filter', $vars);
 $filter = elgg_view_menu('csv_exporter_group', [
@@ -36,8 +33,7 @@ switch ($selected) {
 		break;
 }
 
-// draw page
-echo elgg_view_page($title, [
+echo elgg_view_page(elgg_echo('csv_exporter:group:title', [$group->getDisplayName()]), [
 	'content' => $content,
 	'filter' => $filter,
 ]);

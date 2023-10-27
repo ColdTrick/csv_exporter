@@ -17,7 +17,7 @@ class AdminHeader {
 	 * @return null|MenuItems
 	 */
 	public static function register(\Elgg\Event $event): ?MenuItems {
-		if (!elgg_is_admin_logged_in() || !elgg_in_context('admin')) {
+		if (!elgg_is_admin_logged_in()) {
 			return null;
 		}
 		
@@ -27,7 +27,7 @@ class AdminHeader {
 			'name' => 'csv_exporter_admin',
 			'text' => elgg_echo('admin:administer_utilities:csv_exporter'),
 			'href' => 'admin/administer_utilities/csv_exporter',
-			'parent_name' => 'administer_utilities',
+			'parent_name' => 'utilities',
 		]);
 		
 		return $return_value;

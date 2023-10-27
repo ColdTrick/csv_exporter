@@ -15,13 +15,8 @@ class Cron {
 	 * @return void
 	 */
 	public static function processExports(\Elgg\Event $event): void {
-		
-		echo 'Starting CSVExporter processing' . PHP_EOL;
-		elgg_log('Starting CSVExporter processing', 'NOTICE');
-		
 		$time = (int) $event->getParam('time', time());
 		
-		// ignore access
 		elgg_call(ELGG_IGNORE_ACCESS, function () use ($time) {
 			/* @var $batch \ElggBatch */
 			$batch = elgg_get_entities([
@@ -41,6 +36,7 @@ class Cron {
 				'batch' => true,
 				'batch_inc_offset' => false,
 			]);
+			
 			/* @var $csv_export \CSVExport */
 			foreach ($batch as $csv_export) {
 				if ($csv_export->isProcessing()) {
@@ -51,9 +47,6 @@ class Cron {
 				$csv_export->process();
 			}
 		});
-		
-		echo 'Done with CSVExporter processing' . PHP_EOL;
-		elgg_log('Done with CSVExporter processing', 'NOTICE');
 	}
 	
 	/**
@@ -71,10 +64,6 @@ class Cron {
 			return;
 		}
 		
-		echo 'Starting CSVExporter cleanup' . PHP_EOL;
-		elgg_log('Starting CSVExporter cleanup', 'NOTICE');
-		
-		// ignore access
 		elgg_call(ELGG_IGNORE_ACCESS, function() use($time, $retention) {
 			/* @var $batch \ElggBatch */
 			$batch = elgg_get_entities([
@@ -89,13 +78,11 @@ class Cron {
 				'batch' => true,
 				'batch_inc_offset' => false,
 			]);
+			
 			/* @var $entity \CSVExport */
 			foreach ($batch as $entity) {
 				$entity->delete();
 			}
 		});
-		
-		echo 'Done with CSVExporter cleanup' . PHP_EOL;
-		elgg_log('Done with CSVExporter cleanup', 'NOTICE');
 	}
 }
