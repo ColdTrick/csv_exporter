@@ -138,7 +138,7 @@ $footer = elgg_view_field([
 			'text' => elgg_echo('csv_exporter:admin:schedule'),
 			'class' => 'elgg-button-action',
 			'formaction' => elgg_generate_action_url('csv_exporter/edit', [], false),
-			'icon' => 'clock-o',
+			'icon' => 'clock',
 		],
 	],
 	'align' => 'horizontal',

@@ -1,6 +1,6 @@
 <?php
 
-elgg_require_js('admin/administer_utilities/csv_exporter');
+elgg_import_esm('admin/administer_utilities/csv_exporter');
 
 // add tab menu
 echo elgg_view_menu('csv_exporter', [
@@ -31,6 +31,5 @@ if ($preview && !empty($type_subtype) && !empty($exportable_values)) {
 		'created_time_upper' => get_input('created_time_upper'),
 	];
 	$params = $params + $vars;
-	
 	echo elgg_view('csv_exporter/preview', $params);
 }

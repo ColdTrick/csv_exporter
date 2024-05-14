@@ -3,6 +3,7 @@
  * All helper functions for this plugin are bundled here
  */
 
+use Elgg\Database\RiverTable;
 use Elgg\Database\Select;
 
 /**
@@ -161,12 +162,12 @@ function csv_exporter_get_exportable_group_values(string $type = 'object', strin
  * @return int the UNIX timestamp of the latest activity
  */
 function csv_exporter_get_last_group_activity(\ElggGroup $entity): int {
-	$select = Select::fromTable('river', 'r');
-	$entities = $select->joinEntitiesTable('r', 'object_guid');
+	$select = Select::fromTable(RiverTable::TABLE_NAME, RiverTable::DEFAULT_JOIN_ALIAS);
+	$entities = $select->joinEntitiesTable($select->getTableAlias(), 'object_guid');
 	
-	$select->addSelect('max(r.posted) as posted')
+	$select->addSelect("max({$select->getTableAlias()}.posted) as posted")
 		->where($select->compare("{$entities}.container_guid", '=', $entity->guid, ELGG_VALUE_GUID))
-		->orWhere($select->compare('r.object_guid', '=', $entity->guid, ELGG_VALUE_GUID));
+		->orWhere($select->compare("{$select->getTableAlias()}.object_guid", '=', $entity->guid, ELGG_VALUE_GUID));
 	
 	$data = elgg()->db->getData($select);
 	if (empty($data)) {

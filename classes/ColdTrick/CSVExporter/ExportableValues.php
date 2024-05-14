@@ -39,8 +39,6 @@ class ExportableValues {
 			elgg_echo('csv_exporter:exportable_value:url') => 'csv_exporter_url',
 			elgg_echo('csv_exporter:exportable_value:access_id') => 'access_id',
 			elgg_echo('csv_exporter:exportable_value:access_id_readable') => 'csv_exporter_access_id_readable',
-			elgg_echo('csv_exporter:exportable_value:icontime') => 'icontime',
-			elgg_echo('csv_exporter:exportable_value:icontime_readable') => 'csv_exporter_icontime_readable',
 			elgg_echo('csv_exporter:exportable_value:icon_url:master') => 'csv_exporter_icon_url_master',
 			elgg_echo('csv_exporter:exportable_value:icon_present') => 'csv_exporter_icon_present',
 		];
@@ -99,9 +97,9 @@ class ExportableValues {
 		$profile_fields = elgg()->fields->get('user', 'user');
 		foreach ($profile_fields as $field) {
 			$metadata_name = $field['name'];
-			$lan = elgg_extract('#label', $field, $metadata_name);
+			$label = elgg_extract('#label', $field, $metadata_name);
 			
-			$result[$lan] = $metadata_name;
+			$result[$label] = $metadata_name;
 		}
 		
 		// add defaults
@@ -135,9 +133,9 @@ class ExportableValues {
 		$profile_fields = elgg()->fields->get('group', 'group');
 		foreach ($profile_fields as $field) {
 			$metadata_name = $field['name'];
-			$lan = elgg_extract('#label', $field, $metadata_name);
+			$label = elgg_extract('#label', $field, $metadata_name);
 			
-			$result[$lan] = $metadata_name;
+			$result[$label] = $metadata_name;
 		}
 		
 		// add defaults
@@ -234,11 +232,6 @@ class ExportableValues {
 			case 'csv_exporter_access_id_readable':
 				return elgg_get_readable_access_level($entity->access_id);
 			
-			case 'csv_exporter_icontime_readable':
-				if (!isset($entity->icontime)) {
-					return '';
-				}
-				return csv_exported_get_readable_timestamp($entity->icontime);
 			case 'csv_exporter_icon_url_master':
 				if (!$entity->hasIcon('master')) {
 					return '';

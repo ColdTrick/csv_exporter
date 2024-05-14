@@ -55,8 +55,6 @@ Plugins can extend this list of columns",
 	'csv_exporter:exportable_value:url' => "Entity URL",
 	'csv_exporter:exportable_value:access_id' => "Access",
 	'csv_exporter:exportable_value:access_id_readable' => "Access (readable)",
-	'csv_exporter:exportable_value:icontime' => "Icon upload time",
-	'csv_exporter:exportable_value:icontime_readable' => "Icon upload time (readable)",
 	'csv_exporter:exportable_value:icon_url:master' => "Icon url",
 	'csv_exporter:exportable_value:icon_present' => "Icon present",
 	

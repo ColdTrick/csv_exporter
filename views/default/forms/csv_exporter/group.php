@@ -54,7 +54,8 @@ echo elgg_view_field([
 // form footer
 $footer = elgg_view_field([
 	'#type' => 'submit',
-	'text' => elgg_echo('save'),
+	'icon' => 'clock',
+	'text' => elgg_echo('csv_exporter:admin:schedule'),
 ]);
 
 elgg_set_form_footer($footer);

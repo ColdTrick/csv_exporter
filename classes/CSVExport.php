@@ -55,17 +55,17 @@ class CSVExport extends \ElggObject {
 	/**
 	 * Get data from the csv configuration
 	 *
-	 * @param string $field (optional) the field to get, leave empty for all fields
+	 * @param null|string $field (optional) the field to get, leave empty for all fields
 	 *
-	 * @return void|string|array
+	 * @return null|string|array
 	 */
-	public function getFormData($field = '') {
+	public function getFormData(string $field = null) {
 		if (!isset($this->form_data)) {
 			$this->form_data = json_decode($this->description, true);
 		}
 		
 		if (empty($this->form_data) || !is_array($this->form_data)) {
-			return;
+			return null;
 		}
 		
 		if (empty($field)) {
@@ -75,7 +75,7 @@ class CSVExport extends \ElggObject {
 		if ($field === 'type' || $field === 'subtype') {
 			$type_subtype = $this->getFormData('type_subtype');
 			if (!is_string($type_subtype)) {
-				return;
+				return null;
 			}
 			
 			list($type, $subtype) = explode(':', $type_subtype);

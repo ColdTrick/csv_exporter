@@ -15,7 +15,7 @@ if ($entity->isProcessing()) {
 	];
 } elseif ($entity->isScheduled()) {
 	$imprint[] = [
-		'icon_name' => 'clock-o',
+		'icon_name' => 'clock',
 		'content' => elgg_echo('csv_exporter:object:csv_export:scheduled'),
 	];
 } elseif ($entity->isCompleted()) {

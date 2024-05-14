@@ -11,8 +11,6 @@ return array (
   'csv_exporter:menu:entity:restart' => 'Opnieuw verwerken',
   'csv_exporter:action:admin:restart:error:not_processing' => 'De CSV Export wordt op dit moment niet verwerkt, herstarten niet mogelijk',
   'csv_exporter:action:admin:restart:success' => 'De CSV Export is herstart',
-  'csv_exporter:exportable_value:icontime' => 'Icoon upload tijdstip',
-  'csv_exporter:exportable_value:icontime_readable' => 'Icoon upload tijdstip (leesbaar)',
   'csv_exporter:exportable_value:icon_url:master' => 'Icoon url',
   'csv_exporter:exportable_value:icon_present' => 'Icoon aanwezig',
   'admin:administer_utilities:csv_exporter:download' => 'Alle CSV exports',

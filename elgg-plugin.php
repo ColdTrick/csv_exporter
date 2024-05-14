@@ -10,7 +10,7 @@ return [
 		[
 			'type' => 'object',
 			'subtype' => 'csv_export',
-			'class' => CSVExport::class,
+			'class' => \CSVExport::class,
 			'capabilities' => [
 				'commentable' => false,
 			],

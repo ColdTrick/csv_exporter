@@ -16,8 +16,10 @@ class Cron {
 	 */
 	public static function processExports(\Elgg\Event $event): void {
 		$time = (int) $event->getParam('time', time());
+		/* @var $cron_logger \Elgg\Logger\Cron */
+		$cron_logger = $event->getParam('logger');
 		
-		elgg_call(ELGG_IGNORE_ACCESS, function () use ($time) {
+		elgg_call(ELGG_IGNORE_ACCESS, function () use ($time, $cron_logger) {
 			/* @var $batch \ElggBatch */
 			$batch = elgg_get_entities([
 				'type' => 'object',
@@ -40,7 +42,7 @@ class Cron {
 			/* @var $csv_export \CSVExport */
 			foreach ($batch as $csv_export) {
 				if ($csv_export->isProcessing()) {
-					elgg_log("CSV export '{$csv_export->getDisplayName()}' is already processing: {$csv_export->started}", 'NOTICE');
+					$cron_logger->notice("CSV export '{$csv_export->getDisplayName()}' is already processing: {$csv_export->started}");
 					continue;
 				}
 				
