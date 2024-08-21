@@ -106,6 +106,10 @@ class ExportableValues {
 		$result[elgg_echo('email')] = 'email';
 		$result[elgg_echo('csv_exporter:exportable_value:user:last_action')] = 'csv_exporter_user_last_action';
 		$result[elgg_echo('csv_exporter:exportable_value:user:last_action_readable')] = 'csv_exporter_user_last_action_readable';
+		$result[elgg_echo('csv_exporter:exportable_value:user:first_login')] = 'csv_exporter_user_first_login';
+		$result[elgg_echo('csv_exporter:exportable_value:user:first_login_readable')] = 'csv_exporter_user_first_login_readable';
+		$result[elgg_echo('csv_exporter:exportable_value:user:last_login')] = 'csv_exporter_user_last_login';
+		$result[elgg_echo('csv_exporter:exportable_value:user:last_login_readable')] = 'csv_exporter_user_last_login_readable';
 		$result[elgg_echo('csv_exporter:exportable_value:user:groups_owned_name')] = 'csv_exporter_user_groups_owned_name';
 		$result[elgg_echo('csv_exporter:exportable_value:user:groups_owned_url')] = 'csv_exporter_user_groups_owned_url';
 		$result[elgg_echo('csv_exporter:exportable_value:user:friends')] = 'csv_exporter_user_friends';
@@ -303,14 +307,20 @@ class ExportableValues {
 		];
 		
 		$exportable_value = $event->getParam('exportable_value');
+		$exportable_value = substr($exportable_value, strlen('csv_exporter_user_'));
 		switch ($exportable_value) {
-			case 'csv_exporter_user_last_action':
-				return (int) $entity->last_action;
+			case 'first_login':
+			case 'last_action':
+			case 'last_login':
+				return (int) $entity->{$exportable_value};
 			
-			case 'csv_exporter_user_last_action_readable':
-				return csv_exported_get_readable_timestamp($entity->last_action);
+			case 'first_login_readable':
+			case 'last_action_readable':
+			case 'last_login_readable':
+				$exportable_value = substr($exportable_value, 0, -strlen('_readable'));
+				return $entity->{$exportable_value} ? csv_exported_get_readable_timestamp((int) $entity->{$exportable_value}) : '';
 			
-			case 'csv_exporter_user_groups_owned_name':
+			case 'groups_owned_name':
 				$result = [];
 				
 				$batch = elgg_get_entities($group_options);
@@ -320,7 +330,7 @@ class ExportableValues {
 				}
 				return $result;
 			
-			case 'csv_exporter_user_groups_owned_url':
+			case 'groups_owned_url':
 				$result = [];
 				
 				$batch = elgg_get_entities($group_options);
@@ -330,14 +340,14 @@ class ExportableValues {
 				}
 				return $result;
 			
-			case 'csv_exporter_user_friends':
+			case 'friends':
 				return (int) $entity->getEntitiesFromRelationship([
 					'type' => 'user',
 					'relationship' => 'friend',
 					'count' => true,
 				]);
 			
-			case 'csv_exporter_user_friends_of':
+			case 'friends_of':
 				return (int) $entity->getEntitiesFromRelationship([
 					'type' => 'user',
 					'relationship' => 'friend',

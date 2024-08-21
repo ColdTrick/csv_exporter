@@ -1,10 +1,14 @@
 <?php
 /**
- * This file was created by Translation Editor v11.1
- * On 2023-05-17 14:29
+ * This file was created by Translation Editor v14.0
+ * On 2024-08-21 12:59
  */
 
 return array (
+  'csv_exporter:exportable_value:user:first_login' => 'Eerste aanmelding',
+  'csv_exporter:exportable_value:user:first_login_readable' => 'Eerste aanmelding (leesbaar)',
+  'csv_exporter:exportable_value:user:last_login' => 'Laatste aanmelding',
+  'csv_exporter:exportable_value:user:last_login_readable' => 'Laatste aanmelding (leesbaar)',
   'csv_exporter:exportable_value:group:postfix' => ' (alleen gedurende groep export)',
   'csv_exporter:exportable_value:user:group:member:unix' => 'Lid sinds (UNIX)',
   'csv_exporter:exportable_value:user:group:member:readable' => 'Lid sinds',
