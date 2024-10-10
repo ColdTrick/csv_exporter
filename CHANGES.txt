@@ -1,6 +1,10 @@
 Version history
 ===============
 
+12.1 (2024-10-10):
+
+- added: user first and last login time to export data
+
 12.0 (2024-06-28):
 
 - changed: updated for Elgg 6
