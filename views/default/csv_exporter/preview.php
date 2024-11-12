@@ -117,9 +117,10 @@ $content .= elgg_view('navigation/pagination', [
 	'limit' => $limit,
 	'offset' => $offset,
 	'count' => elgg_get_entities($options),
-	'base_url' => elgg_http_add_url_query_elements(elgg_get_current_url(), [
+	'base_url' => elgg_http_add_url_query_elements(elgg_get_current_url() . '#preview', [
 		'type_subtype' => empty($subtype) ? $type : "{$type}:{$subtype}",
 		'exportable_values' => $exportable_values,
+		'preview' => 1,
 	]),
 ]);
 
