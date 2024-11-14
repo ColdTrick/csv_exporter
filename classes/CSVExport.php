@@ -373,12 +373,13 @@ class CSVExport extends \ElggObject {
 		}
 		
 		$owner = $this->getOwnerEntity();
+		$language = $owner instanceof \ElggUser ? $owner->getLanguage() : '';
 		
-		$subject = elgg_echo('csv_exporter:notify:complete:subject', [$title]);
+		$subject = elgg_echo('csv_exporter:notify:complete:subject', [$title], $language);
 		$message = elgg_echo('csv_exporter:notify:complete:message', [
 			$title,
 			elgg_normalize_url($download_link),
-		]);
+		], $language);
 		
 		$params = [
 			'object' => $this,
