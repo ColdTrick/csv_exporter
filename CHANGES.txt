@@ -1,6 +1,11 @@
 Version history
 ===============
 
+12.1.1 (2024-11-21):
+
+- fixed: admin preview pagination not working
+- fixed: send export complete notification in recipient language
+
 12.1 (2024-10-10):
 
 - added: user first and last login time to export data
