@@ -78,12 +78,12 @@ class CSVExport extends \ElggObject {
 				return null;
 			}
 			
-			list($type, $subtype) = explode(':', $type_subtype);
-			if ($field == 'type') {
-				return $type;
+			$exploded = explode(':', $type_subtype);
+			if ($field === 'type') {
+				return elgg_extract(0, $exploded);
 			}
 			
-			return $subtype;
+			return elgg_extract(1, $exploded);
 		}
 		
 		return elgg_extract($field, $this->form_data);
