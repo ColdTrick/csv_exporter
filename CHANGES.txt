@@ -1,6 +1,10 @@
 Version history
 ===============
 
+12.1.2 (2024-12-11):
+
+- fixed: correctly explode type_subtype during processing
+
 12.1.1 (2024-11-21):
 
 - fixed: admin preview pagination not working
