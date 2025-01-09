@@ -1,6 +1,10 @@
 Version history
 ===============
 
+12.1.3 (2025-01-09):
+
+- fixed: correctly clear metadata cache
+
 12.1.2 (2024-12-11):
 
 - fixed: correctly explode type_subtype during processing
