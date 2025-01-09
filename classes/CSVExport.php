@@ -397,7 +397,7 @@ class CSVExport extends \ElggObject {
 	protected function clearCaches(): void {
 		_elgg_services()->accessCache->clear();
 		_elgg_services()->entityCache->clear();
-		_elgg_services()->metadataCache->clearAll();
+		_elgg_services()->metadataCache->clear();
 		_elgg_services()->queryCache->clear();
 	}
 }
