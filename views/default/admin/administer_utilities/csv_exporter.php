@@ -8,12 +8,11 @@ echo elgg_view_menu('csv_exporter', [
 	'sort_by' => 'priority',
 ]);
 
-$form_vars = [
+echo elgg_view_form('csv_exporter/edit', [
 	'id' => 'csv-exporter-export',
 	'action' => 'admin/administer_utilities/csv_exporter#preview',
 	'sticky_enabled' => true,
-];
-echo elgg_view_form('csv_exporter/edit', $form_vars);
+]);
 
 // preview
 $type_subtype = get_input('type_subtype');
@@ -29,6 +28,8 @@ if ($preview && !empty($type_subtype) && !empty($exportable_values)) {
 		'time' => get_input('time'),
 		'created_time_lower' => get_input('created_time_lower'),
 		'created_time_upper' => get_input('created_time_upper'),
+		'owner_guid' => get_input('owner_guid'),
+		'container_guid' => get_input('container_guid'),
 	];
 	$params = $params + $vars;
 	echo elgg_view('csv_exporter/preview', $params);

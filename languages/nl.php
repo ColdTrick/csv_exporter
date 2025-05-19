@@ -121,4 +121,6 @@ Je kunt je export vinden in het overzicht:
   'csv_exporter:admin:exportable_values:choose' => 'Selecteer eerst wat je wilt exporteren',
   'csv_exporter:admin:preview' => 'Voorbeeld',
   'csv_exporter:admin:preview:title' => 'Dit zal zich in de CSV bevinden',
+  'csv_exporter:admin:owner_guid' => 'Selecteer eigenaar',
+  'csv_exporter:admin:container_guid' => 'Selecteer groep',
 );

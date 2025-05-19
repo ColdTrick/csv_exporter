@@ -95,6 +95,8 @@ Plugins can extend this list of columns",
 	'csv_exporter:exportable_value:group:tool' => "Tool: %s",
 	'csv_exporter:exportable_value:group:content_stats' => "Content statistics",
 	
+	'csv_exporter:admin' => "Configure export",
+	'csv_exporter:admin:show_filter' => "Show filter",
 	'csv_exporter:admin:type_subtype' => "What do you wish to export",
 	'csv_exporter:admin:type_subtype:choose' => "Please choose from the list",
 	
@@ -121,6 +123,8 @@ Plugins can extend this list of columns",
 	'csv_exporter:admin:time:range:created_time_upper' => "End day",
 	
 	'csv_exporter:admin:title' => "Title for export (optional)",
+	'csv_exporter:admin:owner_guid' => "Select owner",
+	'csv_exporter:admin:container_guid' => "Select group",
 	
 	// download page
 	'csv_exporter:download:none' => "No CSV exports are ready for download",

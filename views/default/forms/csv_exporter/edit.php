@@ -51,59 +51,101 @@ if (empty($type_subtype)) {
 	return;
 }
 
-echo elgg_view_field([
-	'#type' => 'select',
-	'#label' => elgg_echo('csv_exporter:admin:time'),
-	'#help' => elgg_echo('csv_exporter:admin:time:description'),
-	'id' => 'csv-exporter-time',
-	'name' => 'time',
-	'value' => elgg_extract('time', $vars),
-	'options_values' => [
-		'' => elgg_echo('csv_exporter:admin:time:select'),
-		'today' => elgg_echo('csv_exporter:admin:time:today'),
-		'yesterday' => elgg_echo('csv_exporter:admin:time:yesterday'),
-		'this_week' => elgg_echo('csv_exporter:admin:time:this_week'),
-		'last_week' => elgg_echo('csv_exporter:admin:time:last_week'),
-		'this_month' => elgg_echo('csv_exporter:admin:time:this_month'),
-		'last_month' => elgg_echo('csv_exporter:admin:time:last_month'),
-		'range' => elgg_echo('csv_exporter:admin:time:range'),
-	],
-]);
-
-echo elgg_view_field([
-	'#type' => 'fieldset',
-	'#class' => (elgg_extract('time', $vars) === 'range') ? '' : 'hidden',
-	'id' => 'csv-exporter-range',
-	'fields' => [
-		[
-			'#type' => 'date',
-			'#label' => elgg_echo('csv_exporter:admin:time:range:created_time_lower'),
-			'name' => 'created_time_lower',
-			'value' => elgg_extract('created_time_lower', $vars),
-			'timestamp' => true,
-			'datepicker_options' => [
-				'maxDate' => '-1d',
-			],
-		],
-		[
-			'#type' => 'date',
-			'#label' => elgg_echo('csv_exporter:admin:time:range:created_time_upper'),
-			'name' => 'created_time_upper',
-			'value' => elgg_extract('created_time_upper', $vars),
-			'timestamp' => true,
-			'datepicker_options' => [
-				'maxDate' => '+1d',
-			],
-		],
-	],
-	'align' => 'horizontal',
-]);
-
-echo elgg_view_field([
+$result = elgg_view_field([
 	'#type' => 'text',
 	'#label' => elgg_echo('csv_exporter:admin:title'),
 	'name' => 'title',
 	'value' => elgg_extract('title', $vars),
+]);
+
+$show_filter = false;
+if (!empty(elgg_extract('time', $vars))) {
+	$show_filter = true;
+}
+
+$filter_fields = [
+	[
+		'#type' => 'fieldset',
+		'fields' => [
+			[
+				'#type' => 'select',
+				'#label' => elgg_echo('csv_exporter:admin:time'),
+				'#help' => elgg_echo('csv_exporter:admin:time:description'),
+				'id' => 'csv-exporter-time',
+				'name' => 'time',
+				'value' => elgg_extract('time', $vars),
+				'options_values' => [
+					'' => elgg_echo('csv_exporter:admin:time:select'),
+					'today' => elgg_echo('csv_exporter:admin:time:today'),
+					'yesterday' => elgg_echo('csv_exporter:admin:time:yesterday'),
+					'this_week' => elgg_echo('csv_exporter:admin:time:this_week'),
+					'last_week' => elgg_echo('csv_exporter:admin:time:last_week'),
+					'this_month' => elgg_echo('csv_exporter:admin:time:this_month'),
+					'last_month' => elgg_echo('csv_exporter:admin:time:last_month'),
+					'range' => elgg_echo('csv_exporter:admin:time:range'),
+				],
+			],
+			[
+				'#type' => 'fieldset',
+				'#class' => (elgg_extract('time', $vars) === 'range') ? '' : 'hidden',
+				'id' => 'csv-exporter-range',
+				'align' => 'horizontal',
+				'fields' => [
+					[
+						'#type' => 'date',
+						'#label' => elgg_echo('csv_exporter:admin:time:range:created_time_lower'),
+						'name' => 'created_time_lower',
+						'value' => elgg_extract('created_time_lower', $vars),
+						'timestamp' => true,
+						'datepicker_options' => [
+							'maxDate' => '-1d',
+						],
+					],
+					[
+						'#type' => 'date',
+						'#label' => elgg_echo('csv_exporter:admin:time:range:created_time_upper'),
+						'name' => 'created_time_upper',
+						'value' => elgg_extract('created_time_upper', $vars),
+						'timestamp' => true,
+						'datepicker_options' => [
+							'maxDate' => '+1d',
+						],
+					],
+				],
+			],
+		],
+	],
+];
+
+if(str_starts_with($type_subtype, 'object:')) {
+	$owner_guid = elgg_extract('owner_guid', $vars);
+	$filter_fields[] = [
+		'#type' => 'userpicker',
+		'#label' => elgg_echo('csv_exporter:admin:owner_guid'),
+		'name' => 'owner_guid',
+		'show_friends' => false,
+		'value' => $owner_guid,
+	];
+	
+	$container_guid = elgg_extract('container_guid', $vars);
+	$filter_fields[] = [
+		'#type' => 'grouppicker',
+		'#label' => elgg_echo('csv_exporter:admin:container_guid'),
+		'name' => 'container_guid',
+		'value' => $container_guid,
+	];
+	
+	if (!empty($owner_guid) || !empty($container_guid)) {
+		$show_filter = true;
+	}
+}
+
+$result .= elgg_view_field([
+	'#type' => 'fieldset',
+	'legend' => elgg_echo('filter'),
+	'id' => 'csv-exporter-filter',
+	'class' => !$show_filter ? 'hidden' : null,
+	'fields' => $filter_fields,
 ]);
 
 // get exportable values
@@ -166,7 +208,15 @@ foreach ($grouped as $category => $fields) {
 	]);
 }
 
-echo elgg_format_element('div', ['class' => 'csv-exporter-categories'], $categories);
+$result .= elgg_format_element('div', ['class' => 'csv-exporter-categories'], $categories);
+
+echo elgg_view_module('info', elgg_echo('csv_exporter:admin'), $result, ['menu' => elgg_view('output/url', [
+	'icon' => 'filter',
+	'text' => elgg_echo('csv_exporter:admin:show_filter'),
+	'href' => false,
+	'class' => ['elgg-toggle', 'elgg-button', 'elgg-button-action'],
+	'data-toggle-selector' => '#csv-exporter-filter',
+])]);
 
 $footer = elgg_view_field([
 	'#type' => 'fieldset',

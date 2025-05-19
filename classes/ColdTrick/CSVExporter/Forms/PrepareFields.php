@@ -22,6 +22,8 @@ class PrepareFields {
 			'time' => null,
 			'created_time_lower' => null,
 			'created_time_upper' => null,
+			'owner_guid' => null,
+			'container_guid' => null,
 			'title' => null,
 			'exportable_values' => [],
 			'preview' => 1,

@@ -182,6 +182,8 @@ class CSVExport extends \ElggObject {
 		$entity_options = [
 			'type' => $type,
 			'subtype' => $subtype,
+			'owner_guid' => $this->getFormData('owner_guid') ?: null,
+			'container_guid' => $this->getFormData('container_guid') ?: null,
 			'limit' => false,
 			'batch' => true,
 		];
