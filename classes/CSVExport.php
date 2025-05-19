@@ -311,42 +311,47 @@ class CSVExport extends \ElggObject {
 			return;
 		}
 		
+		$time_field = $this->getFormData('time_field') ?: 'created';
+		if (!in_array($time_field, ['created', 'updated', 'last_action'])) {
+			$time_field = 'created';
+		}
+		
 		switch ($time) {
 			case 'today':
-				$options['created_time_lower'] = strtotime('today');
+				$options["{$time_field}_after"] = strtotime('today');
 				break;
 			case 'yesterday':
-				$options['created_time_lower'] = strtotime('yesterday');
-				$options['created_time_upper'] = strtotime('today');
+				$options["{$time_field}_after"] = strtotime('yesterday');
+				$options["{$time_field}_before"] = strtotime('today');
 				break;
 			case 'this_week':
 				if (date('w') == 1) {
 					// today is monday
-					$options['created_time_lower'] = strtotime('today');
+					$options["{$time_field}_after"] = strtotime('today');
 				} else {
-					$options['created_time_lower'] = strtotime('last monday');
+					$options["{$time_field}_after"] = strtotime('last monday');
 				}
 				break;
 			case 'last_week':
 				if (date('w') == 1) {
 					// today is monday
-					$options['created_time_lower'] = strtotime('today -1 week');
-					$options['created_time_upper'] = strtotime('today');
+					$options["{$time_field}_after"] = strtotime('today -1 week');
+					$options["{$time_field}_before"] = strtotime('today');
 				} else {
-					$options['created_time_lower'] = strtotime('last monday -1 week');
-					$options['created_time_upper'] = strtotime('last monday');
+					$options["{$time_field}_after"] = strtotime('last monday -1 week');
+					$options["{$time_field}_before"] = strtotime('last monday');
 				}
 				break;
 			case 'this_month':
-				$options['created_time_lower'] = strtotime('first day of this month 00:00:00');
+				$options["{$time_field}_after"] = strtotime('first day of this month 00:00:00');
 				break;
 			case 'last_month':
-				$options['created_time_lower'] = strtotime('first day of last month 00:00:00');
-				$options['created_time_upper'] = strtotime('first day of this month 00:00:00');
+				$options["{$time_field}_after"] = strtotime('first day of last month 00:00:00');
+				$options["{$time_field}_before"] = strtotime('first day of this month 00:00:00');
 				break;
 			case 'range':
-				$options['created_time_lower'] = $this->getFormData('created_time_lower');
-				$options['created_time_upper'] = $this->getFormData('created_time_upper');
+				$options["{$time_field}_after"] = $this->getFormData('created_time_lower');
+				$options["{$time_field}_before"] = $this->getFormData('created_time_upper');
 				break;
 		}
 	}

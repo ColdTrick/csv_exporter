@@ -37,42 +37,43 @@ $options = [
 
 // add time constraints
 $time = elgg_extract('time', $vars);
+$time_field = elgg_extract('time_field', $vars, 'created');
 switch ($time) {
 	case 'today':
-		$options['created_time_lower'] = strtotime('today');
+		$options["{$time_field}_after"] = strtotime('today');
 		break;
 	case 'yesterday':
-		$options['created_time_lower'] = strtotime('yesterday');
-		$options['created_time_upper'] = strtotime('today');
+		$options["{$time_field}_after"] = strtotime('yesterday');
+		$options["{$time_field}_before"] = strtotime('today');
 		break;
 	case 'this_week':
 		if (date('w') == 1) {
 			// today is monday
-			$options['created_time_lower'] = strtotime('today');
+			$options["{$time_field}_after"] = strtotime('today');
 		} else {
-			$options['created_time_lower'] = strtotime('last monday');
+			$options["{$time_field}_before"] = strtotime('last monday');
 		}
 		break;
 	case 'last_week':
 		if (date('w') == 1) {
 			// today is monday
-			$options['created_time_lower'] = strtotime('today -1 week');
-			$options['created_time_upper'] = strtotime('today');
+			$options["{$time_field}_after"] = strtotime('today -1 week');
+			$options["{$time_field}_before"] = strtotime('today');
 		} else {
-			$options['created_time_lower'] = strtotime('last monday -1 week');
-			$options['created_time_upper'] = strtotime('last monday');
+			$options["{$time_field}_after"] = strtotime('last monday -1 week');
+			$options["{$time_field}_before"] = strtotime('last monday');
 		}
 		break;
 	case 'this_month':
-		$options['created_time_lower'] = strtotime('first day of this month 00:00:00');
+		$options["{$time_field}_after"] = strtotime('first day of this month 00:00:00');
 		break;
 	case 'last_month':
-		$options['created_time_lower'] = strtotime('first day of last month 00:00:00');
-		$options['created_time_upper'] = strtotime('first day of this month 00:00:00');
+		$options["{$time_field}_after"] = strtotime('first day of last month 00:00:00');
+		$options["{$time_field}_before"] = strtotime('first day of this month 00:00:00');
 		break;
 	case 'range':
-		$options['created_time_lower'] = elgg_extract('created_time_lower', $vars);
-		$options['created_time_upper'] = elgg_extract('created_time_upper', $vars);
+		$options["{$time_field}_after"] = elgg_extract('created_time_lower', $vars);
+		$options["{$time_field}_before"] = elgg_extract('created_time_upper', $vars);
 		break;
 }
 

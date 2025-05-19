@@ -86,6 +86,17 @@ $filter_fields = [
 				],
 			],
 			[
+				'#type' => 'select',
+				'#label' => elgg_echo('csv_exporter:admin:time_field'),
+				'name' => 'time_field',
+				'value' => elgg_extract('time_field', $vars),
+				'options_values' => [
+					'created' => elgg_echo('csv_exporter:admin:time_field:created'),
+					'updated' => elgg_echo('csv_exporter:admin:time_field:updated'),
+					'last_action' => elgg_echo('csv_exporter:admin:time_field:last_action'),
+				],
+			],
+			[
 				'#type' => 'fieldset',
 				'#class' => (elgg_extract('time', $vars) === 'range') ? '' : 'hidden',
 				'id' => 'csv-exporter-range',
@@ -140,13 +151,14 @@ if(str_starts_with($type_subtype, 'object:')) {
 	}
 }
 
-$result .= elgg_view_field([
-	'#type' => 'fieldset',
-	'legend' => elgg_echo('filter'),
+$result .= elgg_format_element('div', [
 	'id' => 'csv-exporter-filter',
 	'class' => !$show_filter ? 'hidden' : null,
+], elgg_view_field([
+	'#type' => 'fieldset',
+	'legend' => elgg_echo('filter'),
 	'fields' => $filter_fields,
-]);
+]));
 
 // get exportable values
 list($type, $subtype) = explode(':', $type_subtype);

@@ -20,6 +20,7 @@ class PrepareFields {
 		$values = [
 			'type_subtype' => null,
 			'time' => null,
+			'time_field' => null,
 			'created_time_lower' => null,
 			'created_time_upper' => null,
 			'owner_guid' => null,
