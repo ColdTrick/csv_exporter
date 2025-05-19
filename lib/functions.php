@@ -47,9 +47,33 @@ function csv_exporter_get_exportable_values(string $type, string $subtype = '', 
 	$exports = (array) $dummy->toObject();
 	$defaults = array_keys($exports);
 	
+	$categories = [
+		'container_guid' => 'container',
+		'time_created' => 'timestamps',
+		'time_updated' => 'timestamps',
+		'owner_guid' => 'owner',
+		'description' => 'metadata',
+		'title' => 'metadata',
+		'guid' => 'attributes',
+		'read_access' => 'attributes',
+		'type' => 'attributes',
+		'subtype' => 'attributes',
+		'name' => 'metadata',
+		'username' => 'metadata',
+		'language' => 'metadata',
+	];
+	
+	$skip = [
+		'read_access',
+	];
+	
 	if ($readable) {
 		$new_defaults = [];
 		foreach ($defaults as $name) {
+			if (in_array($name, $skip)) {
+				continue;
+			}
+			
 			if (elgg_language_key_exists($name)) {
 				$lan = elgg_echo($name);
 			} elseif (elgg_language_key_exists("csv_exporter:exportable_value:{$name}")) {
@@ -58,7 +82,7 @@ function csv_exporter_get_exportable_values(string $type, string $subtype = '', 
 				$lan = $name;
 			}
 			
-			$new_defaults[$lan] = $name;
+			$new_defaults[$lan] = elgg_extract($name, $categories, 'misc') . "|{$name}";;
 		}
 		
 		$defaults = $new_defaults;
@@ -207,6 +231,10 @@ function csv_exporter_get_separator(): string {
  * @return string
  */
 function csv_exported_get_readable_timestamp(int $time): string {
+	if ($time === 0) {
+		return '';
+	}
+	
 	return date(elgg_echo('friendlytime:date_format'), $time);
 }
 

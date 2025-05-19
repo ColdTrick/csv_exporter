@@ -76,37 +76,43 @@ switch ($time) {
 
 $exportable_values = array_keys($column_config);
 
-$rows = [];
-/* @var $entities \ElggBatch */
-$entities = elgg_get_entities($options);
-/* @var $entity \ElggEntity */
-foreach ($entities as $entity) {
-	$row = [];
+$rows = elgg_call(ELGG_IGNORE_ACCESS | ELGG_SHOW_DELETED_ENTITIES, function () use ($options, $exportable_values, $type, $subtype) {
+	$rows = [];
 	
-	// params for event
-	$params = [
-		'type' => $type,
-		'subtype' => $subtype,
-		'entity' => $entity,
-	];
+	/* @var $entities \ElggBatch */
+	$entities = elgg_get_entities($options);
 	
-	foreach ($exportable_values as $metadata_name) {
-		$params['exportable_value'] = $metadata_name;
+	/* @var $entity \ElggEntity */
+	foreach ($entities as $entity) {
+		$row = [];
 		
-		$value = elgg_trigger_event_results('export_value', 'csv_exporter', $params);
-		if ($value === null) {
-			$value = $entity->$metadata_name;
+		// params for event
+		$params = [
+			'type' => $type,
+			'subtype' => $subtype,
+			'entity' => $entity,
+		];
+		
+		foreach ($exportable_values as $metadata_name) {
+			$params['exportable_value'] = $metadata_name;
+			
+			$value = elgg_trigger_event_results('export_value', 'csv_exporter', $params);
+			if ($value === null) {
+				$value = $entity->$metadata_name;
+			}
+			
+			if (is_array($value)) {
+				$value = implode(', ', $value);
+			}
+			
+			$row[] = elgg_format_element('td', [], (string)$value);
 		}
 		
-		if (is_array($value)) {
-			$value = implode(', ', $value);
-		}
-		
-		$row[] = elgg_format_element('td', [], (string) $value);
+		$rows[] = elgg_format_element('tr', [], implode(PHP_EOL, $row));
 	}
 	
-	$rows[] = elgg_format_element('tr', [], implode(PHP_EOL, $row));
-}
+	return $rows;
+});
 
 $table_content .= elgg_format_element('tbody', [], implode(PHP_EOL, $rows));
 

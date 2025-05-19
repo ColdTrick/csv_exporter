@@ -3,6 +3,8 @@
  * Configure CSV Export
  */
 
+elgg_require_css('forms/csv_exporter/edit');
+
 echo elgg_view_field([
 	'#type' => 'hidden',
 	'name' => 'preview',
@@ -116,13 +118,55 @@ $exportable_values_options = array_filter($exportable_values_options, function($
 }, ARRAY_FILTER_USE_BOTH);
 
 uksort($exportable_values_options, 'strnatcasecmp');
-echo elgg_view_field([
-	'#type' => 'checkboxes',
-	'#label' => elgg_echo('csv_exporter:admin:exportable_values'),
-	'name' => 'exportable_values',
-	'options' => $exportable_values_options,
-	'value' => elgg_extract('exportable_values', $vars),
-]);
+
+// init with empty keys to force order
+$grouped = [
+	'attributes' => [],
+	'owner' => [],
+	'container' => [],
+	'timestamps' => [],
+	'metadata' => [],
+	'icon' => [],
+	'counters' => [],
+	'state' => [],
+];
+
+foreach ($exportable_values_options as $label => $option) {
+	if (str_contains($option, '|')) {
+		list($category, $option) = explode('|', $option);
+	} else {
+		$category = 'misc';
+	}
+	
+	$grouped[$category][$label] = $option;
+}
+
+$grouped = array_filter($grouped);
+
+$categories = '';
+foreach ($grouped as $category => $fields) {
+	$legend = $category;
+	if (elgg_language_key_exists("csv_exporter:category:{$category}:title")) {
+		$legend = elgg_echo("csv_exporter:category:{$category}:title");
+	}
+	
+	$categories .= elgg_view_field([
+		'#type' => 'fieldset',
+		'legend' => $legend,
+		'fields' => [
+			[
+				'#type' => 'checkboxes',
+				'#label' => elgg_echo('csv_exporter:admin:exportable_values'),
+				'name' => 'exportable_values',
+				'options' => $fields,
+				'default' => false,
+				'value' => elgg_extract('exportable_values', $vars),
+			],
+		],
+	]);
+}
+
+echo elgg_format_element('div', ['class' => 'csv-exporter-categories'], $categories);
 
 $footer = elgg_view_field([
 	'#type' => 'fieldset',

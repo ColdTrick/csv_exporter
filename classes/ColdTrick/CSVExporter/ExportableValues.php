@@ -26,21 +26,24 @@ class ExportableValues {
 		
 		// default exportable values
 		$defaults = [
-			elgg_echo('csv_exporter:exportable_value:owner_name') => 'csv_exporter_owner_name',
-			elgg_echo('csv_exporter:exportable_value:owner_username') => 'csv_exporter_owner_username',
-			elgg_echo('csv_exporter:exportable_value:owner_email') => 'csv_exporter_owner_email',
-			elgg_echo('csv_exporter:exportable_value:owner_url') => 'csv_exporter_owner_url',
-			elgg_echo('csv_exporter:exportable_value:container_name') => 'csv_exporter_container_name',
-			elgg_echo('csv_exporter:exportable_value:container_username') => 'csv_exporter_container_username',
-			elgg_echo('csv_exporter:exportable_value:container_email') => 'csv_exporter_container_email',
-			elgg_echo('csv_exporter:exportable_value:container_url') => 'csv_exporter_container_url',
-			elgg_echo('csv_exporter:exportable_value:time_created_readable') => 'csv_exporter_time_created_readable',
-			elgg_echo('csv_exporter:exportable_value:time_updated_readable') => 'csv_exporter_time_updated_readable',
-			elgg_echo('csv_exporter:exportable_value:url') => 'csv_exporter_url',
-			elgg_echo('csv_exporter:exportable_value:access_id') => 'access_id',
-			elgg_echo('csv_exporter:exportable_value:access_id_readable') => 'csv_exporter_access_id_readable',
-			elgg_echo('csv_exporter:exportable_value:icon_url:master') => 'csv_exporter_icon_url_master',
-			elgg_echo('csv_exporter:exportable_value:icon_present') => 'csv_exporter_icon_present',
+			elgg_echo('csv_exporter:exportable_value:owner_name') => 'owner|csv_exporter_owner_name',
+			elgg_echo('csv_exporter:exportable_value:owner_username') => 'owner|csv_exporter_owner_username',
+			elgg_echo('csv_exporter:exportable_value:owner_email') => 'owner|csv_exporter_owner_email',
+			elgg_echo('csv_exporter:exportable_value:owner_url') => 'owner|csv_exporter_owner_url',
+			elgg_echo('csv_exporter:exportable_value:container_name') => 'container|csv_exporter_container_name',
+			elgg_echo('csv_exporter:exportable_value:container_username') => 'container|csv_exporter_container_username',
+			elgg_echo('csv_exporter:exportable_value:container_email') => 'container|csv_exporter_container_email',
+			elgg_echo('csv_exporter:exportable_value:container_url') => 'container|csv_exporter_container_url',
+			elgg_echo('csv_exporter:exportable_value:time_created_readable') => 'timestamps|csv_exporter_time_created_readable',
+			elgg_echo('csv_exporter:exportable_value:time_updated_readable') => 'timestamps|csv_exporter_time_updated_readable',
+			elgg_echo('csv_exporter:exportable_value:url') => 'attributes|csv_exporter_url',
+			elgg_echo('csv_exporter:exportable_value:access_id') => 'attributes|access_id',
+			elgg_echo('csv_exporter:exportable_value:access_id_readable') => 'attributes|csv_exporter_access_id_readable',
+			elgg_echo('csv_exporter:exportable_value:icon_url:master') => 'icon|csv_exporter_icon_url_master',
+			elgg_echo('csv_exporter:exportable_value:icon_present') => 'icon|csv_exporter_icon_present',
+			elgg_echo('status:deleted') => 'state|deleted',
+			elgg_echo('csv_exporter:exportable_value:time_deleted') => 'timestamps|time_deleted',
+			elgg_echo('csv_exporter:exportable_value:time_deleted_readable') => 'timestamps|csv_exporter_time_deleted_readable',
 		];
 		
 		$content_fields = [];
@@ -61,11 +64,6 @@ class ExportableValues {
 		
 		$return = $event->getValue();
 		
-		$read_access_key = array_search('read_access', $return);
-		if ($read_access_key !== false) {
-			unset($return[$read_access_key]);
-		}
-		
 		// which version did we want
 		if (!$readable) {
 			$fields = array_values($fields);
@@ -81,7 +79,7 @@ class ExportableValues {
 	 */
 	protected static function getObjectExportableValues(): array {
 		return [
-			elgg_echo('tags') => 'csv_exporter_object_tags',
+			elgg_echo('tags') => 'metadata|csv_exporter_object_tags',
 		];
 	}
 	
@@ -99,22 +97,22 @@ class ExportableValues {
 			$metadata_name = $field['name'];
 			$label = elgg_extract('#label', $field, $metadata_name);
 			
-			$result[$label] = $metadata_name;
+			$result[$label] = "metadata|{$metadata_name}";
 		}
 		
 		// add defaults
-		$result[elgg_echo('email')] = 'email';
-		$result[elgg_echo('csv_exporter:exportable_value:user:last_action')] = 'csv_exporter_user_last_action';
-		$result[elgg_echo('csv_exporter:exportable_value:user:last_action_readable')] = 'csv_exporter_user_last_action_readable';
-		$result[elgg_echo('csv_exporter:exportable_value:user:first_login')] = 'csv_exporter_user_first_login';
-		$result[elgg_echo('csv_exporter:exportable_value:user:first_login_readable')] = 'csv_exporter_user_first_login_readable';
-		$result[elgg_echo('csv_exporter:exportable_value:user:last_login')] = 'csv_exporter_user_last_login';
-		$result[elgg_echo('csv_exporter:exportable_value:user:last_login_readable')] = 'csv_exporter_user_last_login_readable';
+		$result[elgg_echo('email')] = 'metadata|email';
+		$result[elgg_echo('csv_exporter:exportable_value:user:last_action')] = 'timestamps|csv_exporter_user_last_action';
+		$result[elgg_echo('csv_exporter:exportable_value:user:last_action_readable')] = 'timestamps|csv_exporter_user_last_action_readable';
+		$result[elgg_echo('csv_exporter:exportable_value:user:first_login')] = 'timestamps|csv_exporter_user_first_login';
+		$result[elgg_echo('csv_exporter:exportable_value:user:first_login_readable')] = 'timestamps|csv_exporter_user_first_login_readable';
+		$result[elgg_echo('csv_exporter:exportable_value:user:last_login')] = 'timestamps|csv_exporter_user_last_login';
+		$result[elgg_echo('csv_exporter:exportable_value:user:last_login_readable')] = 'timestamps|csv_exporter_user_last_login_readable';
 		$result[elgg_echo('csv_exporter:exportable_value:user:groups_owned_name')] = 'csv_exporter_user_groups_owned_name';
 		$result[elgg_echo('csv_exporter:exportable_value:user:groups_owned_url')] = 'csv_exporter_user_groups_owned_url';
-		$result[elgg_echo('csv_exporter:exportable_value:user:friends')] = 'csv_exporter_user_friends';
-		$result[elgg_echo('csv_exporter:exportable_value:user:friends:of')] = 'csv_exporter_user_friends_of';
-		$result[elgg_echo('csv_exporter:exportable_value:user:banned')] = 'banned';
+		$result[elgg_echo('csv_exporter:exportable_value:user:friends')] = 'counters|csv_exporter_user_friends';
+		$result[elgg_echo('csv_exporter:exportable_value:user:friends:of')] = 'counters|csv_exporter_user_friends_of';
+		$result[elgg_echo('csv_exporter:exportable_value:user:banned')] = 'state|banned';
 		
 		// group only values
 		$postfix = elgg_echo('csv_exporter:exportable_value:group:postfix');
@@ -139,17 +137,17 @@ class ExportableValues {
 			$metadata_name = $field['name'];
 			$label = elgg_extract('#label', $field, $metadata_name);
 			
-			$result[$label] = $metadata_name;
+			$result[$label] = "metadata|{$metadata_name}";
 		}
 		
 		// add defaults
-		$result[elgg_echo('csv_exporter:exportable_value:group:membership')] = 'csv_exporter_group_membership';
-		$result[elgg_echo('csv_exporter:exportable_value:group:visibility')] = 'csv_exporter_group_visibility';
-		$result[elgg_echo('csv_exporter:exportable_value:group:member_count')] = 'csv_exporter_group_member_count';
-		$result[elgg_echo('csv_exporter:exportable_value:group:last_activity')] = 'csv_exporter_group_last_activity';
-		$result[elgg_echo('csv_exporter:exportable_value:group:last_activity_readable')] = 'csv_exporter_group_last_activity_readable';
+		$result[elgg_echo('csv_exporter:exportable_value:group:membership')] = 'state|csv_exporter_group_membership';
+		$result[elgg_echo('csv_exporter:exportable_value:group:visibility')] = 'state|csv_exporter_group_visibility';
+		$result[elgg_echo('csv_exporter:exportable_value:group:member_count')] = 'counters|csv_exporter_group_member_count';
+		$result[elgg_echo('csv_exporter:exportable_value:group:last_activity')] = 'timestamps|csv_exporter_group_last_activity';
+		$result[elgg_echo('csv_exporter:exportable_value:group:last_activity_readable')] = 'timestamps|csv_exporter_group_last_activity_readable';
 		$result[elgg_echo('csv_exporter:exportable_value:group:tools')] = 'csv_exporter_group_tools';
-		$result[elgg_echo('csv_exporter:exportable_value:group:content_stats')] = 'csv_exporter_group_content_stats';
+		$result[elgg_echo('csv_exporter:exportable_value:group:content_stats')] = 'counters|csv_exporter_group_content_stats';
 		
 		return $result;
 	}
@@ -229,6 +227,9 @@ class ExportableValues {
 			
 			case 'csv_exporter_time_updated_readable':
 				return csv_exported_get_readable_timestamp($entity->time_updated);
+			
+			case 'csv_exporter_time_deleted_readable':
+				return csv_exported_get_readable_timestamp($entity->time_deleted);
 			
 			case 'csv_exporter_url':
 				return $entity->getURL();
@@ -482,6 +483,13 @@ class ExportableValues {
 		$subtype = $event->getParam('subtype');
 		
 		$available_columns = csv_exporter_get_exportable_values($type, $subtype, true);
+		foreach($available_columns as $key => $value) {
+			if (!str_contains($value, '|')) {
+				continue;
+			}
+			list($category, $value) = explode('|', $value);
+			$available_columns[$key] = $value;
+		}
 		
 		$return = $event->getValue();
 		foreach ($return as $column_id => $label) {

@@ -1,0 +1,20 @@
+.csv-exporter-categories {
+	column-count: 1;
+	column-gap: 1rem;
+	
+	> .elgg-field-fieldset {
+		break-inside: avoid;
+	}
+}
+
+@media only $(media-tablet-up) {
+	.csv-exporter-categories {
+		column-count: 2;
+	}
+}
+
+@media only $(media-desktop-up) {
+	.csv-exporter-categories {
+		column-count: 3;
+	}
+}

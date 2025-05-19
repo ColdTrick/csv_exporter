@@ -19,7 +19,7 @@ class Cron {
 		/* @var $cron_logger \Elgg\Logger\Cron */
 		$cron_logger = $event->getParam('logger');
 		
-		elgg_call(ELGG_IGNORE_ACCESS, function () use ($time, $cron_logger) {
+		elgg_call(ELGG_IGNORE_ACCESS | ELGG_SHOW_DELETED_ENTITIES, function () use ($time, $cron_logger) {
 			/* @var $batch \ElggBatch */
 			$batch = elgg_get_entities([
 				'type' => 'object',
