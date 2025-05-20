@@ -191,6 +191,8 @@ class CSVExport extends \ElggObject {
 		// limit to group content?
 		if ($this->getContainerEntity() instanceof \ElggGroup) {
 			if ($type === 'user') {
+				unset($entity_options['container_guid']); // could be present from formdata
+				
 				$entity_options['relationship'] = 'member';
 				$entity_options['relationship_guid'] = $this->container_guid;
 				$entity_options['inverse_relationship'] = true;
