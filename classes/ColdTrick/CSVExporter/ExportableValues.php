@@ -49,7 +49,7 @@ class ExportableValues {
 		$content_fields = [];
 		switch ($content_type) {
 			case 'object':
-				$content_fields = self::getObjectExportableValues();
+				$content_fields = self::getObjectExportableValues((string) $event->getParam('subtype'));
 				break;
 			case 'user':
 				$content_fields = self::getUserExportableValues();
@@ -75,12 +75,34 @@ class ExportableValues {
 	/**
 	 * Get the default exportable values for objects
 	 *
+	 * @param string $subtype subtype
+	 *
 	 * @return array
 	 */
-	protected static function getObjectExportableValues(): array {
-		return [
-			elgg_echo('tags') => 'metadata|csv_exporter_object_tags',
-		];
+	protected static function getObjectExportableValues(string $subtype): array {
+		if (empty($subtype)) {
+			return [];
+		}
+		
+		$result = [];
+		
+		$skip_fields = ['access_id'];
+		
+		// add profile fields
+		$profile_fields = elgg()->fields->get('object', $subtype);
+		foreach ($profile_fields as $field) {
+			$metadata_name = $field['name'];
+			
+			if (in_array($metadata_name, $skip_fields)) {
+				continue;
+			}
+			
+			$label = elgg_extract('#label', $field, $metadata_name);
+			
+			$result[$label] = "metadata|{$metadata_name}";
+		}
+		
+		return $result;
 	}
 	
 	/**
@@ -271,13 +293,6 @@ class ExportableValues {
 		}
 		
 		$exportable_value = $event->getParam('exportable_value');
-		switch ($exportable_value) {
-			case 'csv_exporter_object_tags':
-				if (!elgg_is_empty($entity->tags)) {
-					return (array) $entity->tags;
-				}
-				break;
-		}
 		
 		return null;
 	}

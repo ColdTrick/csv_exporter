@@ -61,6 +61,7 @@ function csv_exporter_get_exportable_values(string $type, string $subtype = '', 
 		'name' => 'metadata',
 		'username' => 'metadata',
 		'language' => 'metadata',
+		'tags' => 'metadata',
 	];
 	
 	$skip = [
@@ -130,7 +131,7 @@ function csv_exporter_get_exportable_group_values(string $type = 'object', strin
 			$default_allowed = [
 				'title',
 				'description',
-				'csv_exporter_object_tags',
+				'tags',
 				'csv_exporter_owner_name',
 				'csv_exporter_container_name',
 				'csv_exporter_time_created_readable',
