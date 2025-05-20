@@ -82,7 +82,7 @@ function csv_exporter_get_exportable_values(string $type, string $subtype = '', 
 				$lan = $name;
 			}
 			
-			$new_defaults[$lan] = elgg_extract($name, $categories, 'misc') . "|{$name}";;
+			$new_defaults[$lan] = elgg_extract($name, $categories, 'misc') . "|{$name}";
 		}
 		
 		$defaults = $new_defaults;
