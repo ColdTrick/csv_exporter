@@ -108,7 +108,7 @@ $rows = elgg_call(ELGG_IGNORE_ACCESS | ELGG_SHOW_DELETED_ENTITIES, function () u
 				$value = implode(', ', $value);
 			}
 			
-			$row[] = elgg_format_element('td', [], (string)$value);
+			$row[] = elgg_format_element('td', [], (string) $value);
 		}
 		
 		$rows[] = elgg_format_element('tr', [], implode(PHP_EOL, $row));
