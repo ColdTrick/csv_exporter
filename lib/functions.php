@@ -125,10 +125,11 @@ function csv_exporter_get_exportable_group_values(string $type = 'object', strin
 	
 	$available = csv_exporter_get_exportable_values($type, $subtype);
 	
-	foreach($available as $key => $value) {
+	foreach ($available as $key => $value) {
 		if (!str_contains($value, '|')) {
 			continue;
 		}
+		
 		list($category, $value) = explode('|', $value);
 		$available[$key] = $value;
 	}
