@@ -26,6 +26,7 @@ if ($preview && !empty($type_subtype) && !empty($exportable_values)) {
 		'subtype' => $subtype,
 		'exportable_values' => $exportable_values,
 		'time' => get_input('time'),
+		'time_field' => get_input('time_field'),
 		'created_time_lower' => get_input('created_time_lower'),
 		'created_time_upper' => get_input('created_time_upper'),
 		'owner_guid' => get_input('owner_guid'),

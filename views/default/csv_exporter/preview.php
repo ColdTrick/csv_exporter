@@ -129,6 +129,12 @@ $content .= elgg_view('navigation/pagination', [
 	'base_url' => elgg_http_add_url_query_elements(elgg_get_current_url() . '#preview', [
 		'type_subtype' => empty($subtype) ? $type : "{$type}:{$subtype}",
 		'exportable_values' => $exportable_values,
+		'owner_guid' => elgg_extract('owner_guid', $vars) ?: null,
+		'container_guid' => elgg_extract('container_guid', $vars) ?: null,
+		'created_time_lower' => elgg_extract('created_time_lower', $vars),
+		'created_time_upper' => elgg_extract('created_time_upper', $vars),
+		'time' => elgg_extract('time', $vars),
+		'time_field' => $time_field,
 		'preview' => 1,
 	]),
 ]);
