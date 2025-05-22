@@ -1,10 +1,13 @@
 <?php
 /**
- * This file was created by Translation Editor v14.0
- * On 2024-08-21 12:59
+ * This file was created by Translation Editor v14.0.3
+ * On 2025-05-22 14:48
  */
 
 return array (
+  'csv_exporter:admin' => 'Configureer export',
+  'csv_exporter:admin:show_filter' => 'Toon filters',
+  'csv_exporter:admin:time_field' => 'Tijdveld',
   'csv_exporter:exportable_value:user:first_login' => 'Eerste aanmelding',
   'csv_exporter:exportable_value:user:first_login_readable' => 'Eerste aanmelding (leesbaar)',
   'csv_exporter:exportable_value:user:last_login' => 'Laatste aanmelding',
