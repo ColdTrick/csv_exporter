@@ -1,6 +1,14 @@
 Version history
 ===============
 
+13.1 (2025-05-28):
+
+- added: filter time on different time field
+- added: sections for different exportable values
+- added: user and container filter
+- changed: export object metadata based on fields service
+- fixed: preview pagination should retain all form fields
+
 13.0 (2025-01-23):
 
 - changed: updated for Elgg 6.1
