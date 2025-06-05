@@ -6,13 +6,6 @@ $group = elgg_get_page_owner_entity();
 elgg_push_entity_breadcrumbs($group);
 
 $selected = elgg_extract('filter', $vars);
-$filter = elgg_view_menu('csv_exporter_group', [
-	'class' => 'elgg-tabs',
-	'sort_by' => 'priority',
-	'entity' => $group,
-	'selected' => $selected,
-]);
-
 switch ($selected) {
 	case 'download':
 		$content = elgg_view('csv_exporter/group/download', [
@@ -35,5 +28,7 @@ switch ($selected) {
 
 echo elgg_view_page(elgg_echo('csv_exporter:group:title', [$group->getDisplayName()]), [
 	'content' => $content,
-	'filter' => $filter,
+	'filter_id' => 'csv_exporter/group',
+	'filter_value' => $selected,
+	'filter_entity' => $group,
 ]);

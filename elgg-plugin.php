@@ -32,6 +32,7 @@ return [
 	'routes' => [
 		'collection:object:csv_export:group' => [
 			'path' => '/csv_exporter/group/{guid}/{filter?}',
+			'resource' => 'csv_exporter/group',
 			'defaults' => [
 				'filter' => 'configure',
 			],
@@ -39,7 +40,6 @@ return [
 				\Elgg\Router\Middleware\Gatekeeper::class,
 				\Elgg\Router\Middleware\GroupPageOwnerCanEditGatekeeper::class,
 			],
-			'resource' => 'csv_exporter/group',
 		],
 	],
 	'events' => [
@@ -84,11 +84,11 @@ return [
 			'menu:csv_exporter' => [
 				'\ColdTrick\CSVExporter\Menus\CSVExporter::register' => [],
 			],
-			'menu:csv_exporter_group' => [
-				'\ColdTrick\CSVExporter\Menus\CSVExporter::registerGroup' => [],
-			],
 			'menu:entity' => [
 				'\ColdTrick\CSVExporter\Menus\Entity::csvExport' => [],
+			],
+			'menu:filter:csv_exporter/group' => [
+				\ColdTrick\CSVExporter\Menus\Filter\CSVExporterGroup::class => [],
 			],
 			'menu:page' => [
 				'\ColdTrick\CSVExporter\Menus\Page::groupAdminMenu' => [],
