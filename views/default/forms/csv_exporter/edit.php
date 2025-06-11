@@ -128,7 +128,7 @@ $filter_fields = [
 	],
 ];
 
-if(str_starts_with($type_subtype, 'object:')) {
+if (str_starts_with($type_subtype, 'object:')) {
 	$owner_guid = elgg_extract('owner_guid', $vars);
 	$filter_fields[] = [
 		'#type' => 'userpicker',
@@ -139,12 +139,27 @@ if(str_starts_with($type_subtype, 'object:')) {
 	];
 	
 	$container_guid = elgg_extract('container_guid', $vars);
-	$filter_fields[] = [
-		'#type' => 'grouppicker',
-		'#label' => elgg_echo('csv_exporter:admin:container_guid'),
-		'name' => 'container_guid',
-		'value' => $container_guid,
-	];
+	if ($type_subtype === 'object:comment') {
+		$commentable = elgg_entity_types_with_capability('commentable');
+		
+		$subtypes = elgg_extract('object', $commentable);
+		if (!empty($subtypes)) {
+			$filter_fields[] = [
+				'#type' => 'objectpicker',
+				'#label' => elgg_echo('csv_exporter:admin:container_guid:comments'),
+				'name' => 'container_guid',
+				'value' => $container_guid,
+				'subtype' => $subtypes,
+			];
+		}
+	} else {
+		$filter_fields[] = [
+			'#type' => 'grouppicker',
+			'#label' => elgg_echo('csv_exporter:admin:container_guid'),
+			'name' => 'container_guid',
+			'value' => $container_guid,
+		];
+	}
 	
 	if (!empty($owner_guid) || !empty($container_guid)) {
 		$show_filter = true;

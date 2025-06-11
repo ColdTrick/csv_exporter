@@ -129,6 +129,7 @@ Plugins can extend this list of columns",
 	'csv_exporter:admin:title' => "Title for export (optional)",
 	'csv_exporter:admin:owner_guid' => "Select owner",
 	'csv_exporter:admin:container_guid' => "Select group",
+	'csv_exporter:admin:container_guid:comments' => "Select content item",
 	
 	// download page
 	'csv_exporter:download:none' => "No CSV exports are ready for download",
