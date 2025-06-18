@@ -1,6 +1,11 @@
 Version history
 ===============
 
+13.2 (2025-06-18):
+
+- changed: last_action is exportable on all entity types
+- changed: replaced the csv_exporter_group menu with a filter menu
+
 13.1 (2025-05-28):
 
 - added: filter time on different time field

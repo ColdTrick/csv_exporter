@@ -5,7 +5,7 @@ require_once(dirname(__FILE__) . '/lib/functions.php');
 return [
 	'plugin' => [
 		'name' => 'CSV Exporter',
-		'version' => '13.1',
+		'version' => '13.2',
 	],
 	'entities' => [
 		[
