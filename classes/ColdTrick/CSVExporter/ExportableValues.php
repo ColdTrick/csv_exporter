@@ -499,10 +499,11 @@ class ExportableValues {
 		$subtype = $event->getParam('subtype');
 		
 		$available_columns = csv_exporter_get_exportable_values($type, $subtype, true);
-		foreach($available_columns as $key => $value) {
+		foreach ($available_columns as $key => $value) {
 			if (!str_contains($value, '|')) {
 				continue;
 			}
+			
 			list($category, $value) = explode('|', $value);
 			$available_columns[$key] = $value;
 		}
