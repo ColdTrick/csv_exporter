@@ -89,13 +89,15 @@ class ExportableValues {
 		$result = [];
 		
 		$skip_fields = ['access_id'];
+		$skip_types = ['file'];
 		
 		// add form fields
 		$form_fields = elgg()->fields->get('object', $subtype);
 		foreach ($form_fields as $field) {
-			$metadata_name = $field['name'];
+			$metadata_name = elgg_extract('name', $field);
+			$input_type = elgg_extract('#type', $field);
 			
-			if (in_array($metadata_name, $skip_fields)) {
+			if (in_array($metadata_name, $skip_fields) || in_array($input_type, $skip_types)) {
 				continue;
 			}
 			
