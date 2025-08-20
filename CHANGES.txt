@@ -1,6 +1,10 @@
 Version history
 ===============
 
+13.2.2 (2025-08-20):
+
+- fixed: don't allow file field types to be exported by default
+
 13.2.1 (2025-07-09):
 
 - several small chores/fixes
