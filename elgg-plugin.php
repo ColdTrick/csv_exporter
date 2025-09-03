@@ -100,4 +100,11 @@ return [
 			],
 		],
 	],
+	'notifications' => [
+		'object' => [
+			'csv_export' => [
+				'complete' => \ColdTrick\CSVExporter\Notifications\CompleteExportHandler::class,
+			],
+		],
+	],
 ];

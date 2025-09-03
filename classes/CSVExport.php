@@ -369,33 +369,10 @@ class CSVExport extends \ElggObject {
 		unset($this->scheduled);
 		$this->completed = time();
 		
-		$title = $this->getDisplayName();
-		if ($this->getContainerEntity() instanceof \ElggGroup) {
-			// group export
-			$download_link = elgg_generate_url('collection:object:csv_export:group', [
-				'guid' => $this->container_guid,
-				'filter' => 'download',
-			]);
-		} else {
-			// admin export
-			$download_link = 'admin/administer_utilities/csv_exporter/download';
-		}
-		
 		$owner = $this->getOwnerEntity();
-		$language = $owner instanceof \ElggUser ? $owner->getLanguage() : '';
-		
-		$subject = elgg_echo('csv_exporter:notify:complete:subject', [$title], $language);
-		$message = elgg_echo('csv_exporter:notify:complete:message', [
-			$title,
-			elgg_normalize_url($download_link),
-		], $language);
-		
-		$params = [
-			'object' => $this,
-			'action' => 'complete',
-		];
-		
-		notify_user($owner->guid, $owner->guid, $subject, $message, $params, ['email']);
+		if ($owner instanceof \ElggUser) {
+			$owner->notify('complete', $this);
+		}
 	}
 	
 	/**
