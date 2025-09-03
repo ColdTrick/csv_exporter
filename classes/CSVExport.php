@@ -59,7 +59,7 @@ class CSVExport extends \ElggObject {
 	 *
 	 * @return null|string|array
 	 */
-	public function getFormData(string $field = null) {
+	public function getFormData(?string $field = null) {
 		if (!isset($this->form_data)) {
 			$this->form_data = json_decode($this->description, true);
 		}
