@@ -36,6 +36,9 @@ return [
 			'defaults' => [
 				'filter' => 'configure',
 			],
+			'required_plugins' => [
+				'groups',
+			],
 			'middleware' => [
 				\Elgg\Router\Middleware\Gatekeeper::class,
 				\Elgg\Router\Middleware\GroupPageOwnerCanEditGatekeeper::class,
