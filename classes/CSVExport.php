@@ -173,7 +173,7 @@ class CSVExport extends \ElggObject {
 		
 		// create the new file with the headers
 		$fh = $fo->open('write');
-		fputcsv($fh, $headers, $separator);
+		fputcsv($fh, $headers, $separator, '"', '\\');
 		
 		// append the rest of the data
 		$fh = $fo->open('append');
@@ -240,7 +240,7 @@ class CSVExport extends \ElggObject {
 			}
 			
 			// write row
-			fputcsv($fh, $values, $separator);
+			fputcsv($fh, $values, $separator, '"', '\\');
 			
 			// clean up some memory
 			if ($batch_processing >= 100) {
