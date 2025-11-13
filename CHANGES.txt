@@ -1,6 +1,11 @@
 Version history
 ===============
 
+14.0 (2025-11-13):
+
+- changed: updated for Elgg 6.3
+- fixed: PHP implicit null declaration
+
 13.2.2 (2025-08-20):
 
 - fixed: don't allow file field types to be exported by default
