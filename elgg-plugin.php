@@ -57,7 +57,6 @@ return [
 		'export_value' => [
 			'csv_exporter' => [
 				'\ColdTrick\CSVExporter\ExportableValues::exportEntityValue' => [],
-				'\ColdTrick\CSVExporter\ExportableValues::exportObjectValue' => [],
 				'\ColdTrick\CSVExporter\ExportableValues::exportUserValue' => [],
 				'\ColdTrick\CSVExporter\ExportableValues::exportUserGroupValue' => [],
 				'\ColdTrick\CSVExporter\ExportableValues::exportGroupValue' => [],

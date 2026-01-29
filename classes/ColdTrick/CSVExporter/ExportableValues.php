@@ -280,29 +280,6 @@ class ExportableValues {
 	}
 	
 	/**
-	 * Export a single value for an object
-	 *
-	 * @param \Elgg\Event $event 'export_value', 'csv_exporter'
-	 *
-	 * @return null|array
-	 */
-	public static function exportObjectValue(\Elgg\Event $event): ?array {
-		if (!is_null($event->getValue())) {
-			// someone already provided output
-			return null;
-		}
-		
-		$entity = $event->getEntityParam();
-		if (!$entity instanceof \ElggObject) {
-			return null;
-		}
-		
-		$exportable_value = $event->getParam('exportable_value');
-		
-		return null;
-	}
-	
-	/**
 	 * Export a single value for a user
 	 *
 	 * @param \Elgg\Event $event 'export_value', 'csv_exporter'
