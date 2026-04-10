@@ -30,7 +30,7 @@ function csv_exporter_get_exportable_values(string $type, string $subtype = '', 
 	} else {
 		switch ($type) {
 			case 'object':
-				$dummy = new \ElggObject();
+				$dummy = new \CSVExportSample();
 				break;
 			case 'group':
 				$dummy = new \ElggGroup();

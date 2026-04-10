@@ -26,7 +26,9 @@ class AdminHeader {
 		$return_value[] = \ElggMenuItem::factory([
 			'name' => 'csv_exporter_admin',
 			'text' => elgg_echo('admin:administer_utilities:csv_exporter'),
-			'href' => 'admin/administer_utilities/csv_exporter',
+			'href' => elgg_generate_url('admin', [
+				'segments' => 'administer_utilities/csv_exporter',
+			]),
 			'parent_name' => 'utilities',
 		]);
 		

@@ -1,5 +1,7 @@
 <?php
 
+use Elgg\Database\EntityTable;
+
 // add tab menu
 echo elgg_view_menu('csv_exporter', [
 	'class' => 'elgg-menu-hz elgg-tabs',
@@ -17,7 +19,7 @@ echo elgg_list_entities([
 	],
 	'wheres' => [
 		function(\Elgg\Database\QueryBuilder $qb, $main_alias) {
-			$groups = $qb->subquery('entities');
+			$groups = $qb->subquery(EntityTable::TABLE_NAME);
 			$groups->select('guid')
 				->where($qb->compare('type', '=', 'group', ELGG_VALUE_STRING));
 			

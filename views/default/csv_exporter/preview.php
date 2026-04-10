@@ -55,7 +55,7 @@ switch ($time) {
 		}
 		break;
 	case 'last_week':
-		if (date('w') == 1) {
+		if (date('w') === 1) {
 			// today is monday
 			$options["{$time_field}_after"] = strtotime('today -1 week');
 			$options["{$time_field}_before"] = strtotime('today');

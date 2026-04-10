@@ -10,10 +10,9 @@
  */
 class CSVExport extends \ElggObject {
 	
-	const SUBTYPE = 'csv_export';
+	public const SUBTYPE = 'csv_export';
 	
-	/* @var $form_data array */
-	protected $form_data;
+	protected ?array $form_data;
 	
 	/**
 	 * {@inheritdoc}
@@ -203,7 +202,7 @@ class CSVExport extends \ElggObject {
 		}
 		
 		// add time constraints
-		$this->addTimeContraints($entity_options);
+		$this->addTimeConstraints($entity_options);
 		
 		// this could take a while
 		set_time_limit(0);
@@ -306,7 +305,7 @@ class CSVExport extends \ElggObject {
 	 *
 	 * @return void
 	 */
-	protected function addTimeContraints(&$options): void {
+	protected function addTimeConstraints(&$options): void {
 		// add time constraints
 		$time = $this->getFormData('time');
 		if (empty($time)) {
