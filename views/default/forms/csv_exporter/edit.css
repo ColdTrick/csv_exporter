@@ -7,13 +7,13 @@
 	}
 }
 
-@media only $(media-tablet-up) {
+@media screen and (min-width: 50rem) {
 	.csv-exporter-categories {
 		column-count: 2;
 	}
 }
 
-@media only $(media-desktop-up) {
+@media screen and (min-width: 80rem) {
 	.csv-exporter-categories {
 		column-count: 3;
 	}
