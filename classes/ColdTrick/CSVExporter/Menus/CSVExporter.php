@@ -44,7 +44,8 @@ class CSVExporter {
 			'name' => 'download_all',
 			'text' => elgg_echo('csv_exporter:menu:csv_exporter:download:all'),
 			'href' => elgg_generate_url('admin', [
-				'segments' => 'administer_utilities/csv_exporter/download?filter=all',
+				'segments' => 'administer_utilities/csv_exporter/download',
+				'filter' => 'all',
 			]),
 			'priority' => 250,
 		]);
