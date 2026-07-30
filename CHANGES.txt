@@ -1,6 +1,10 @@
 Version history
 ===============
 
+15.0.1 (2026-07-30):
+
+- fixed: correctly set filter
+
 15.0 (2026-05-29):
 
 - changed: updated for Elgg 7.0
