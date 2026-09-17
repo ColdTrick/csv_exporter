@@ -126,7 +126,7 @@ class CSVExport extends \ElggObject {
 			return null;
 		}
 		
-		return elgg_get_download_url($fo, true);
+		return $fo->getDownloadURL(true);
 	}
 	
 	/**
@@ -249,11 +249,10 @@ class CSVExport extends \ElggObject {
 			}
 		}
 		
-		// cleanup
-		$this->complete();
-		$this->unlockProcessing();
-		
 		$fo->close();
+		
+		$this->unlockProcessing();
+		$this->complete();
 	}
 	
 	/**
