@@ -1,6 +1,10 @@
 Version history
 ===============
 
+15.0.2 (2026-10-01):
+
+- several small chores/fixes
+
 15.0.1 (2026-07-30):
 
 - fixed: correctly set filter
