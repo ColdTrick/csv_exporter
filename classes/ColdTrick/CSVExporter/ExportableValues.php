@@ -320,7 +320,7 @@ class ExportableValues {
 				$result = [];
 				
 				$batch = elgg_get_entities($group_options);
-				/* @var $group \ElggGroup */
+				/** @var \ElggGroup $group */
 				foreach ($batch as $group) {
 					$result[] = "\"{$group->getDisplayName()}\"";
 				}
@@ -330,7 +330,7 @@ class ExportableValues {
 				$result = [];
 				
 				$batch = elgg_get_entities($group_options);
-				/* @var $group \ElggGroup */
+				/** @var \ElggGroup $group */
 				foreach ($batch as $group) {
 					$result[] = $group->getURL();
 				}
@@ -524,7 +524,7 @@ class ExportableValues {
 		
 		// get available tools
 		$tool_options = elgg()->group_tools->all();
-		/* @var $tool_config Tool */
+		/** @var Tool $tool_config */
 		foreach ($tool_options as $tool_config) {
 			$tool_id = $tool_config->name;
 			$label = elgg_echo('csv_exporter:exportable_value:group:tool', [$tool_id]);

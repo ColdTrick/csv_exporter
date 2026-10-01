@@ -208,9 +208,9 @@ class CSVExport extends \ElggObject {
 		set_time_limit(0);
 		
 		$batch_processing = 0;
-		/* @var $entities \ElggBatch */
+		/** @var \ElggBatch $entities */
 		$entities = elgg_get_entities($entity_options);
-		/* @var $entity \ElggEntity */
+		/** @var \ElggEntity $entity */
 		foreach ($entities as $entity) {
 			$batch_processing++;
 			$values = [];

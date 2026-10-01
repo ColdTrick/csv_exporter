@@ -82,10 +82,10 @@ $exportable_values = array_keys($column_config);
 $rows = elgg_call(ELGG_IGNORE_ACCESS | ELGG_SHOW_DELETED_ENTITIES, function () use ($options, $exportable_values, $type, $subtype) {
 	$rows = [];
 	
-	/* @var $entities \ElggBatch */
+	/** @var \ElggBatch $entities */
 	$entities = elgg_get_entities($options);
 	
-	/* @var $entity \ElggEntity */
+	/** @var \ElggEntity $entity */
 	foreach ($entities as $entity) {
 		$row = [];
 		

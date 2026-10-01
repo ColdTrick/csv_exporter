@@ -16,11 +16,11 @@ class Cron {
 	 */
 	public static function processExports(\Elgg\Event $event): void {
 		$time = (int) $event->getParam('time', time());
-		/* @var $cron_logger \Elgg\Logger\Cron */
+		/** @var \Elgg\Logger\Cron $cron_logger */
 		$cron_logger = $event->getParam('logger');
 		
 		elgg_call(ELGG_IGNORE_ACCESS | ELGG_SHOW_DELETED_ENTITIES, function () use ($time, $cron_logger) {
-			/* @var $batch \ElggBatch */
+			/** @var \ElggBatch $batch */
 			$batch = elgg_get_entities([
 				'type' => 'object',
 				'subtype' => \CSVExport::SUBTYPE,
@@ -39,7 +39,7 @@ class Cron {
 				'batch_inc_offset' => false,
 			]);
 			
-			/* @var $csv_export \CSVExport */
+			/** @var \CSVExport $csv_export */
 			foreach ($batch as $csv_export) {
 				if ($csv_export->isProcessing()) {
 					$cron_logger->notice("CSV export '{$csv_export->getDisplayName()}' is already processing: {$csv_export->started}");
@@ -67,7 +67,7 @@ class Cron {
 		}
 		
 		elgg_call(ELGG_IGNORE_ACCESS, function() use($time, $retention) {
-			/* @var $batch \ElggBatch */
+			/** @var \ElggBatch $batch */
 			$batch = elgg_get_entities([
 				'type' => 'object',
 				'subtype' => \CSVExport::SUBTYPE,
@@ -81,7 +81,7 @@ class Cron {
 				'batch_inc_offset' => false,
 			]);
 			
-			/* @var $entity \CSVExport */
+			/** @var \CSVExport $entity */
 			foreach ($batch as $entity) {
 				$entity->delete();
 			}
