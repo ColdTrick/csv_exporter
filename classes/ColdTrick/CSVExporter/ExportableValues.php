@@ -429,9 +429,11 @@ class ExportableValues {
 			
 			case 'csv_exporter_group_membership':
 				if ($entity->isPublicMembership()) {
-					return elgg_echo('groups:open');
+					return elgg_echo('groups:access:public');
+				} elseif ($entity->isInviteOnlyMembership()) {
+					return elgg_echo('groups:access:invite_only');
 				}
-				return elgg_echo('groups:closed');
+				return elgg_echo('groups:access:private');
 			
 			case 'csv_exporter_group_visibility':
 				switch ($entity->access_id) {
