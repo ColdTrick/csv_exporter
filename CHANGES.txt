@@ -1,6 +1,10 @@
 Version history
 ===============
 
+16.0 (2026-11-12):
+
+- changed: minimal Elgg version to 7.1
+
 15.0.2 (2026-10-01):
 
 - several small chores/fixes
