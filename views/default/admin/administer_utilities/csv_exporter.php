@@ -10,7 +10,9 @@ echo elgg_view_menu('csv_exporter', [
 
 echo elgg_view_form('csv_exporter/edit', [
 	'id' => 'csv-exporter-export',
-	'action' => 'admin/administer_utilities/csv_exporter#preview',
+	'action' => elgg_generate_url('admin', [
+		'segments' => 'administer_utilities/csv_exporter',
+	]) . '#preview',
 	'sticky_enabled' => true,
 ]);
 
